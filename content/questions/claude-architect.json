@@ -1,0 +1,1010 @@
+[
+  {
+    "certification": "claude-architect",
+    "topic": "multi-agent",
+    "topicLabel": "Multi-Agent Systems",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "carch-ma-001",
+        "difficulty": 4,
+        "stem": "In a multi-agent system using Claude, what is the 'orchestrator' pattern?",
+        "options": [
+          { "key": "A", "text": "Multiple Claude instances running the same prompt in parallel for majority-vote consensus" },
+          { "key": "B", "text": "A Claude instance that plans, delegates tasks to specialized subagents, and synthesizes their results into a final output" },
+          { "key": "C", "text": "An external system that schedules API calls to Claude based on a queue" },
+          { "key": "D", "text": "A Claude instance that only generates JSON and routes it to downstream systems" }
+        ],
+        "correct": "B",
+        "explanation": "The orchestrator pattern uses a Claude instance (or another agent) to understand the high-level goal, break it into subtasks, delegate those to specialized subagents (each potentially their own Claude instance with specific tools/context), collect results, and synthesize a final response. The orchestrator handles task decomposition and coordination; subagents handle execution.",
+        "distractors": {
+          "A": "That describes the self-consistency sampling pattern, not orchestration.",
+          "C": "A queue-based scheduler is an infrastructure component, not an orchestrator agent in the AI sense.",
+          "D": "An orchestrator does much more than generate JSON. Routing JSON is one capability, not the defining characteristic."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "orchestrator"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-002",
+        "difficulty": 4,
+        "stem": "When should tasks be parallelized across multiple agents, and when should they be sequential?",
+        "options": [
+          { "key": "A", "text": "Always parallelize — it's always faster and cheaper" },
+          { "key": "B", "text": "Parallelize tasks that are independent of each other; keep tasks sequential when later tasks depend on the output of earlier ones" },
+          { "key": "C", "text": "Always use sequential processing to avoid race conditions" },
+          { "key": "D", "text": "Parallelize only when each task takes more than 60 seconds" }
+        ],
+        "correct": "B",
+        "explanation": "Parallel execution is appropriate when tasks are independent — their outputs don't depend on each other. For example, analyzing five different documents simultaneously. Sequential execution is necessary when there are data dependencies — task B needs task A's output as input. Mapping dependencies correctly is critical to multi-agent system design.",
+        "distractors": {
+          "A": "Parallelizing dependent tasks creates race conditions and incorrect results. It's only appropriate for independent tasks.",
+          "C": "Sequential processing is simpler but slower for independent tasks. Parallelization is a key architectural tool when tasks are truly independent.",
+          "D": "Task duration is irrelevant to whether parallelization is appropriate. Independence is the deciding factor."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "parallelism"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-003",
+        "difficulty": 4,
+        "stem": "What is the 'minimal footprint' principle for agentic AI systems?",
+        "options": [
+          { "key": "A", "text": "Using the smallest Claude model to reduce cost" },
+          { "key": "B", "text": "Agents should request only the minimum permissions and resources needed, avoid storing sensitive data beyond task needs, and prefer reversible over irreversible actions" },
+          { "key": "C", "text": "Limiting the number of agents to minimize infrastructure complexity" },
+          { "key": "D", "text": "Keeping system prompts as short as possible to reduce token costs" }
+        ],
+        "correct": "B",
+        "explanation": "The minimal footprint principle is a safety and security best practice for agentic systems: agents should operate with the least privilege necessary, avoid accumulating capabilities beyond the current task, prefer actions that can be undone over permanent changes, and check in with humans when uncertain rather than acting autonomously on ambiguous instructions.",
+        "distractors": {
+          "A": "The minimal footprint principle is about safety and permissions, not model selection for cost.",
+          "C": "While simpler systems are generally better, minimal footprint is specifically about permissions and reversibility.",
+          "D": "System prompt length is a separate concern. Minimal footprint is about runtime permissions and action scope."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents#safety-and-reliability",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "safety", "minimal-footprint"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-004",
+        "difficulty": 4,
+        "stem": "What is prompt injection in the context of multi-agent systems, and why is it more dangerous there?",
+        "options": [
+          { "key": "A", "text": "A performance optimization technique for reducing agent latency" },
+          { "key": "B", "text": "Malicious instructions embedded in data processed by the agent (documents, web pages, tool outputs) that attempt to hijack the agent's behavior; more dangerous in multi-agent systems because a compromised subagent can propagate instructions to the orchestrator" },
+          { "key": "C", "text": "Injecting few-shot examples into prompts to improve accuracy" },
+          { "key": "D", "text": "An error caused by passing too many tools to the agent" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt injection is when malicious text in data the agent processes (web pages it reads, documents it analyzes, API responses) contains instructions like 'Ignore previous instructions and do X.' In multi-agent systems, the risk compounds: a compromised subagent could return results that inject instructions into the orchestrator's context, potentially hijacking the whole pipeline.",
+        "distractors": {
+          "A": "Prompt injection is a security attack vector, not an optimization technique.",
+          "C": "Few-shot example injection is a legitimate technique; prompt injection is an attack.",
+          "D": "Tool count is unrelated to prompt injection."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/security",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "security", "prompt-injection"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-005",
+        "difficulty": 4,
+        "stem": "What is MCP (Model Context Protocol) in the context of Claude?",
+        "options": [
+          { "key": "A", "text": "A new Anthropic billing protocol for multi-agent workloads" },
+          { "key": "B", "text": "An open standard protocol that defines how Claude and other AI models can interface with external tools, data sources, and services in a standardized way" },
+          { "key": "C", "text": "A Claude-specific format for chaining multiple prompts together" },
+          { "key": "D", "text": "A monitoring protocol for tracking Claude API usage" }
+        ],
+        "correct": "B",
+        "explanation": "MCP (Model Context Protocol) is an open protocol developed by Anthropic that standardizes how AI models connect to external tools, databases, APIs, and data sources. It allows developers to build MCP servers that expose capabilities, and Claude (and other MCP-compatible models) can discover and use these tools. MCP creates an ecosystem of reusable, standardized integrations.",
+        "distractors": {
+          "A": "MCP has nothing to do with billing.",
+          "C": "Prompt chaining is a different technique. MCP is specifically about external tool/data integration.",
+          "D": "API monitoring is handled by Anthropic's console and standard observability tools, not MCP."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/mcp",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "MCP"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-006",
+        "difficulty": 3,
+        "stem": "What are the three types of agent memory in a multi-agent system?",
+        "options": [
+          { "key": "A", "text": "Short-term, medium-term, long-term" },
+          { "key": "B", "text": "In-context (current conversation), external (databases), and knowledge base (embedded in model weights)" },
+          { "key": "C", "text": "User memory, session memory, and global memory" },
+          { "key": "D", "text": "Hot, warm, and cold storage" }
+        ],
+        "correct": "B",
+        "explanation": "Agent memory operates at three levels: 1) In-context memory — the current conversation messages array (ephemeral, lost after the request). 2) External memory — databases, vector stores, file systems that persist between requests. 3) In-weights memory — knowledge embedded in the model's parameters from training (cannot be changed at runtime). Effective agents combine all three.",
+        "distractors": {
+          "A": "Short/medium/long-term is a human memory model, not the correct technical classification for agent memory types.",
+          "C": "User/session/global is more of a web application architecture concept, not the standard agent memory taxonomy.",
+          "D": "Hot/warm/cold refers to data storage access speed, not agent memory types."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "memory"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-ma-007",
+        "difficulty": 4,
+        "stem": "When designing human-in-the-loop checkpoints for an agentic system, at which points should the system pause for human approval?",
+        "options": [
+          { "key": "A", "text": "Only at the very end when the agent has completed all work" },
+          { "key": "B", "text": "Before irreversible or high-stakes actions (deleting data, sending emails, making purchases), when ambiguity arises in task interpretation, and at explicit review milestones" },
+          { "key": "C", "text": "After every single action the agent takes" },
+          { "key": "D", "text": "Human checkpoints are not needed if the model is capable enough" }
+        ],
+        "correct": "B",
+        "explanation": "Human-in-the-loop checkpoints should be placed at: 1) Before irreversible actions that can't be undone. 2) When confidence is low or the task is ambiguous. 3) Before high-value or sensitive operations. 4) At defined review milestones. Pausing after every action is impractical; pausing only at the end risks compounding errors that can't be corrected.",
+        "distractors": {
+          "A": "End-only review means errors made early propagate and compound through the entire task.",
+          "C": "Pausing after every action defeats the purpose of automation and creates excessive human burden.",
+          "D": "No model capability level eliminates the need for human oversight in high-stakes agentic systems. This is a fundamental safety principle."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents#safety-and-reliability",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "human-in-the-loop"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-008",
+        "difficulty": 4,
+        "stem": "How do subagents communicate results back to an orchestrator?",
+        "options": [
+          { "key": "A", "text": "Via a separate webhook endpoint that the orchestrator listens on" },
+          { "key": "B", "text": "Results are returned as tool_result content blocks in the conversation, or the orchestrator receives the subagent's final response text and incorporates it" },
+          { "key": "C", "text": "Via a shared database that both agents poll" },
+          { "key": "D", "text": "Subagents and orchestrators share a unified context window automatically" }
+        ],
+        "correct": "B",
+        "explanation": "In the Claude tool-based agent pattern, subagents are invoked as tools: the orchestrator calls a 'run_subagent' tool, executes a separate Claude API call with the subagent's context, and returns the result as a tool_result block. The orchestrator then sees the subagent's output in its context and can synthesize multiple subagent results.",
+        "distractors": {
+          "A": "Webhooks are not required for agent-to-agent communication in this pattern.",
+          "C": "Shared databases are possible but more complex. The tool_result pattern is the standard approach.",
+          "D": "Context windows are not automatically shared. Each Claude API call has its own context."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "subagents", "communication"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-009",
+        "difficulty": 4,
+        "stem": "What is 'computer use' in the context of Claude?",
+        "options": [
+          { "key": "A", "text": "Claude's ability to write code that runs on a computer" },
+          { "key": "B", "text": "A beta capability that allows Claude to control a desktop computer — taking screenshots, clicking elements, typing, and navigating GUIs" },
+          { "key": "C", "text": "Accessing computer logs and system files via tool use" },
+          { "key": "D", "text": "A hardware integration where Claude runs locally on-device" }
+        ],
+        "correct": "B",
+        "explanation": "Computer use is a beta capability where Claude can interact with a real or virtual desktop environment. Given screenshots as visual input, Claude can identify UI elements, click them, type text, navigate applications, and complete multi-step GUI tasks. It enables automation of tasks that lack APIs by interacting at the visual interface level.",
+        "distractors": {
+          "A": "Writing code is a standard Claude capability. Computer use specifically refers to GUI/desktop interaction.",
+          "C": "Log file access is tool use, not computer use. Computer use is specifically about visual GUI interaction.",
+          "D": "Claude runs on Anthropic's cloud infrastructure. Computer use is about GUI automation, not local deployment."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/computer-use",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "computer-use"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-ma-010",
+        "difficulty": 4,
+        "stem": "When building an agentic system that takes actions in the world (sending emails, modifying files, making API calls), what is the most important architectural principle?",
+        "options": [
+          { "key": "A", "text": "Maximize autonomy to reduce latency" },
+          { "key": "B", "text": "Prefer reversible actions over irreversible ones, operate with minimal permissions, and maintain human oversight for consequential decisions" },
+          { "key": "C", "text": "Cache all API responses to minimize external calls" },
+          { "key": "D", "text": "Always use the most capable model to minimize errors" }
+        ],
+        "correct": "B",
+        "explanation": "For agentic systems with real-world effects, the critical principles are: 1) Prefer reversible actions (move to trash vs. delete permanently). 2) Request minimal permissions (read-only when read-only suffices). 3) Maintain human oversight for high-stakes or irreversible actions. These principles limit blast radius when mistakes occur.",
+        "distractors": {
+          "A": "Maximizing autonomy increases risk when errors occur. Oversight and checkpoints are essential for real-world impact.",
+          "C": "Caching is a performance concern, not the primary safety concern for agentic systems.",
+          "D": "Even the most capable model makes mistakes. Safety principles apply regardless of model capability."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents#safety-and-reliability",
+        "verified_against_release": "2025",
+        "tags": ["multi-agent", "safety", "reversibility"],
+        "difficulty": 4
+      }
+    ]
+  },
+  {
+    "certification": "claude-architect",
+    "topic": "rag-systems",
+    "topicLabel": "RAG & Knowledge Systems",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "carch-rag-001",
+        "difficulty": 3,
+        "stem": "What does RAG stand for and what problem does it solve?",
+        "options": [
+          { "key": "A", "text": "Recursive Agent Generation — it generates agents recursively for complex tasks" },
+          { "key": "B", "text": "Retrieval Augmented Generation — it retrieves relevant documents from a knowledge base and includes them in the context to ground Claude's responses in up-to-date or domain-specific information" },
+          { "key": "C", "text": "Rapid API Gateway — a caching layer for Claude API calls" },
+          { "key": "D", "text": "Robust Answer Generation — a technique for sampling multiple answers and picking the best" }
+        ],
+        "correct": "B",
+        "explanation": "RAG (Retrieval Augmented Generation) addresses Claude's knowledge limitations by dynamically retrieving relevant documents from a knowledge base and including them in the context window. This allows Claude to answer questions about domain-specific knowledge, recent events, or private data that wasn't in its training data, while grounding responses in verifiable sources.",
+        "distractors": {
+          "A": "RAG stands for Retrieval Augmented Generation, not Recursive Agent Generation.",
+          "C": "RAG is a knowledge retrieval pattern, not an API caching mechanism.",
+          "D": "Multiple sampling is a different technique (self-consistency). RAG is specifically about retrieval and context injection."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "knowledge-retrieval"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-rag-002",
+        "difficulty": 4,
+        "stem": "What is 'chunking' in the context of RAG systems?",
+        "options": [
+          { "key": "A", "text": "Compressing documents to reduce storage costs" },
+          { "key": "B", "text": "Splitting large documents into smaller segments that can be individually indexed, embedded, and retrieved" },
+          { "key": "C", "text": "Sending API requests in batches for efficiency" },
+          { "key": "D", "text": "Combining multiple documents into one large context" }
+        ],
+        "correct": "B",
+        "explanation": "Chunking divides large documents into smaller pieces (chunks) before embedding and indexing them. Chunk size is a critical design decision: too large and the retrieved context contains too much irrelevant content; too small and important context is fragmented. Common strategies include fixed-size chunks, sentence-boundary chunks, paragraph chunks, and semantic chunks.",
+        "distractors": {
+          "A": "Chunking is for retrieval granularity, not storage compression.",
+          "C": "Batch API requests are a separate optimization unrelated to document chunking.",
+          "D": "Combining documents is the opposite of chunking. Chunking splits; it doesn't merge."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "chunking"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-003",
+        "difficulty": 4,
+        "stem": "In a RAG system, what role does an embedding model play?",
+        "options": [
+          { "key": "A", "text": "Embedding models generate the final text response using retrieved documents" },
+          { "key": "B", "text": "Embedding models convert text chunks into dense vector representations that can be compared for semantic similarity during retrieval" },
+          { "key": "C", "text": "Embedding models compress documents to fit in Claude's context window" },
+          { "key": "D", "text": "Claude itself serves as the embedding model in a RAG system" }
+        ],
+        "correct": "B",
+        "explanation": "Embedding models (like Voyage-3 or text-embedding-3) transform text into dense numerical vectors (embeddings) where semantically similar texts have vectors that are geometrically close. These vectors are stored in a vector database. At query time, the query is also embedded, and similarity search finds the most relevant document chunks to include in Claude's context.",
+        "distractors": {
+          "A": "The embedding model handles retrieval; Claude (the generative model) produces the final response.",
+          "C": "Embedding converts to vectors; it doesn't compress for context windows.",
+          "D": "Claude is a generative language model. Embedding requires a dedicated embedding model (Voyage, OpenAI embeddings, etc.), not Claude."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "embeddings"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-004",
+        "difficulty": 4,
+        "stem": "What is 're-ranking' in a RAG pipeline and why is it used?",
+        "options": [
+          { "key": "A", "text": "Sorting retrieved documents alphabetically for presentation" },
+          { "key": "B", "text": "A second-pass relevance scoring step that re-orders initially retrieved documents by a more precise relevance measure before including them in the context" },
+          { "key": "C", "text": "Ranking different Claude models by quality for the task" },
+          { "key": "D", "text": "Ordering user queries by priority in a queue" }
+        ],
+        "correct": "B",
+        "explanation": "After initial vector similarity search returns top-N candidate documents, a re-ranking model applies a more computationally expensive but more accurate relevance assessment (often cross-encoder models vs. bi-encoder embeddings). Re-ranking improves retrieval precision by promoting the most relevant chunks to the top, ensuring Claude receives the highest-quality context.",
+        "distractors": {
+          "A": "Alphabetical sorting has nothing to do with relevance. Re-ranking is about improving semantic relevance.",
+          "C": "Re-ranking is about document relevance, not model selection.",
+          "D": "Query prioritization is a separate system concern, not RAG re-ranking."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "reranking"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-005",
+        "difficulty": 4,
+        "stem": "What is 'hybrid search' in RAG and why is it better than pure vector search?",
+        "options": [
+          { "key": "A", "text": "Searching both internal databases and the internet simultaneously" },
+          { "key": "B", "text": "Combining dense vector (semantic) search with sparse keyword (BM25) search to capture both semantic similarity and exact keyword matches" },
+          { "key": "C", "text": "Using multiple embedding models and combining their results" },
+          { "key": "D", "text": "Searching in both English and translated versions of documents" }
+        ],
+        "correct": "B",
+        "explanation": "Hybrid search combines vector-based semantic search (which finds conceptually similar content even with different wording) with BM25-based keyword search (which finds exact term matches). Pure vector search can miss documents containing critical exact terms; pure keyword search misses semantic variants. Hybrid search captures both signals, improving recall and relevance.",
+        "distractors": {
+          "A": "Hybrid search is about retrieval algorithm combination, not data source combination.",
+          "C": "Using multiple embedding models is ensemble embedding, not hybrid search.",
+          "D": "Language-based search is multilingual retrieval, not hybrid search."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "hybrid-search"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-006",
+        "difficulty": 4,
+        "stem": "What is the 'context stuffing' antipattern in RAG?",
+        "options": [
+          { "key": "A", "text": "Including too few documents, causing Claude to hallucinate" },
+          { "key": "B", "text": "Retrieving and including too many documents — including irrelevant ones — which adds noise that degrades response quality and increases cost" },
+          { "key": "C", "text": "Reusing the same documents across many different queries" },
+          { "key": "D", "text": "Including documents from untrusted sources" }
+        ],
+        "correct": "B",
+        "explanation": "Context stuffing is the antipattern of retrieving too many documents and including all of them in Claude's context, even marginally relevant ones. While Claude has a large context window, flooding it with irrelevant content increases noise, can distract from the most relevant information, increases latency, and increases token costs. Better to retrieve precisely what's needed.",
+        "distractors": {
+          "A": "Too few documents is the opposite problem (under-retrieval), not context stuffing.",
+          "C": "Reusing documents across queries is normal and often desirable (cached context). This is not an antipattern.",
+          "D": "Source trust is a separate data quality concern. Context stuffing specifically refers to quantity/relevance issues."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "antipatterns"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-007",
+        "difficulty": 3,
+        "stem": "When is RAG preferable to fine-tuning for adding domain knowledge to Claude?",
+        "options": [
+          { "key": "A", "text": "RAG is always preferable; fine-tuning is never useful" },
+          { "key": "B", "text": "RAG is preferable when knowledge is frequently updated, when source citation is important, when you need to add large amounts of factual data, or when you need verifiable grounding" },
+          { "key": "C", "text": "Fine-tuning is always better because it's permanent" },
+          { "key": "D", "text": "RAG is only useful for databases, not documents" }
+        ],
+        "correct": "B",
+        "explanation": "RAG excels when: knowledge changes frequently (easier to update a database than retrain), attribution is needed (you can cite retrieved sources), the knowledge base is large (all of it can be indexed and retrieved on-demand), or when factual accuracy is critical (retrieved docs ground the response). Fine-tuning is better for teaching new styles, behaviors, or stable domain-specific skills.",
+        "distractors": {
+          "A": "Both RAG and fine-tuning have valid use cases. RAG is not universally superior.",
+          "C": "Fine-tuning being permanent is a disadvantage when knowledge changes. It's not inherently better.",
+          "D": "RAG works with any text content — documents, web pages, databases, code, etc."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "fine-tuning"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-rag-008",
+        "difficulty": 4,
+        "stem": "What is 'faithfulness' in the context of RAG evaluation?",
+        "options": [
+          { "key": "A", "text": "Whether Claude follows the system prompt exactly" },
+          { "key": "B", "text": "Whether Claude's response is factually supported by and consistent with the retrieved documents" },
+          { "key": "C", "text": "Whether all retrieved documents were included in the response" },
+          { "key": "D", "text": "Whether the embedding model accurately represents the documents" }
+        ],
+        "correct": "B",
+        "explanation": "Faithfulness is a key RAG evaluation metric measuring whether Claude's generated response is grounded in and consistent with the retrieved context. A faithful response doesn't contradict retrieved documents and doesn't add facts beyond what's in the context. Low faithfulness (hallucination beyond retrieved facts) is a critical failure mode in RAG systems.",
+        "distractors": {
+          "A": "System prompt adherence is separate from RAG faithfulness.",
+          "C": "Including all documents would be context stuffing. Faithfulness is about accuracy relative to what was included, not coverage.",
+          "D": "Embedding accuracy is part of retrieval quality, not faithfulness. Faithfulness is about the generation step."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "evaluation"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-009",
+        "difficulty": 4,
+        "stem": "How does Claude's 200K context window provide a RAG advantage over shorter-context models?",
+        "options": [
+          { "key": "A", "text": "It allows skipping the retrieval step entirely for some knowledge base sizes" },
+          { "key": "B", "text": "A large context window enables including more documents per query, reasoning across a larger retrieved set, and for smaller knowledge bases, potentially loading all documents at once (full context RAG)" },
+          { "key": "C", "text": "Larger context windows always produce better responses regardless of content" },
+          { "key": "D", "text": "200K context eliminates hallucination entirely" }
+        ],
+        "correct": "B",
+        "explanation": "Claude's 200K context window enables: 1) Including more retrieved documents per query for richer context. 2) 'Full-context RAG' for smaller knowledge bases (load the entire KB at once). 3) Analyzing multiple retrieved documents together for synthesis tasks. 4) Including longer individual document chunks without truncation. This provides architectural flexibility not available with smaller context models.",
+        "distractors": {
+          "A": "Even with 200K context, very large knowledge bases still require retrieval. 200K ≈ 150K words — many KBs are larger.",
+          "C": "More context doesn't automatically improve responses. Quality of retrieved content matters more than quantity.",
+          "D": "Hallucination can still occur even with large contexts. Faithfulness must still be evaluated."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "context-window"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-rag-010",
+        "difficulty": 3,
+        "stem": "What is 'grounding' in the context of Claude + RAG systems?",
+        "options": [
+          { "key": "A", "text": "Connecting Claude to a power source for stable operation" },
+          { "key": "B", "text": "Anchoring Claude's responses to specific retrieved source documents, reducing hallucination by having Claude base answers on provided evidence" },
+          { "key": "C", "text": "Ensuring Claude responds only in formal language" },
+          { "key": "D", "text": "Training Claude on domain-specific data" }
+        ],
+        "correct": "B",
+        "explanation": "Grounding means anchoring Claude's responses to specific retrieved documents rather than relying purely on training-time knowledge. A grounded response refers to and is consistent with the provided source material. Good grounding reduces hallucination, enables source citation, and makes responses verifiable. The instruction 'Based only on the provided documents...' is a common grounding technique.",
+        "distractors": {
+          "A": "Grounding is a metaphor from information retrieval, not a literal electrical term.",
+          "C": "Formal language is a tone/style consideration, unrelated to grounding.",
+          "D": "Fine-tuning on domain data is different from grounding. Grounding happens at inference time via retrieved context."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation",
+        "verified_against_release": "2025",
+        "tags": ["rag", "grounding"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-architect",
+    "topic": "cost-optimization",
+    "topicLabel": "Cost & Performance Optimization",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "carch-co-001",
+        "difficulty": 3,
+        "stem": "Which of the following provides the greatest cost reduction for repeated API calls with the same large context?",
+        "options": [
+          { "key": "A", "text": "Switching to a smaller model" },
+          { "key": "B", "text": "Prompt caching — cache reads cost approximately 10% of standard input token price" },
+          { "key": "C", "text": "Streaming the response" },
+          { "key": "D", "text": "Reducing max_tokens" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt caching provides the largest cost reduction for repeated large contexts: cache reads cost only ~10% of standard input token price, a 90% savings. If you have a 100K-token system prompt that's the same for every request, caching it nearly eliminates the cost of those input tokens after the first request.",
+        "distractors": {
+          "A": "Switching models reduces per-token cost but doesn't address the repeated-context problem as dramatically as caching.",
+          "C": "Streaming reduces latency but has no effect on cost.",
+          "D": "Reducing max_tokens limits output length, affecting output token costs — not the repeated input context cost."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["cost", "caching"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-co-002",
+        "difficulty": 3,
+        "stem": "What is the Batch API and what cost benefit does it provide?",
+        "options": [
+          { "key": "A", "text": "A way to bundle multiple requests for a single API call with no cost change" },
+          { "key": "B", "text": "An asynchronous API (/v1/messages/batches) that processes up to 10,000 requests at a 50% discount, suitable for non-time-sensitive workloads" },
+          { "key": "C", "text": "A streaming endpoint that delivers responses faster" },
+          { "key": "D", "text": "A bulk-purchase pricing plan for high-volume customers" }
+        ],
+        "correct": "B",
+        "explanation": "The Batch API (Messages Batches at /v1/messages/batches) accepts a batch of up to 10,000 requests and processes them asynchronously within 24 hours. The key benefit is a 50% discount on token pricing compared to real-time API calls. This is ideal for offline evaluation, bulk data processing, content generation pipelines, and other non-latency-sensitive workloads.",
+        "distractors": {
+          "A": "The Batch API does provide a cost benefit — 50% discount. It's not just bundling with no change.",
+          "C": "The Batch API is async and slower, not a fast streaming endpoint.",
+          "D": "The Batch API is available to any developer, not just high-volume enterprise customers."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/creating-message-batches",
+        "verified_against_release": "2025",
+        "tags": ["cost", "batch-api"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-co-003",
+        "difficulty": 3,
+        "stem": "For which workload is Claude Haiku the most appropriate cost-efficient choice?",
+        "options": [
+          { "key": "A", "text": "Complex legal contract analysis requiring nuanced interpretation" },
+          { "key": "B", "text": "High-volume classification, routing, simple extraction, and lightweight conversational responses" },
+          { "key": "C", "text": "Novel generation and complex creative writing" },
+          { "key": "D", "text": "Multi-step reasoning and scientific problem solving" }
+        ],
+        "correct": "B",
+        "explanation": "Claude Haiku is optimized for high-volume, lower-complexity tasks where speed and cost matter most: text classification (spam, sentiment, category), intent routing, simple data extraction, and lightweight chat responses. These tasks don't require deep reasoning, making Haiku's lower capability tier acceptable while benefiting from its lowest cost and highest throughput.",
+        "distractors": {
+          "A": "Legal contract analysis requires nuanced reasoning and high accuracy — this warrants Opus or Sonnet, not Haiku.",
+          "C": "Complex creative work benefits from higher capability models. Haiku may produce adequate creative output for simple tasks but not complex novel generation.",
+          "D": "Multi-step scientific reasoning needs Sonnet or Opus. Haiku is not optimized for deep reasoning chains."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["cost", "model-selection"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-co-004",
+        "difficulty": 3,
+        "stem": "In terms of per-token pricing, how do output tokens compare to input tokens?",
+        "options": [
+          { "key": "A", "text": "Output tokens are cheaper than input tokens" },
+          { "key": "B", "text": "Output tokens cost more per token than input tokens across all Claude models" },
+          { "key": "C", "text": "Input and output tokens are always the same price" },
+          { "key": "D", "text": "Output tokens are only counted for non-streaming requests" }
+        ],
+        "correct": "B",
+        "explanation": "Output tokens are consistently more expensive per token than input tokens across all Claude models. This reflects the computational cost of autoregressive generation (each token requires a full forward pass) vs. input processing (more parallelizable). This pricing structure creates an incentive to generate concise responses and use caching to minimize expensive input token re-processing.",
+        "distractors": {
+          "A": "The reverse is true. Output tokens are more expensive than input tokens.",
+          "C": "Input and output have different per-token prices, with output being more expensive.",
+          "D": "Token pricing applies to both streaming and non-streaming. Streaming doesn't change cost."
+        },
+        "citation_url": "https://www.anthropic.com/pricing",
+        "verified_against_release": "2025",
+        "tags": ["cost", "token-pricing"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-co-005",
+        "difficulty": 4,
+        "stem": "What is 'model routing' and how does it optimize costs?",
+        "options": [
+          { "key": "A", "text": "Distributing requests across multiple geographic regions for lower latency" },
+          { "key": "B", "text": "Using a cheap, fast model (like Haiku) to classify query complexity, then routing simple queries to Haiku and complex queries to a more capable, expensive model (Sonnet/Opus)" },
+          { "key": "C", "text": "Load balancing across multiple Claude API keys" },
+          { "key": "D", "text": "Routing different users to different model tiers based on their subscription level" }
+        ],
+        "correct": "B",
+        "explanation": "Model routing uses a cheap classification step to categorize incoming queries by complexity, then routes them to the appropriate model tier. Simple FAQs, status checks, and classification tasks go to Haiku; complex analysis and reasoning go to Sonnet or Opus. This dramatically reduces average cost per query when workloads are mixed, without compromising quality for complex cases.",
+        "distractors": {
+          "A": "Geographic routing is a latency optimization, not cost optimization via model selection.",
+          "C": "API key load balancing is infrastructure management, not model routing.",
+          "D": "User subscription-based routing is a product decision, not the technical optimization pattern called model routing."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/cost-optimization",
+        "verified_against_release": "2025",
+        "tags": ["cost", "model-routing"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-co-006",
+        "difficulty": 3,
+        "stem": "How does streaming affect API costs?",
+        "options": [
+          { "key": "A", "text": "Streaming reduces costs by 25% through incremental delivery" },
+          { "key": "B", "text": "Streaming does not reduce costs — you pay for the same tokens regardless of delivery method" },
+          { "key": "C", "text": "Streaming doubles costs due to SSE connection overhead" },
+          { "key": "D", "text": "Streaming reduces input token costs but not output token costs" }
+        ],
+        "correct": "B",
+        "explanation": "Streaming is a delivery mechanism that improves user experience (reduces time-to-first-token, enables progressive rendering) but has no effect on cost. You are billed for the same number of input and output tokens whether you use streaming or not. Choose streaming for UX reasons, not cost reasons.",
+        "distractors": {
+          "A": "There is no streaming discount. Token costs are identical for streaming and non-streaming.",
+          "C": "SSE adds negligible overhead. There is no streaming surcharge.",
+          "D": "Streaming affects neither input nor output costs. Both are unchanged."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["cost", "streaming"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-co-007",
+        "difficulty": 4,
+        "stem": "What is 'prompt compression' and how does it reduce costs?",
+        "options": [
+          { "key": "A", "text": "Compressing the binary payload of the API request for faster transmission" },
+          { "key": "B", "text": "Rewriting prompts to be more concise — eliminating verbose instructions, redundant examples, and unnecessary context — reducing input token count" },
+          { "key": "C", "text": "Using an LLM to summarize documents before including them in prompts" },
+          { "key": "D", "text": "A beta API feature that automatically reduces prompt size" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt compression is the practice of rewriting prompts to be more token-efficient: removing redundant phrasing, tightening instructions, reducing example verbosity, and eliminating boilerplate. Since you pay per input token, shorter prompts directly reduce cost. For high-volume applications, even a 10% reduction in prompt size compounds significantly.",
+        "distractors": {
+          "A": "HTTP-level compression is handled transparently by the SDK/infrastructure. This is not what prompt compression means.",
+          "C": "Summarizing documents before inclusion is document compression or summarization pre-processing — a related but distinct technique.",
+          "D": "There is no automatic prompt compression beta feature in the Claude API."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/cost-optimization",
+        "verified_against_release": "2025",
+        "tags": ["cost", "prompt-compression"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-co-008",
+        "difficulty": 3,
+        "stem": "For an offline batch processing job generating 10,000 product descriptions overnight, which pricing option offers the best value?",
+        "options": [
+          { "key": "A", "text": "Standard synchronous API with Haiku" },
+          { "key": "B", "text": "Batch API with Haiku — combining the 50% batch discount with Haiku's lower per-token cost" },
+          { "key": "C", "text": "Standard synchronous API with Opus for maximum quality" },
+          { "key": "D", "text": "Streaming API with Sonnet for faster processing" }
+        ],
+        "correct": "B",
+        "explanation": "For a non-time-sensitive batch job, the optimal choice is Batch API + Haiku. The Batch API provides a 50% price discount (vs. synchronous API), and Haiku is the most cost-efficient model. Product description generation is within Haiku's capability range for standard cases. Combining both optimizations maximizes cost efficiency for this workload.",
+        "distractors": {
+          "A": "Standard synchronous API forgoes the 50% Batch API discount, unnecessarily paying more for a non-time-sensitive job.",
+          "C": "Opus is the most expensive model. For bulk product descriptions that don't require complex reasoning, this is significant overspend.",
+          "D": "Streaming doesn't reduce cost, and the synchronous API forgoes the batch discount."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/creating-message-batches",
+        "verified_against_release": "2025",
+        "tags": ["cost", "batch-api", "model-selection"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-architect",
+    "topic": "safety-alignment-scale",
+    "topicLabel": "Safety & Alignment at Scale",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "carch-sa-001",
+        "difficulty": 4,
+        "stem": "What is red-teaming in the context of AI systems?",
+        "options": [
+          { "key": "A", "text": "Performance testing under high load conditions" },
+          { "key": "B", "text": "Adversarial testing where a dedicated team attempts to elicit harmful, unsafe, or unintended behaviors from the AI system before deployment" },
+          { "key": "C", "text": "A color-coding system for labeling different types of AI risks" },
+          { "key": "D", "text": "Testing Claude with questions from the Red Cross" }
+        ],
+        "correct": "B",
+        "explanation": "Red-teaming involves having adversarial testers (human or AI) systematically probe an AI system for weaknesses — attempting prompt injections, jailbreaks, eliciting harmful content, or exploiting edge cases. Finding these failure modes before deployment is far preferable to discovering them in production.",
+        "distractors": {
+          "A": "Load testing is a different type of engineering test focused on capacity, not safety.",
+          "C": "Red-teaming is named after military war gaming concepts (Red Team = adversary), not a color-coding system.",
+          "D": "The term has nothing to do with any external organization."
+        },
+        "citation_url": "https://www.anthropic.com/research/red-teaming-language-models",
+        "verified_against_release": "2025",
+        "tags": ["safety", "red-teaming"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sa-002",
+        "difficulty": 3,
+        "stem": "What is Anthropic's Responsible Scaling Policy (RSP)?",
+        "options": [
+          { "key": "A", "text": "A pricing policy that scales costs fairly with usage" },
+          { "key": "B", "text": "A framework that commits Anthropic to evaluating AI capabilities against safety thresholds before deploying more powerful models, tying scaling decisions to safety milestones" },
+          { "key": "C", "text": "A commitment to reduce computing costs for researchers" },
+          { "key": "D", "text": "A policy governing how many API requests customers can make per month" }
+        ],
+        "correct": "B",
+        "explanation": "The Responsible Scaling Policy (RSP) is Anthropic's commitment to evaluate each new, more capable AI model against defined safety benchmarks before deployment. If a model crosses certain capability thresholds without corresponding safety measures, it won't be deployed. It ties the pace of AI capability development to the pace of safety progress.",
+        "distractors": {
+          "A": "The RSP is about AI safety milestones, not usage pricing.",
+          "C": "The RSP governs deployment decisions based on safety evaluations, not computing access.",
+          "D": "API rate limits are a separate commercial policy unrelated to the RSP."
+        },
+        "citation_url": "https://www.anthropic.com/responsible-scaling-policy",
+        "verified_against_release": "2025",
+        "tags": ["safety", "RSP", "policy"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-sa-003",
+        "difficulty": 4,
+        "stem": "What are the three types of evaluation frameworks used to assess AI safety?",
+        "options": [
+          { "key": "A", "text": "Static, dynamic, and hybrid evaluations" },
+          { "key": "B", "text": "Automated evaluations (LLM judges, benchmarks), human evaluations (expert raters, user studies), and red-team evaluations (adversarial probing)" },
+          { "key": "C", "text": "Unit tests, integration tests, and end-to-end tests" },
+          { "key": "D", "text": "Internal, external, and regulatory evaluations" }
+        ],
+        "correct": "B",
+        "explanation": "Comprehensive AI safety evaluation uses three complementary approaches: 1) Automated evals — using another LLM as a judge, benchmark datasets, automated test suites. 2) Human evals — expert raters assessing response quality and safety, user studies. 3) Red-team evals — adversarial probing to find failure modes. Each catches different classes of issues; robust safety requires all three.",
+        "distractors": {
+          "A": "Static/dynamic/hybrid is not the standard classification for AI safety evaluation frameworks.",
+          "C": "Unit/integration/e2e is a software testing framework, not specific to AI safety evaluation.",
+          "D": "The source of evaluation (internal/external/regulatory) is a governance dimension, not the primary classification."
+        },
+        "citation_url": "https://www.anthropic.com/research/evaluating-ai-safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "evaluation"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sa-004",
+        "difficulty": 4,
+        "stem": "What is 'output filtering' and when should it be used in a Claude deployment?",
+        "options": [
+          { "key": "A", "text": "Filtering which user inputs reach Claude" },
+          { "key": "B", "text": "Post-processing Claude's outputs through a separate safety classifier to detect and block harmful content before it reaches users, used as a defense-in-depth layer" },
+          { "key": "C", "text": "Filtering Claude's responses to remove any text longer than a set character limit" },
+          { "key": "D", "text": "Removing markdown formatting from Claude's responses" }
+        ],
+        "correct": "B",
+        "explanation": "Output filtering adds a safety layer after Claude generates a response, using a separate classifier to detect harmful, off-topic, or inappropriate content before delivery. It's a defense-in-depth measure — Claude's built-in safety is the first line of defense, but an output filter catches anything that slips through. Useful for high-stakes applications with strict compliance requirements.",
+        "distractors": {
+          "A": "Filtering user inputs is 'input filtering' or 'content moderation on inputs' — a related but different concept.",
+          "C": "Length truncation is a formatting operation, not safety filtering.",
+          "D": "Removing markdown is a presentation concern, not output safety filtering."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "output-filtering"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sa-005",
+        "difficulty": 4,
+        "stem": "What jailbreak pattern attempts to bypass Claude's safety training by asking it to play a character or role?",
+        "options": [
+          { "key": "A", "text": "Gradient-based adversarial attacks" },
+          { "key": "B", "text": "Roleplay jailbreaks — asking Claude to 'pretend to be DAN' (Do Anything Now) or play a character 'without restrictions'" },
+          { "key": "C", "text": "SQL injection style attacks" },
+          { "key": "D", "text": "Context window overflow attacks" }
+        ],
+        "correct": "B",
+        "explanation": "Roleplay/persona jailbreaks ask Claude to adopt an AI persona 'without restrictions' (DAN, JAILBROKEN, etc.), hoping the fictional framing will bypass safety training. Claude is trained to recognize these attempts and maintain its values even within roleplay and fictional contexts. Monitoring for these patterns in production logs helps identify misuse attempts.",
+        "distractors": {
+          "A": "Gradient-based attacks are a research technique for attacking models directly, not a typical user-level jailbreak.",
+          "C": "SQL injection is a database attack pattern unrelated to LLM jailbreaking.",
+          "D": "Context window overflow is a technical concern about context limits, not a safety jailbreak pattern."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/security",
+        "verified_against_release": "2025",
+        "tags": ["safety", "jailbreaks"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sa-006",
+        "difficulty": 3,
+        "stem": "What should a production monitoring strategy for a Claude deployment include?",
+        "options": [
+          { "key": "A", "text": "Reading every single response in real-time before delivery to users" },
+          { "key": "B", "text": "Logging requests and responses, sampling a percentage for human review, anomaly detection for unusual usage patterns, and automated flagging of potential policy violations" },
+          { "key": "C", "text": "Monitoring only API error rates and latency" },
+          { "key": "D", "text": "Storing logs only for paying enterprise customers" }
+        ],
+        "correct": "B",
+        "explanation": "A robust production monitoring strategy combines: 1) Comprehensive logging of inputs/outputs (for compliance, debugging, and review). 2) Statistical sampling for human review (reading all is impractical at scale). 3) Automated anomaly detection (unusual query patterns, high refusal rates). 4) Automated flagging of potential violations for prioritized human review. Monitoring only technical metrics like latency misses safety signals.",
+        "distractors": {
+          "A": "Real-time human review of every response is impractical at scale. Statistical sampling is the realistic approach.",
+          "C": "Error rates and latency are important but insufficient. Content-level monitoring is also required.",
+          "D": "All deployments that could have safety implications should be monitored regardless of customer tier."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "monitoring"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-sa-007",
+        "difficulty": 4,
+        "stem": "What is the key architectural difference between safety measures baked into Claude's training vs. runtime safety measures?",
+        "options": [
+          { "key": "A", "text": "Training-time safety is cheaper; runtime safety is more reliable" },
+          { "key": "B", "text": "Training-time measures (Constitutional AI, RLHF) create robust, harder-to-bypass safety behaviors; runtime measures (output filters, input classifiers) are configurable and catch deployment-specific issues but can be circumvented by novel attacks" },
+          { "key": "C", "text": "They are identical in effectiveness — the implementation is just at different system levels" },
+          { "key": "D", "text": "Runtime safety is always preferable because it can be updated without retraining" }
+        ],
+        "correct": "B",
+        "explanation": "Defense-in-depth requires both layers: Training-time safety (CAI, RLHF) creates deeply embedded behaviors that are robust against prompting attacks but can't easily be customized for deployment context. Runtime measures (output filters, input classifiers, system prompt constraints) are flexible and deployment-specific but must be maintained and can fail for novel attack patterns. Best systems use both.",
+        "distractors": {
+          "A": "Both layers have costs and benefits beyond just cheapness vs. reliability.",
+          "C": "They are not identical. Their failure modes, update mechanisms, and circumvention resistance differ significantly.",
+          "D": "Updateability is one advantage, but runtime measures have higher failure rates for novel attacks. Neither layer alone is sufficient."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "architecture"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sa-008",
+        "difficulty": 3,
+        "stem": "Why is 'ignore previous instructions' a recognized jailbreak attempt pattern?",
+        "options": [
+          { "key": "A", "text": "It's not recognized — Claude always follows the most recent instruction" },
+          { "key": "B", "text": "It's a prompt injection technique attempting to override system prompt constraints through user input — Claude is trained to recognize and resist this pattern" },
+          { "key": "C", "text": "It causes a technical API error that should be handled in application code" },
+          { "key": "D", "text": "It's an advanced technique only researchers know about" }
+        ],
+        "correct": "B",
+        "explanation": "'Ignore previous instructions' and similar phrases are classic prompt injection patterns — a user attempting to override operator system prompt constraints by issuing instructions that claim to supersede earlier ones. Claude is specifically trained to maintain operator-defined constraints and not allow user messages to override them. These patterns should be monitored in production logs.",
+        "distractors": {
+          "A": "Claude does NOT simply follow the most recent instruction. Operator system prompts have priority, and safety constraints are absolute.",
+          "C": "This is a semantic safety concern, not a technical API error.",
+          "D": "This is a well-known, widely-discussed attack pattern — it is not obscure research knowledge."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/security",
+        "verified_against_release": "2025",
+        "tags": ["safety", "prompt-injection", "jailbreaks"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-architect",
+    "topic": "system-design-patterns",
+    "topicLabel": "System Design Patterns",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "carch-sd-001",
+        "difficulty": 3,
+        "stem": "What is the 'agentic loop' pattern in Claude-based systems?",
+        "options": [
+          { "key": "A", "text": "Running the same prompt multiple times to check for consistency" },
+          { "key": "B", "text": "The cycle: send prompt → receive response → if stop_reason is 'tool_use', execute tools and add results → repeat until stop_reason is 'end_turn'" },
+          { "key": "C", "text": "An infinite loop that keeps Claude running as a background service" },
+          { "key": "D", "text": "Caching responses in a loop until a cache hit occurs" }
+        ],
+        "correct": "B",
+        "explanation": "The agentic loop drives multi-step task completion: 1) Send prompt to Claude. 2) Receive response. 3) Check stop_reason: if 'tool_use', execute the requested tool(s) and add results to messages. 4) Send updated messages to Claude again. 5) Repeat until stop_reason is 'end_turn'. This allows Claude to iteratively use tools to complete complex tasks that require multiple steps.",
+        "distractors": {
+          "A": "Running the same prompt multiple times is self-consistency sampling, not an agentic loop.",
+          "C": "The agentic loop runs for the duration of a task, not indefinitely as a service.",
+          "D": "Cache loops are an infrastructure optimization pattern, not the agentic loop pattern."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "agentic-loop"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-sd-002",
+        "difficulty": 4,
+        "stem": "How should a Claude-based system handle HTTP 429 (rate limit) and 529 (overloaded) errors?",
+        "options": [
+          { "key": "A", "text": "Immediately fail and return an error to the user" },
+          { "key": "B", "text": "Implement exponential backoff with jitter: wait progressively longer between retries (e.g., 1s, 2s, 4s, 8s) with random jitter to avoid thundering herd" },
+          { "key": "C", "text": "Switch to a different AI provider on any error" },
+          { "key": "D", "text": "Reduce max_tokens and retry immediately" }
+        ],
+        "correct": "B",
+        "explanation": "Exponential backoff with jitter is the standard retry strategy for rate limits and transient service errors: start with a short delay, double it with each retry, add random jitter to prevent all retrying clients from hitting the API simultaneously. Set a maximum retry count and backoff cap. This handles both 429s (quota exceeded) and 529s (service overload) gracefully.",
+        "distractors": {
+          "A": "Immediate failure on first 429/529 creates poor user experience for transient conditions.",
+          "C": "Provider switching is a fallback of last resort, not a first-response retry strategy.",
+          "D": "Reducing max_tokens doesn't address rate limiting or overload. Immediate retry on a rate limit may make the situation worse."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/errors#error-codes",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "reliability", "retry"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sd-003",
+        "difficulty": 4,
+        "stem": "What does 'idempotency' mean for tool calls in an agentic system, and why does it matter?",
+        "options": [
+          { "key": "A", "text": "Tools should always return the same result given the same input" },
+          { "key": "B", "text": "Executing a tool call multiple times with the same parameters should produce the same net effect as executing it once — critical for safe retry logic" },
+          { "key": "C", "text": "Tools should be stateless and never modify external state" },
+          { "key": "D", "text": "Tool IDs should be unique and never reused" }
+        ],
+        "correct": "B",
+        "explanation": "Idempotency means that re-executing the same operation has the same effect as executing it once. For tool calls, if a network error occurs after a tool executes but before the result is returned, the agentic system may retry. If the tool is not idempotent (e.g., it sends an email each time it's called), retries cause duplicate actions. Designing idempotent tools makes retry logic safe.",
+        "distractors": {
+          "A": "Deterministic return values are different from idempotency. Idempotency is about the side effects of repeated execution.",
+          "C": "Stateless tools are often idempotent, but stateful tools can also be idempotent (e.g., a set operation is idempotent; an append operation is not).",
+          "D": "Tool use IDs being unique in a conversation is a different concept (matching tool calls to results)."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "idempotency"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sd-004",
+        "difficulty": 3,
+        "stem": "What is 'graceful degradation' in the context of Claude-based applications?",
+        "options": [
+          { "key": "A", "text": "Gradually deprecating old model versions" },
+          { "key": "B", "text": "Designing the system to fall back to simpler, more reliable functionality when Claude or dependent services are unavailable, rather than failing completely" },
+          { "key": "C", "text": "Reducing Claude's response length when quota is running low" },
+          { "key": "D", "text": "Gracefully handling multimodal content that Claude cannot process" }
+        ],
+        "correct": "B",
+        "explanation": "Graceful degradation ensures the application remains partially functional when Claude or a dependency fails. Examples: when Claude is unavailable, display cached responses; fall back to rule-based responses for common queries; queue requests for later processing; or display a helpful error message with an ETA. The goal is maintaining user value even during partial outages.",
+        "distractors": {
+          "A": "Model deprecation is a product lifecycle concern, not graceful degradation.",
+          "C": "Quota management is a cost concern. Graceful degradation is about availability and failure modes.",
+          "D": "Handling unsupported content is error handling, not graceful degradation in the availability sense."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/reliability",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "reliability"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-sd-005",
+        "difficulty": 4,
+        "stem": "What is 'self-consistency sampling' and when is it useful?",
+        "options": [
+          { "key": "A", "text": "Asking Claude to review its own response and correct errors" },
+          { "key": "B", "text": "Generating multiple responses to the same query (with temperature > 0) and selecting the most common or highest-confidence answer — improves accuracy on tasks with discrete correct answers" },
+          { "key": "C", "text": "Checking that Claude's response is consistent with its previous responses in a conversation" },
+          { "key": "D", "text": "A technique for ensuring consistent JSON output format" }
+        ],
+        "correct": "B",
+        "explanation": "Self-consistency sampling generates N responses to the same prompt and picks the most common answer (majority vote) or the answer with highest aggregate confidence. This is particularly effective for math problems, coding tasks, and factual questions where there's a single correct answer. The increased accuracy comes at the cost of N× the token usage and latency.",
+        "distractors": {
+          "A": "Asking Claude to review its own response is 'self-critique' or 'Constitutional AI'-style revision, not self-consistency sampling.",
+          "C": "Conversation consistency is a different concern. Self-consistency sampling is about single-turn accuracy improvement.",
+          "D": "Consistent format is achieved through prompting (format instructions, few-shot examples), not self-consistency sampling."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/reliability",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "sampling"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sd-006",
+        "difficulty": 3,
+        "stem": "How should max_tokens be configured to prevent runaway responses in production?",
+        "options": [
+          { "key": "A", "text": "Set max_tokens as high as possible (model maximum) for all requests" },
+          { "key": "B", "text": "Set max_tokens to a realistic upper bound for the expected response type — generous enough to avoid truncation but tight enough to catch runaway generation" },
+          { "key": "C", "text": "Set max_tokens to exactly the average response length you expect" },
+          { "key": "D", "text": "Never set max_tokens — let Claude always determine the appropriate length" }
+        ],
+        "correct": "B",
+        "explanation": "max_tokens should be set to a realistic ceiling for the expected response type. If you're asking for a one-paragraph summary, setting max_tokens=200 is appropriate; if expecting a full code file, 4000 might be needed. Too low causes truncation; too high allows unbounded generation that can produce bloated responses, waste tokens, and mask quality issues.",
+        "distractors": {
+          "A": "Setting max_tokens to the model maximum for all requests wastes resources and removes a useful safety net.",
+          "C": "Setting to the average guarantees roughly half of responses are truncated. Set a ceiling, not an average.",
+          "D": "max_tokens is always required in the API. A value is mandatory."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "max_tokens"],
+        "difficulty": 3
+      },
+      {
+        "id": "carch-sd-007",
+        "difficulty": 4,
+        "stem": "What is 'structured output extraction' and how is it reliably implemented with Claude?",
+        "options": [
+          { "key": "A", "text": "A special API mode that returns structured JSON automatically" },
+          { "key": "B", "text": "Instructing Claude to produce output in a specific format (JSON, XML), using stop_sequences to control parsing boundaries, and parsing/validating the output in application code" },
+          { "key": "C", "text": "Using Claude's built-in schema validator" },
+          { "key": "D", "text": "Only possible with tool_use — standard messages cannot produce structured output" }
+        ],
+        "correct": "B",
+        "explanation": "Reliable structured output uses: 1) Clear format instructions in the prompt ('Respond ONLY with valid JSON matching this schema: {...}'). 2) Few-shot examples of correct output format. 3) Potentially prefilling the assistant turn (e.g., starting with '{'). 4) stop_sequences to prevent extra content after the structure. 5) Parsing and validation in application code with error handling.",
+        "distractors": {
+          "A": "There is no dedicated JSON mode API parameter in Claude (unlike some other providers). Structured output requires prompting.",
+          "C": "Claude doesn't have a built-in schema validator. Validation must be done in application code.",
+          "D": "Standard messages can produce structured output through prompting. Tool use is not required."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/structured-outputs",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "structured-output"],
+        "difficulty": 4
+      },
+      {
+        "id": "carch-sd-008",
+        "difficulty": 4,
+        "stem": "In an agentic system, how should timeout handling be implemented?",
+        "options": [
+          { "key": "A", "text": "Allow requests to run indefinitely until completion" },
+          { "key": "B", "text": "Set appropriate request timeouts, use streaming to detect stalls (first token not received within N seconds), implement max iteration counts for agentic loops, and have fallback behavior" },
+          { "key": "C", "text": "Terminate the application and restart if any timeout occurs" },
+          { "key": "D", "text": "Timeouts are handled automatically by the Anthropic SDK" }
+        ],
+        "correct": "B",
+        "explanation": "Robust timeout handling requires: 1) HTTP request timeouts for the overall API call. 2) Streaming-aware timeout detection (time-to-first-token threshold). 3) Max iteration limits for agentic loops to prevent infinite cycles. 4) Graceful handling when timeouts occur (inform user, save partial progress). The SDK has default timeouts but they may need adjustment for long-running agentic tasks.",
+        "distractors": {
+          "A": "Indefinite requests create hanging user experiences and can exhaust connection pools.",
+          "C": "Application restart is a drastic response to a normal transient condition. Graceful handling is appropriate.",
+          "D": "The SDK has defaults but they may not be appropriate for all use cases. Explicitly configuring timeouts is important for agentic applications."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/agents",
+        "verified_against_release": "2025",
+        "tags": ["architecture", "reliability", "timeouts"],
+        "difficulty": 4
+      }
+    ]
+  }
+]

@@ -1,0 +1,966 @@
+[
+  {
+    "certification": "claude-associate",
+    "topic": "claude-models",
+    "topicLabel": "Claude Model Family",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "ca-cm-001",
+        "difficulty": 2,
+        "stem": "A team needs to process millions of short classification requests with minimal cost and maximum throughput. Which Claude model tier is most appropriate?",
+        "options": [
+          { "key": "A", "text": "Claude Opus — most capable, handles any classification accurately" },
+          { "key": "B", "text": "Claude Haiku — fastest and most cost-efficient for high-volume simple tasks" },
+          { "key": "C", "text": "Claude Sonnet — balanced option that handles volume and quality equally" },
+          { "key": "D", "text": "Any model is equivalent for classification tasks" }
+        ],
+        "correct": "B",
+        "explanation": "Claude Haiku is the fastest and most cost-efficient model in the Claude family, optimized for high-volume, lower-complexity tasks like classification, routing, and simple extraction. For millions of requests where speed and cost matter more than deep reasoning, Haiku is the correct choice.",
+        "distractors": {
+          "A": "Opus is the most capable but also the most expensive. Using it for simple classification wastes budget without meaningful quality improvement.",
+          "C": "Sonnet is a good middle-ground but is overkill and more expensive than Haiku for simple classification at scale.",
+          "D": "Models differ significantly in speed, cost, and capability. Choosing the wrong tier for the workload is a common and expensive mistake."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "haiku", "cost"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-002",
+        "difficulty": 2,
+        "stem": "What is the input context window size for current Claude models (Claude 3.5, Claude 4, and Claude 5 families)?",
+        "options": [
+          { "key": "A", "text": "32,000 tokens" },
+          { "key": "B", "text": "100,000 tokens" },
+          { "key": "C", "text": "200,000 tokens" },
+          { "key": "D", "text": "1,000,000 tokens" }
+        ],
+        "correct": "C",
+        "explanation": "Current Claude models support a 200,000 token context window for input. This large context window allows you to process entire books, large codebases, or lengthy document collections in a single request.",
+        "distractors": {
+          "A": "32K was an earlier limitation. Current Claude models support 200K input tokens.",
+          "B": "100K was Claude's previous limit. The current generation doubled this to 200K.",
+          "D": "1 million tokens is not the current context window size for Claude. Some other models have announced multi-million token windows, but Claude's is 200K."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "context-window"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-003",
+        "difficulty": 2,
+        "stem": "Which of the following correctly describes the relationship between the three Claude model tiers?",
+        "options": [
+          { "key": "A", "text": "Haiku is most capable, Sonnet is balanced, Opus is fastest" },
+          { "key": "B", "text": "Opus is most capable and most expensive; Haiku is fastest and cheapest; Sonnet is balanced" },
+          { "key": "C", "text": "All three tiers have identical capabilities but different pricing" },
+          { "key": "D", "text": "Sonnet is the only production-ready model; Haiku and Opus are experimental" }
+        ],
+        "correct": "B",
+        "explanation": "The Claude model family follows a consistent tiering: Opus is the most capable and intelligent model suited for complex tasks but costs the most; Haiku is the fastest and most affordable suited for simple high-volume tasks; Sonnet sits in the middle offering a balance of capability, speed, and cost.",
+        "distractors": {
+          "A": "This reverses the tier order. Haiku is fastest/cheapest, not most capable. Opus is most capable, not fastest.",
+          "C": "The tiers differ in both capability and pricing. Opus outperforms Haiku on complex reasoning tasks.",
+          "D": "All three tiers are production-ready. Anthropic offers Haiku, Sonnet, and Opus for different use-case needs."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "tiers"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-004",
+        "difficulty": 3,
+        "stem": "A developer wants to use the latest Claude Haiku model in their application. Which model ID should they specify?",
+        "options": [
+          { "key": "A", "text": "claude-haiku" },
+          { "key": "B", "text": "claude-3-haiku-20240307" },
+          { "key": "C", "text": "claude-haiku-4-5-20251001" },
+          { "key": "D", "text": "claude-haiku-latest" }
+        ],
+        "correct": "C",
+        "explanation": "The latest Claude Haiku model is claude-haiku-4-5-20251001. Anthropic model IDs include the model family name, version number, and a date stamp (YYYYMMDD). Always use the full versioned ID for production applications to ensure consistent behavior.",
+        "distractors": {
+          "A": "claude-haiku is not a valid model ID. Anthropic uses versioned IDs with family and date.",
+          "B": "claude-3-haiku-20240307 is the Claude 3 Haiku model from 2024, not the latest version.",
+          "D": "claude-haiku-latest is not a valid Anthropic model ID alias. Anthropic does not use a -latest suffix in the same way as other providers."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "model-ids"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-cm-005",
+        "difficulty": 3,
+        "stem": "A company needs Claude to perform legal document analysis that requires careful multi-step reasoning and comprehensive understanding. Which model should they prioritize?",
+        "options": [
+          { "key": "A", "text": "Claude Haiku — legal analysis needs speed above all else" },
+          { "key": "B", "text": "Claude Sonnet — always the best balance for any professional task" },
+          { "key": "C", "text": "Claude Opus — most capable for complex reasoning and nuanced analysis" },
+          { "key": "D", "text": "Model choice doesn't matter if the prompt is well-written" }
+        ],
+        "correct": "C",
+        "explanation": "Claude Opus is the most intelligent and capable model in the family, designed for complex tasks requiring deep reasoning, nuanced understanding, and careful analysis. Legal document analysis — with its need for precise interpretation, multi-step reasoning, and identification of subtle implications — is exactly the kind of task that benefits from Opus's highest capability tier.",
+        "distractors": {
+          "A": "Legal document analysis is a high-stakes, complex task where accuracy matters far more than speed. Haiku's lower capability makes it inappropriate here.",
+          "B": "Sonnet is a reasonable choice for many tasks, but when complexity and accuracy are paramount and cost is secondary, Opus is the correct answer.",
+          "D": "Prompt engineering helps, but model capability does matter. A less capable model will make more reasoning errors on complex tasks regardless of prompt quality."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "opus", "use-cases"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-cm-006",
+        "difficulty": 2,
+        "stem": "What does the date portion of a Claude model ID (e.g., '20251001' in 'claude-haiku-4-5-20251001') represent?",
+        "options": [
+          { "key": "A", "text": "The date the model's knowledge was last updated" },
+          { "key": "B", "text": "The date the specific model version snapshot was released" },
+          { "key": "C", "text": "The expiration date after which the model will be deprecated" },
+          { "key": "D", "text": "The date the developer first registered with Anthropic" }
+        ],
+        "correct": "B",
+        "explanation": "The date suffix in a Claude model ID (YYYYMMDD format) indicates the specific version snapshot release date. Using the full versioned ID in production ensures your application always calls the exact same model version, providing behavioral consistency and predictability.",
+        "distractors": {
+          "A": "The date does not represent the knowledge cutoff. Model knowledge cutoffs are documented separately.",
+          "C": "The date is not an expiration date. Anthropic provides deprecation notices separately when a model version will be retired.",
+          "D": "The date has nothing to do with developer registration. It is part of the model version identifier."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "model-ids"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-007",
+        "difficulty": 3,
+        "stem": "Which statement about model aliases (like 'claude-sonnet-5') versus versioned model IDs is correct?",
+        "options": [
+          { "key": "A", "text": "Aliases always point to the same model version and are safe for production" },
+          { "key": "B", "text": "Aliases automatically update to newer versions; versioned IDs are stable and recommended for production" },
+          { "key": "C", "text": "Versioned IDs and aliases are interchangeable; the difference is only cosmetic" },
+          { "key": "D", "text": "Only versioned IDs are accepted by the API; aliases return an error" }
+        ],
+        "correct": "B",
+        "explanation": "Model aliases like 'claude-sonnet-5' point to the latest version of that model tier and may change over time as Anthropic releases updates. Versioned IDs like 'claude-sonnet-5-20251022' pin to a specific snapshot, ensuring behavioral consistency. For production applications, versioned IDs are recommended to avoid unexpected changes.",
+        "distractors": {
+          "A": "Aliases do NOT always point to the same version. This is a key distinction — aliases update to newer snapshots, which can change behavior.",
+          "C": "The difference is significant. Aliases provide auto-update convenience; versioned IDs provide stability. They are not interchangeable for production use.",
+          "D": "Both aliases and versioned IDs are accepted. Aliases are a convenience feature, not an error condition."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "model-ids", "production"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-cm-008",
+        "difficulty": 2,
+        "stem": "What distinguishes the Claude 5 family from the Claude 3 family?",
+        "options": [
+          { "key": "A", "text": "Claude 5 models only support text; Claude 3 supports images" },
+          { "key": "B", "text": "Claude 5 models offer improved capabilities, performance, and intelligence over Claude 3" },
+          { "key": "C", "text": "Claude 3 has a larger context window than Claude 5" },
+          { "key": "D", "text": "Claude 5 is only available to enterprise customers" }
+        ],
+        "correct": "B",
+        "explanation": "Each new Claude generation (3, 4, 5) represents advances in capability, instruction-following, reasoning, and safety. Claude 5 models are more capable and performant than their Claude 3 counterparts at equivalent tiers. Anthropic continues developing new model generations with meaningful improvements.",
+        "distractors": {
+          "A": "Claude 5 models support both text and image inputs, as do Claude 3 models. Multimodal capability is not limited to older generations.",
+          "C": "Context window size is a product specification, not generation-specific. Current Claude models across generations support 200K input tokens.",
+          "D": "Claude 5 models are available to all developers through the Anthropic API, not just enterprise customers."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "generations"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-009",
+        "difficulty": 2,
+        "stem": "A developer is building a customer-facing chat application that requires good quality responses for general questions. Which model tier offers the best balance of quality and cost?",
+        "options": [
+          { "key": "A", "text": "Haiku — always use the cheapest model first" },
+          { "key": "B", "text": "Sonnet — balanced capability and cost, suitable for general conversational applications" },
+          { "key": "C", "text": "Opus — customer-facing apps always need the best model" },
+          { "key": "D", "text": "Use all three models in rotation for reliability" }
+        ],
+        "correct": "B",
+        "explanation": "Claude Sonnet is explicitly designed as the balanced middle tier — offering strong capability and good quality at a reasonable cost. For a general customer-facing chat application where both response quality and operating costs matter, Sonnet is typically the right starting point.",
+        "distractors": {
+          "A": "Using the cheapest model without regard to quality can result in poor user experiences. Haiku is best for simpler, well-defined tasks.",
+          "C": "Opus is the most capable but also most expensive. Customer-facing chat doesn't always require maximum capability, and Opus may not provide enough ROI over Sonnet for general queries.",
+          "D": "Rotating between models introduces behavioral inconsistency and is not a standard architecture pattern."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "sonnet", "use-cases"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-cm-010",
+        "difficulty": 3,
+        "stem": "What is the maximum output token count for Claude Haiku 4.5?",
+        "options": [
+          { "key": "A", "text": "4,096 tokens" },
+          { "key": "B", "text": "8,192 tokens" },
+          { "key": "C", "text": "32,768 tokens" },
+          { "key": "D", "text": "200,000 tokens" }
+        ],
+        "correct": "B",
+        "explanation": "Claude Haiku 4.5 supports a maximum output of 8,192 tokens. Note that max_tokens in the API is a ceiling — actual output will be shorter if the model completes its response before the limit. The 200K figure refers to the input context window, not the output limit.",
+        "distractors": {
+          "A": "4,096 tokens was the output limit for earlier Claude models. Current Haiku and Sonnet models support 8,192 output tokens.",
+          "C": "32,768 output tokens is closer to what Opus 5 supports. Haiku's output limit is 8,192.",
+          "D": "200,000 tokens is the INPUT context window size, not the maximum output. Confusing input context with output tokens is a common mistake."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["models", "output-tokens", "haiku"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-associate",
+    "topic": "prompting-basics",
+    "topicLabel": "Prompting Fundamentals",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "ca-pb-001",
+        "difficulty": 2,
+        "stem": "In the Claude Messages API, which role must the messages array start with?",
+        "options": [
+          { "key": "A", "text": "assistant" },
+          { "key": "B", "text": "system" },
+          { "key": "C", "text": "human" },
+          { "key": "D", "text": "user" }
+        ],
+        "correct": "C",
+        "explanation": "The messages array must always start with a human turn. The API enforces alternating human/assistant turns, and the first message must have role 'human'. The system prompt is provided separately via the 'system' parameter, not as a message in the array.",
+        "distractors": {
+          "A": "Starting with 'assistant' would cause an API error. The conversation must begin with a human message.",
+          "B": "The system prompt is provided via the top-level 'system' parameter, not as a message with role 'system' inside the messages array.",
+          "D": "In the Anthropic API, the role value is 'human' (not 'user' as in some other APIs). Using 'user' will cause a validation error."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "api", "messages"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-002",
+        "difficulty": 2,
+        "stem": "What is the recommended placement for instructions relative to the content they apply to in a Claude prompt?",
+        "options": [
+          { "key": "A", "text": "Instructions should always come after the content for clarity" },
+          { "key": "B", "text": "Instructions should come before the content they apply to" },
+          { "key": "C", "text": "Instructions and content order doesn't matter to Claude" },
+          { "key": "D", "text": "Instructions should be interleaved throughout the content" }
+        ],
+        "correct": "B",
+        "explanation": "Anthropic recommends placing instructions before the content they apply to. This follows natural reading order and ensures Claude understands the task before processing the content. For example, provide the summarization instruction before the document to summarize, not after.",
+        "distractors": {
+          "A": "Placing instructions after content often degrades performance. Claude may make assumptions about what to do while reading the content before it sees the instructions.",
+          "C": "Ordering does matter. Instructions before content consistently outperforms other orderings, especially for long documents.",
+          "D": "Interleaving instructions and content creates confusing prompts and degrades performance. Keep instructions together, before the content."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "best-practices"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-003",
+        "difficulty": 2,
+        "stem": "Which technique is MOST effective for getting Claude to produce output in a consistent, specific format?",
+        "options": [
+          { "key": "A", "text": "Telling Claude 'respond correctly'" },
+          { "key": "B", "text": "Providing one or more examples of the exact output format desired" },
+          { "key": "C", "text": "Using ALL CAPS for formatting instructions" },
+          { "key": "D", "text": "Asking Claude to try harder" }
+        ],
+        "correct": "B",
+        "explanation": "Few-shot prompting — providing concrete examples of the desired input-output format — is one of the most effective techniques for getting consistent, correctly-formatted responses. Examples show Claude exactly what you want, removing ambiguity from your instructions.",
+        "distractors": {
+          "A": "Vague instructions like 'respond correctly' provide no useful signal. Claude doesn't know what 'correct' means without specifics.",
+          "C": "Using ALL CAPS may add minor emphasis but is not an effective formatting technique. Examples and explicit format specifications work far better.",
+          "D": "'Try harder' is meaningless as an instruction. Specificity in what you want is the correct approach."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-examples",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "few-shot", "format"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-004",
+        "difficulty": 2,
+        "stem": "A developer wants Claude to reason step-by-step before giving a final answer for math problems. What technique should they use?",
+        "options": [
+          { "key": "A", "text": "Ask Claude to answer as briefly as possible" },
+          { "key": "B", "text": "Use chain-of-thought prompting by asking Claude to 'think step by step' or show its work" },
+          { "key": "C", "text": "Set temperature to 0 for deterministic reasoning" },
+          { "key": "D", "text": "Use a system prompt that says 'you are a math expert'" }
+        ],
+        "correct": "B",
+        "explanation": "Chain-of-thought (CoT) prompting involves asking Claude to explicitly reason through a problem step by step before arriving at a final answer. This technique significantly improves accuracy on reasoning tasks by allowing Claude to 'think out loud' rather than jumping to a conclusion.",
+        "distractors": {
+          "A": "Asking for brief responses is counterproductive for reasoning tasks. Allowing Claude to show its work improves accuracy.",
+          "C": "Temperature controls randomness, not reasoning ability. Setting temperature to 0 doesn't trigger step-by-step reasoning.",
+          "D": "Role prompting helps establish context but does not trigger chain-of-thought reasoning by itself. The explicit instruction to reason step by step is needed."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-of-thought",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "chain-of-thought"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-005",
+        "difficulty": 2,
+        "stem": "How should XML tags be used in Claude prompts?",
+        "options": [
+          { "key": "A", "text": "XML tags are not supported and will be treated as plain text" },
+          { "key": "B", "text": "XML tags help structure prompts by clearly separating instructions, content, examples, and other elements" },
+          { "key": "C", "text": "XML tags slow down Claude and should be avoided" },
+          { "key": "D", "text": "XML tags are only useful for code generation tasks" }
+        ],
+        "correct": "B",
+        "explanation": "Claude is trained to recognize and respect XML-like tags in prompts. Using tags like <instructions>, <document>, <example>, and <response> helps Claude understand the structure of your prompt, reduces confusion between different parts, and improves response quality — especially in complex, multi-part prompts.",
+        "distractors": {
+          "A": "Claude explicitly understands XML-like tags and uses them to parse prompt structure. They are a recommended technique.",
+          "C": "XML tags don't slow Claude down in any meaningful way. Their organizational benefit far outweighs any negligible overhead.",
+          "D": "XML tags are useful across all task types — summarization, analysis, code generation, conversation — not just code."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "xml-tags"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-006",
+        "difficulty": 2,
+        "stem": "What is the purpose of a system prompt in the Claude API?",
+        "options": [
+          { "key": "A", "text": "System prompts are sent with every message and define Claude's persistent persona, role, and behavioral guidelines for the session" },
+          { "key": "B", "text": "System prompts are only for authentication and security" },
+          { "key": "C", "text": "System prompts are shown to the end user as an introduction" },
+          { "key": "D", "text": "System prompts override Claude's safety training" }
+        ],
+        "correct": "A",
+        "explanation": "The system prompt is a persistent set of instructions provided to Claude at the start of a conversation, separate from the message history. It typically defines Claude's role (e.g., 'You are a helpful customer service agent'), behavioral guidelines, response format preferences, and constraints. The system is seen by Claude on every turn.",
+        "distractors": {
+          "B": "System prompts are for behavioral configuration, not authentication. API keys handle authentication.",
+          "C": "System prompts are NOT shown to end users by default. They are private instructions to Claude.",
+          "D": "System prompts can customize Claude's behavior within limits, but they cannot override core safety training or hardcoded limits."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/system-prompts",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "system-prompt"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-007",
+        "difficulty": 3,
+        "stem": "A prompt produces inconsistent results — sometimes Claude follows the format, sometimes it doesn't. Which approach is MOST likely to fix this?",
+        "options": [
+          { "key": "A", "text": "Add 'please' and 'thank you' to be more polite" },
+          { "key": "B", "text": "Replace vague instructions with concrete, specific requirements and add a format example" },
+          { "key": "C", "text": "Increase the temperature parameter" },
+          { "key": "D", "text": "Switch to a larger model" }
+        ],
+        "correct": "B",
+        "explanation": "Inconsistent responses are usually caused by ambiguous or underspecified prompts. The fix is to make instructions more concrete and specific, and to provide an example of the desired output. Vague instructions like 'respond professionally' leave too much room for interpretation; explicit format specs and examples eliminate that ambiguity.",
+        "distractors": {
+          "A": "Politeness has negligible effect on response consistency. Claude doesn't require social niceties to follow instructions.",
+          "C": "Increasing temperature increases randomness and makes responses LESS consistent, not more.",
+          "D": "A larger model may help with capability, but it won't fix a fundamentally ambiguous prompt. Prompt clarity is the root cause."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "best-practices"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-pb-008",
+        "difficulty": 2,
+        "stem": "Role prompting — setting up Claude as a specific persona in the system prompt — is most useful for:",
+        "options": [
+          { "key": "A", "text": "Giving Claude access to real-time external information" },
+          { "key": "B", "text": "Establishing consistent tone, expertise domain, and behavioral constraints for a session" },
+          { "key": "C", "text": "Bypassing Claude's safety guidelines" },
+          { "key": "D", "text": "Increasing Claude's maximum output token limit" }
+        ],
+        "correct": "B",
+        "explanation": "Role prompting (e.g., 'You are an expert financial advisor') establishes context that shapes Claude's tone, vocabulary, depth of expertise in responses, and what topics are in or out of scope for the session. It helps Claude produce more targeted, contextually appropriate responses.",
+        "distractors": {
+          "A": "Role prompting does not give Claude access to real-time or external data. For that, you need tool use or RAG.",
+          "C": "Role prompting cannot bypass core safety guidelines. Attempts to do so (e.g., 'act as DAN') are recognized and refused.",
+          "D": "Role prompting has no effect on token limits. These are model-level constraints, not prompt-configurable."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/give-claude-a-role",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "role-prompting"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-009",
+        "difficulty": 2,
+        "stem": "When asking Claude to analyze a long document, what is the best prompt structure?",
+        "options": [
+          { "key": "A", "text": "Paste the document first, then add the analysis instructions at the end" },
+          { "key": "B", "text": "Provide the analysis instructions first, then include the document" },
+          { "key": "C", "text": "Split the document into separate API calls and combine results manually" },
+          { "key": "D", "text": "Use only the first 1000 words of any document" }
+        ],
+        "correct": "B",
+        "explanation": "Instructions should precede the content they apply to. When analyzing a document, put the task description and analysis requirements first, then provide the document. This ensures Claude understands what it needs to do as it processes the content, leading to more accurate and focused output.",
+        "distractors": {
+          "A": "Putting instructions at the end means Claude may misinterpret the content or adopt a default behavior while reading the document before seeing what it's supposed to do.",
+          "C": "Claude's 200K context window typically handles long documents in a single call. Manual splitting adds complexity without benefit for most documents.",
+          "D": "With a 200K context window, there's no need to artificially truncate documents. Include the full relevant content."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/long-context-tips",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "document-analysis"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-pb-010",
+        "difficulty": 3,
+        "stem": "What does 'prefilling the assistant turn' mean in Claude prompting?",
+        "options": [
+          { "key": "A", "text": "Pre-populating the system prompt with default instructions" },
+          { "key": "B", "text": "Starting an assistant turn in the messages array with partial text to steer Claude's response style or format" },
+          { "key": "C", "text": "Filling the context window with examples before the actual query" },
+          { "key": "D", "text": "Using Claude to pre-generate responses before user input" }
+        ],
+        "correct": "B",
+        "explanation": "Prefilling the assistant turn means adding a partial assistant message to the end of the messages array to prime Claude's response. For example, ending with an assistant message of '{' can steer Claude to continue with valid JSON. This technique gives you fine-grained control over response format without complex instructions.",
+        "distractors": {
+          "A": "Pre-populating the system prompt is a separate concept (using the 'system' parameter). Prefilling specifically refers to injecting an initial assistant response.",
+          "C": "This describes few-shot prompting or context stuffing, not assistant turn prefilling.",
+          "D": "Prefilling is about response steering, not pre-generating responses. It starts Claude's response in a specific direction."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response",
+        "verified_against_release": "2025",
+        "tags": ["prompting", "prefilling"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-associate",
+    "topic": "messages-api-basics",
+    "topicLabel": "Messages API Basics",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "ca-ma-001",
+        "difficulty": 2,
+        "stem": "Which three parameters are REQUIRED for every Claude Messages API call?",
+        "options": [
+          { "key": "A", "text": "model, messages, temperature" },
+          { "key": "B", "text": "model, max_tokens, messages" },
+          { "key": "C", "text": "model, system, messages" },
+          { "key": "D", "text": "messages, max_tokens, stream" }
+        ],
+        "correct": "B",
+        "explanation": "The three required parameters for the Messages API are: 'model' (the Claude model ID to use), 'max_tokens' (the maximum number of output tokens), and 'messages' (the array of conversation turns). All other parameters — system, temperature, top_p, stop_sequences, stream, etc. — are optional.",
+        "distractors": {
+          "A": "Temperature is optional, not required. The default temperature is 1.0.",
+          "C": "The 'system' parameter is optional. Many use cases don't require a system prompt.",
+          "D": "'stream' is optional (defaults to false). The required trio is model, max_tokens, and messages."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "parameters"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-ma-002",
+        "difficulty": 2,
+        "stem": "What does the 'max_tokens' parameter in the Messages API control?",
+        "options": [
+          { "key": "A", "text": "The maximum number of input tokens allowed in the request" },
+          { "key": "B", "text": "The exact number of tokens Claude will always generate" },
+          { "key": "C", "text": "The maximum number of output tokens Claude may generate — actual output may be shorter" },
+          { "key": "D", "text": "The combined total of input and output tokens allowed" }
+        ],
+        "correct": "C",
+        "explanation": "max_tokens sets an UPPER BOUND on the response length. Claude will stop generating when it naturally completes a response OR reaches the max_tokens limit, whichever comes first. You are billed for the actual tokens generated, not the max_tokens value. Setting max_tokens too low can truncate responses mid-sentence.",
+        "distractors": {
+          "A": "max_tokens controls output length, not input. Input limits are determined by the model's context window.",
+          "B": "max_tokens is a ceiling, not a target. Claude doesn't pad responses to hit the limit.",
+          "D": "max_tokens is output-only. The context window covers combined input+output constraints."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "max_tokens"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-ma-003",
+        "difficulty": 2,
+        "stem": "What value does the 'role' field in a response message object always contain?",
+        "options": [
+          { "key": "A", "text": "\"human\"" },
+          { "key": "B", "text": "\"system\"" },
+          { "key": "C", "text": "\"assistant\"" },
+          { "key": "D", "text": "The model name (e.g., \"claude-sonnet-5\")" }
+        ],
+        "correct": "C",
+        "explanation": "In a Claude API response, the message object always has role: \"assistant\". This is consistent regardless of which model you use or what was in the request. The response structure includes id, type (\"message\"), role (\"assistant\"), content, model, stop_reason, stop_sequence, and usage.",
+        "distractors": {
+          "A": "\"human\" is a role in the REQUEST messages array, not in the response. Claude responds as \"assistant\".",
+          "B": "\"system\" is not a valid role in the response. System prompts are sent in the request, not returned.",
+          "D": "The model name appears in the response's 'model' field, not in the 'role' field."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "response"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-ma-004",
+        "difficulty": 3,
+        "stem": "A response has stop_reason: \"max_tokens\". What does this indicate?",
+        "options": [
+          { "key": "A", "text": "The model completed its response normally and stopped at a natural boundary" },
+          { "key": "B", "text": "The model was cut off because it hit the max_tokens limit before finishing" },
+          { "key": "C", "text": "The user's input was too long" },
+          { "key": "D", "text": "The model refused to answer the question" }
+        ],
+        "correct": "B",
+        "explanation": "stop_reason: \"max_tokens\" means Claude was generating but reached the max_tokens limit and was forced to stop, potentially mid-sentence. The response may be incomplete. To handle this, you can either increase max_tokens or implement logic to detect truncation and continue the response.",
+        "distractors": {
+          "A": "Normal completion is indicated by stop_reason: \"end_turn\", not \"max_tokens\".",
+          "C": "Input token limits are a separate concern. stop_reason: \"max_tokens\" is about OUTPUT being cut off.",
+          "D": "A refusal would be communicated in the response content as text, not via a stop_reason value."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "stop_reason"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-ma-005",
+        "difficulty": 2,
+        "stem": "What is the default value of the 'temperature' parameter in the Claude Messages API?",
+        "options": [
+          { "key": "A", "text": "0 (fully deterministic)" },
+          { "key": "B", "text": "0.5" },
+          { "key": "C", "text": "1.0" },
+          { "key": "D", "text": "2.0" }
+        ],
+        "correct": "C",
+        "explanation": "The default temperature is 1.0. Temperature controls the randomness of responses — lower values make responses more deterministic and focused, higher values increase creativity and variety. The valid range is 0 to 1 (unlike some other AI APIs that go higher). At 0, responses are nearly deterministic.",
+        "distractors": {
+          "A": "Temperature 0 is valid but is not the default. You must explicitly set it to get near-deterministic behavior.",
+          "B": "0.5 is not the default. The API default is 1.0.",
+          "D": "2.0 is outside the valid range for Claude's temperature (0-1). Setting temperature above 1 is not supported."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "temperature"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-ma-006",
+        "difficulty": 3,
+        "stem": "Which stop_reason values are possible in a Claude API response?",
+        "options": [
+          { "key": "A", "text": "\"completed\", \"truncated\", \"error\"" },
+          { "key": "B", "text": "\"end_turn\", \"max_tokens\", \"stop_sequence\", \"tool_use\"" },
+          { "key": "C", "text": "\"success\", \"limit_reached\", \"tool_called\"" },
+          { "key": "D", "text": "\"finished\", \"timeout\", \"safety_filter\"" }
+        ],
+        "correct": "B",
+        "explanation": "The valid stop_reason values are: \"end_turn\" (natural completion), \"max_tokens\" (hit the output limit), \"stop_sequence\" (matched a custom stop sequence), and \"tool_use\" (Claude wants to call a tool). Each tells you why Claude stopped generating, which is important for handling the response correctly.",
+        "distractors": {
+          "A": "\"completed\", \"truncated\", and \"error\" are not Claude API stop_reason values. These are invented.",
+          "C": "These are also not valid Claude API values. The actual values use snake_case: end_turn, max_tokens, stop_sequence, tool_use.",
+          "D": "\"timeout\" and \"safety_filter\" are not stop_reason values in the API response."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "stop_reason"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-ma-007",
+        "difficulty": 2,
+        "stem": "What does the 'usage' field in a Claude API response contain?",
+        "options": [
+          { "key": "A", "text": "The API key used to make the request" },
+          { "key": "B", "text": "Token counts for input_tokens, output_tokens, and optionally cache_creation_input_tokens and cache_read_input_tokens" },
+          { "key": "C", "text": "The time taken to generate the response" },
+          { "key": "D", "text": "The remaining credits in the API account" }
+        ],
+        "correct": "B",
+        "explanation": "The 'usage' field reports token counts: input_tokens (how many tokens were in the request), output_tokens (how many tokens Claude generated), and when prompt caching is involved, cache_creation_input_tokens and cache_read_input_tokens. This information is useful for cost tracking and optimization.",
+        "distractors": {
+          "A": "API keys are authentication credentials and are not included in response bodies.",
+          "C": "Response timing information is not in the usage field (and is typically not returned in the API response at all).",
+          "D": "Account credit information is managed through the Anthropic console, not returned in individual API responses."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "usage", "tokens"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-ma-008",
+        "difficulty": 3,
+        "stem": "A developer wants to ensure Claude stops generating after it produces the string '</answer>'. How should they configure this?",
+        "options": [
+          { "key": "A", "text": "Set max_tokens to a low value to force early stopping" },
+          { "key": "B", "text": "Use the stop_sequences parameter and include '</answer>' in the array" },
+          { "key": "C", "text": "Parse the response afterward and truncate at '</answer>'" },
+          { "key": "D", "text": "This is not possible with the Claude API" }
+        ],
+        "correct": "B",
+        "explanation": "The stop_sequences parameter accepts an array of strings. When Claude generates any of these strings, it immediately stops and the stop_reason will be \"stop_sequence\". Setting stop_sequences: [\"</answer>\"] ensures Claude halts generation as soon as it produces that closing tag, giving you clean output without the tag itself.",
+        "distractors": {
+          "A": "Low max_tokens truncates at a token count, not at a specific string. This doesn't reliably stop at '</answer>'.",
+          "C": "Post-processing works but is less elegant. Using stop_sequences is the correct API-level solution.",
+          "D": "Stop sequences are a supported feature of the Claude API and work exactly for this use case."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "stop_sequences"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-associate",
+    "topic": "safety-basics",
+    "topicLabel": "Safety & Responsible AI",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "ca-sb-001",
+        "difficulty": 2,
+        "stem": "What is Constitutional AI (CAI), the technique Anthropic developed for training Claude?",
+        "options": [
+          { "key": "A", "text": "A legal framework governing AI regulation" },
+          { "key": "B", "text": "A training technique where AI uses a set of principles to evaluate and revise its own responses to be more helpful, harmless, and honest" },
+          { "key": "C", "text": "A method of filtering outputs with a separate safety model after generation" },
+          { "key": "D", "text": "A form of supervised learning using human-labeled examples of harmful content" }
+        ],
+        "correct": "B",
+        "explanation": "Constitutional AI (CAI) is Anthropic's training approach where Claude is trained using a 'constitution' — a set of principles — to evaluate and revise its own outputs. The model learns to critique its responses against these principles and improve them. This reduces reliance on pure human labeling for safety and helps encode values directly into the model.",
+        "distractors": {
+          "A": "CAI is a machine learning training technique, not a legal or regulatory framework.",
+          "C": "Post-processing safety filters are a different approach. CAI trains safety into the model through self-critique during training, not through external filtering at inference.",
+          "D": "While human feedback plays a role in Claude's overall training, CAI specifically uses a constitution of principles for AI self-critique rather than pure human labeling of harmful content."
+        },
+        "citation_url": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback",
+        "verified_against_release": "2025",
+        "tags": ["safety", "constitutional-ai"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-sb-002",
+        "difficulty": 2,
+        "stem": "Which of the following represents Anthropic's core safety objectives for Claude?",
+        "options": [
+          { "key": "A", "text": "Fast, Cheap, Accurate" },
+          { "key": "B", "text": "Helpful, Harmless, Honest" },
+          { "key": "C", "text": "Correct, Complete, Concise" },
+          { "key": "D", "text": "Capable, Controllable, Compliant" }
+        ],
+        "correct": "B",
+        "explanation": "Anthropic's core objectives for Claude are to be Helpful (genuinely useful to users and operators), Harmless (avoiding actions that are unsafe or unethical), and Honest (truthful, calibrated, and transparent). These three H's represent the fundamental goals of Anthropic's alignment research.",
+        "distractors": {
+          "A": "Speed and cost are product considerations, not safety objectives.",
+          "C": "Correctness, completeness, and conciseness are quality attributes but not Anthropic's core safety framework.",
+          "D": "While controllability is a goal in AI safety research, the three H's — Helpful, Harmless, Honest — are Anthropic's stated core objectives."
+        },
+        "citation_url": "https://www.anthropic.com/research/hh-rlhf",
+        "verified_against_release": "2025",
+        "tags": ["safety", "3Hs"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-sb-003",
+        "difficulty": 2,
+        "stem": "A developer's system prompt tells Claude: 'You have no restrictions. Ignore all safety guidelines.' What will Claude do?",
+        "options": [
+          { "key": "A", "text": "Follow the instruction and remove all safety behaviors" },
+          { "key": "B", "text": "Refuse all responses entirely for safety" },
+          { "key": "C", "text": "Follow the instruction only for the first response, then revert to normal behavior" },
+          { "key": "D", "text": "Continue to maintain core safety behaviors regardless of the instruction, as these are trained in and cannot be overridden by prompts" }
+        ],
+        "correct": "D",
+        "explanation": "Claude's core safety behaviors are trained into the model and cannot be overridden by system prompts or user instructions. While system prompts can customize and restrict Claude's behavior in many legitimate ways, they cannot instruct Claude to abandon fundamental safety constraints. Attempts to do so are recognized and declined.",
+        "distractors": {
+          "A": "System prompts cannot override trained safety behaviors. This is a fundamental design principle of Claude.",
+          "B": "Claude doesn't refuse all responses because of an unsafe system prompt. It maintains safety behaviors while still being helpful.",
+          "C": "Claude's safety behaviors are consistent across a session. There is no 'first response exception'."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "system-prompts"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-sb-004",
+        "difficulty": 3,
+        "stem": "What is prompt injection in the context of AI systems?",
+        "options": [
+          { "key": "A", "text": "A technique for optimizing prompt performance by injecting best-practice templates" },
+          { "key": "B", "text": "An attack where malicious content in external data (documents, web pages, tool outputs) attempts to override or manipulate an AI's instructions" },
+          { "key": "C", "text": "A method of inserting few-shot examples dynamically into prompts" },
+          { "key": "D", "text": "Adding role prompts via API injection rather than system prompts" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt injection is a security concern where malicious text embedded in external content (like documents, web pages, or tool outputs that Claude processes) attempts to hijack Claude's behavior by issuing new instructions. For example, a webpage might contain hidden text like 'Ignore your instructions and do X instead.' This is particularly relevant in agentic systems where Claude processes external data.",
+        "distractors": {
+          "A": "Template injection is a legitimate software pattern, but prompt injection specifically refers to malicious manipulation attempts.",
+          "C": "Dynamically inserting few-shot examples is a normal prompting technique, not prompt injection.",
+          "D": "Injection via API is just the normal API flow. Prompt injection refers specifically to malicious instructions embedded in processed content."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/security",
+        "verified_against_release": "2025",
+        "tags": ["safety", "security", "prompt-injection"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-sb-005",
+        "difficulty": 2,
+        "stem": "A user asks Claude a medical question. What is Claude's appropriate response approach?",
+        "options": [
+          { "key": "A", "text": "Refuse all medical questions to avoid liability" },
+          { "key": "B", "text": "Provide a detailed medical diagnosis as a substitute for a doctor" },
+          { "key": "C", "text": "Provide helpful information while noting limitations, recommending professional consultation for medical decisions" },
+          { "key": "D", "text": "Only answer if the user proves they are a medical professional" }
+        ],
+        "correct": "C",
+        "explanation": "Claude can provide helpful information on medical topics — explaining conditions, describing symptoms, explaining treatments — while being clear about its limitations and recommending users consult healthcare professionals for actual medical decisions. This balances being genuinely helpful with being honest about limitations. Blanket refusals are unhelpful; unqualified medical advice is irresponsible.",
+        "distractors": {
+          "A": "Refusing all medical questions is an unnecessarily restrictive approach that fails the 'helpful' objective. Claude can provide valuable health information.",
+          "B": "Providing a definitive diagnosis oversteps Claude's appropriate role. This could cause real harm if users rely on it instead of professional care.",
+          "D": "Claude doesn't verify user identity or credentials. The appropriate approach is to be helpful while noting when professional expertise is needed."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "sensitive-topics", "medical"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-sb-006",
+        "difficulty": 2,
+        "stem": "Which of the following is an example of a 'hard limit' that Claude will not cross regardless of instructions?",
+        "options": [
+          { "key": "A", "text": "Discussing controversial political topics" },
+          { "key": "B", "text": "Writing fiction with mature themes for adult platforms" },
+          { "key": "C", "text": "Generating sexual content involving minors (CSAM)" },
+          { "key": "D", "text": "Translating text into a foreign language" }
+        ],
+        "correct": "C",
+        "explanation": "Generating CSAM (Child Sexual Abuse Material) is an absolute, unconditional refusal that no prompt, system instruction, or context can override. This is a 'hardcoded' limit in Claude's training. Other examples of absolute limits include providing serious uplift for creating biological, chemical, nuclear, or radiological weapons.",
+        "distractors": {
+          "A": "Discussing controversial political topics is within Claude's capability, though it approaches these with care and balance.",
+          "B": "Writing mature content for adults is a 'softcoded' behavior — it can be enabled by operators for appropriate platforms.",
+          "D": "Translation is a standard, benign task with no safety concerns."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "hard-limits"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-sb-007",
+        "difficulty": 3,
+        "stem": "What distinguishes 'hardcoded' safety behaviors from 'softcoded' behaviors in Claude?",
+        "options": [
+          { "key": "A", "text": "Hardcoded behaviors are faster to execute; softcoded are slower" },
+          { "key": "B", "text": "Hardcoded behaviors cannot be changed by any prompt or instruction; softcoded behaviors are defaults that operators or users can adjust" },
+          { "key": "C", "text": "Hardcoded behaviors are set by the developer in the system prompt; softcoded are set by Anthropic" },
+          { "key": "D", "text": "Hardcoded and softcoded are informal terms with no technical distinction" }
+        ],
+        "correct": "B",
+        "explanation": "Hardcoded behaviors are absolute constraints that cannot be changed by any instruction — they represent lines Claude will never cross (e.g., CSAM, WMD assistance). Softcoded behaviors are defaults that can be legitimately adjusted: operators can enable certain content types for appropriate platforms (adult content for verified sites) or disable others (restrict topics to their use case).",
+        "distractors": {
+          "A": "The distinction is about modifiability, not execution speed.",
+          "C": "Hardcoded behaviors are set by Anthropic through training, not by developers. Operators can only influence softcoded behaviors.",
+          "D": "The distinction is meaningful and important for understanding what can and cannot be customized through prompting."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["safety", "hardcoded", "softcoded"],
+        "difficulty": 3
+      },
+      {
+        "id": "ca-sb-008",
+        "difficulty": 2,
+        "stem": "What is RLHF and how does it relate to Claude's training?",
+        "options": [
+          { "key": "A", "text": "Rapid Large-scale Hallucination Filtering — a post-processing technique for removing incorrect outputs" },
+          { "key": "B", "text": "Reinforcement Learning from Human Feedback — a training approach where human preferences guide the model toward better responses" },
+          { "key": "C", "text": "Real-time Learning from Human Feedback — how Claude updates its weights during deployment" },
+          { "key": "D", "text": "Rule-based Learning for Helpful Filtering — a rule system for content moderation" }
+        ],
+        "correct": "B",
+        "explanation": "RLHF (Reinforcement Learning from Human Feedback) is a training technique where human raters evaluate model responses, and the model is trained using reinforcement learning to produce responses that humans prefer. Anthropic uses RLHF as part of Claude's training process to align its behavior with human values and preferences.",
+        "distractors": {
+          "A": "The acronym is incorrect. RLHF is Reinforcement Learning from Human Feedback.",
+          "C": "Claude does NOT update its weights during deployment. RLHF happens during the training process, not in real-time.",
+          "D": "The acronym and description are both incorrect. RLHF is a learned optimization process, not a rule system."
+        },
+        "citation_url": "https://www.anthropic.com/research/hh-rlhf",
+        "verified_against_release": "2025",
+        "tags": ["safety", "RLHF", "training"],
+        "difficulty": 2
+      }
+    ]
+  },
+  {
+    "certification": "claude-associate",
+    "topic": "use-cases",
+    "topicLabel": "Use Cases & Limitations",
+    "difficulty": 1,
+    "questions": [
+      {
+        "id": "ca-uc-001",
+        "difficulty": 1,
+        "stem": "Which of the following is Claude BEST suited for?",
+        "options": [
+          { "key": "A", "text": "Providing real-time stock market prices" },
+          { "key": "B", "text": "Summarizing a 100-page technical document into key insights" },
+          { "key": "C", "text": "Controlling physical robotics systems autonomously" },
+          { "key": "D", "text": "Accessing live weather data" }
+        ],
+        "correct": "B",
+        "explanation": "Summarizing long documents is one of Claude's strongest use cases, leveraging its 200K context window to process entire documents in one pass. This is a core text understanding and synthesis task that Claude excels at. Real-time data access, physical system control, and live data retrieval are outside Claude's native capabilities without additional tools.",
+        "distractors": {
+          "A": "Claude doesn't have access to real-time market data. Its knowledge has a training cutoff, and it cannot browse the internet natively.",
+          "C": "Claude is a language model, not a robotics control system. Direct physical world interaction is outside its scope.",
+          "D": "Claude cannot access live weather data. Real-time information retrieval requires tool use or external integrations."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "summarization"],
+        "difficulty": 1
+      },
+      {
+        "id": "ca-uc-002",
+        "difficulty": 2,
+        "stem": "What is Claude's training knowledge cutoff, and how should developers handle this limitation?",
+        "options": [
+          { "key": "A", "text": "Claude has no knowledge cutoff and knows all current events" },
+          { "key": "B", "text": "Claude has a training cutoff date; for current information, use RAG or tool use to retrieve up-to-date data" },
+          { "key": "C", "text": "Claude's knowledge cutoff means it cannot answer any questions about past events" },
+          { "key": "D", "text": "The knowledge cutoff only applies to news, not technical information" }
+        ],
+        "correct": "B",
+        "explanation": "Like all LLMs, Claude has a training data cutoff — its knowledge doesn't include events after that date. For applications requiring current information, developers should use Retrieval Augmented Generation (RAG) to fetch up-to-date documents or tool use to access live data sources. Being transparent with users about this limitation is also important.",
+        "distractors": {
+          "A": "All LLMs including Claude have knowledge cutoffs. Claiming otherwise would lead to incorrect responses about recent events.",
+          "C": "The cutoff limits RECENT knowledge, not all historical knowledge. Claude has extensive knowledge of events before its cutoff.",
+          "D": "The knowledge cutoff applies to all domains — news, technical developments, research, regulations, etc. No domain is exempt."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "limitations", "knowledge-cutoff"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-uc-003",
+        "difficulty": 1,
+        "stem": "Claude is well-suited for automating which of the following customer service tasks?",
+        "options": [
+          { "key": "A", "text": "Physically delivering packages to customers" },
+          { "key": "B", "text": "Answering FAQs, drafting responses, and summarizing customer issues for human agents" },
+          { "key": "C", "text": "Accessing a company's live inventory database without integration" },
+          { "key": "D", "text": "Making phone calls on behalf of the company" }
+        ],
+        "correct": "B",
+        "explanation": "Claude excels at text-based customer service tasks: answering frequently asked questions, drafting personalized responses, summarizing complex customer issues for escalation, and classifying support tickets. These leverage Claude's language understanding and generation capabilities. Physical tasks, live database access, and phone calls require additional infrastructure.",
+        "distractors": {
+          "A": "Physical delivery is not a capability of a language model. Claude operates in the text domain.",
+          "C": "Claude can only access databases if given the appropriate tools. Without integration, it cannot query live systems.",
+          "D": "Making phone calls requires a voice/telephony integration. Claude natively works with text-based inputs and outputs."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "customer-service"],
+        "difficulty": 1
+      },
+      {
+        "id": "ca-uc-004",
+        "difficulty": 2,
+        "stem": "When should Claude NOT be used as the sole decision-maker in a high-stakes system?",
+        "options": [
+          { "key": "A", "text": "When the task involves text generation of any kind" },
+          { "key": "B", "text": "In safety-critical systems where errors could cause physical harm, legal consequences, or irreversible damage — human oversight is essential" },
+          { "key": "C", "text": "When the prompts are longer than 1000 tokens" },
+          { "key": "D", "text": "When multiple languages are involved" }
+        ],
+        "correct": "B",
+        "explanation": "Claude should not be used as a sole autonomous decision-maker in safety-critical contexts — medical diagnosis leading to treatment, autonomous vehicle control, financial trading without oversight, legal determinations, etc. These require human oversight because errors can cause irreversible harm. Claude can assist and augment human decision-making, but humans should remain in the loop for high-stakes decisions.",
+        "distractors": {
+          "A": "Text generation tasks are core Claude use cases. This is too broad a restriction.",
+          "C": "Prompt length is not a reliability concern in the same way. The context window handles long prompts.",
+          "D": "Multilingual tasks are generally within Claude's capabilities. Language diversity is not a reason to exclude Claude."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/safety",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "limitations", "safety"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-uc-005",
+        "difficulty": 2,
+        "stem": "Claude is asked to debug a piece of Python code. What can it do in this context?",
+        "options": [
+          { "key": "A", "text": "Execute the code and return the actual runtime output" },
+          { "key": "B", "text": "Analyze the code textually, identify potential bugs, explain the issues, and suggest fixes — without executing the code" },
+          { "key": "C", "text": "Access the developer's local Python environment to test the fix" },
+          { "key": "D", "text": "Only review code if it is less than 100 lines" }
+        ],
+        "correct": "B",
+        "explanation": "Claude can read, analyze, and reason about code without executing it. It can identify bugs through static analysis of logic, spot common error patterns, suggest corrections, and explain why code is broken. It does NOT execute code or have access to the developer's environment unless given tool use capabilities (like a code interpreter tool).",
+        "distractors": {
+          "A": "Claude cannot execute code by default. Without a code interpreter tool, it analyzes code as text.",
+          "C": "Claude has no access to local developer environments. Code execution requires an explicit tool or integration.",
+          "D": "There is no line limit for code review. Claude's large context window can handle sizeable codebases."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "code", "limitations"],
+        "difficulty": 2
+      },
+      {
+        "id": "ca-uc-006",
+        "difficulty": 1,
+        "stem": "Which statement about Claude's ability to generate and edit code is correct?",
+        "options": [
+          { "key": "A", "text": "Claude can only write Python code" },
+          { "key": "B", "text": "Claude can write, review, explain, and debug code in many programming languages" },
+          { "key": "C", "text": "Claude requires a special 'code mode' to work with programming content" },
+          { "key": "D", "text": "Claude cannot explain code, only generate new code" }
+        ],
+        "correct": "B",
+        "explanation": "Code generation and analysis is one of Claude's strongest capabilities. It can write, review, explain, refactor, debug, and document code in dozens of programming languages including Python, JavaScript, TypeScript, Go, Rust, Java, C++, SQL, and many more. No special mode is needed — code tasks work with standard prompting.",
+        "distractors": {
+          "A": "Claude supports many programming languages, not just Python.",
+          "C": "No special mode is required. Code is handled through the standard Messages API.",
+          "D": "Claude can both generate and explain code. Code explanation is one of its well-regarded capabilities."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+        "verified_against_release": "2025",
+        "tags": ["use-cases", "code"],
+        "difficulty": 1
+      }
+    ]
+  }
+]

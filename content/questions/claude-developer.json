@@ -1,0 +1,1010 @@
+[
+  {
+    "certification": "claude-developer",
+    "topic": "messages-api-advanced",
+    "topicLabel": "Messages API — Advanced",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "cd-ma-001",
+        "difficulty": 3,
+        "stem": "Which content block types can appear in the 'content' array of a Claude API request message?",
+        "options": [
+          { "key": "A", "text": "Only 'text' blocks" },
+          { "key": "B", "text": "'text', 'image', 'tool_use', 'tool_result', and 'document' blocks" },
+          { "key": "C", "text": "'text', 'audio', 'video', and 'image' blocks" },
+          { "key": "D", "text": "'text' and 'json' blocks only" }
+        ],
+        "correct": "B",
+        "explanation": "The Messages API supports multiple content block types: 'text' for plain text, 'image' for image inputs (base64 or URL), 'tool_use' for Claude's tool call requests, 'tool_result' for returning tool results to Claude, and 'document' for structured document inputs (PDFs, etc.). Each has its own structure and use case.",
+        "distractors": {
+          "A": "Text-only is a severe understatement. The API supports rich multimodal content blocks.",
+          "C": "Audio and video blocks are not currently supported content types in the Claude Messages API.",
+          "D": "There is no 'json' content block type. JSON data is typically passed as text or within tool_result content."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "content-blocks"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-002",
+        "difficulty": 3,
+        "stem": "When providing an image to Claude via the API, what formats are supported?",
+        "options": [
+          { "key": "A", "text": "Only PNG files via URL" },
+          { "key": "B", "text": "JPEG, PNG, GIF, and WebP — provided as either base64-encoded data or public URLs" },
+          { "key": "C", "text": "Any image format as long as it is under 5MB" },
+          { "key": "D", "text": "SVG and PNG only, as base64" }
+        ],
+        "correct": "B",
+        "explanation": "Claude supports four image formats: JPEG, PNG, GIF (including animated GIF, though only the first frame is processed), and WebP. Images can be provided as base64-encoded data (with a media_type field) or as publicly accessible URLs. There are size limits per image, and total image payload limits apply.",
+        "distractors": {
+          "A": "PNG via URL is valid but very limiting. JPEG, GIF, and WebP are also supported, and base64 is a common alternative to URLs.",
+          "C": "The format matters — not all formats are supported. SVG, BMP, TIFF, etc. are not valid.",
+          "D": "SVG is not a supported format. The four supported formats are JPEG, PNG, GIF, and WebP."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/vision",
+        "verified_against_release": "2025",
+        "tags": ["api", "vision", "images"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-003",
+        "difficulty": 3,
+        "stem": "What HTTP header is required for making direct REST API calls to the Anthropic API (not using the SDK)?",
+        "options": [
+          { "key": "A", "text": "anthropic-model: claude-sonnet-5" },
+          { "key": "B", "text": "anthropic-version: 2023-06-01" },
+          { "key": "C", "text": "x-api-version: latest" },
+          { "key": "D", "text": "content-version: 1.0" }
+        ],
+        "correct": "B",
+        "explanation": "When calling the Anthropic API directly (without the SDK), you must include the 'anthropic-version' header with the value '2023-06-01' (the current stable API version). This is in addition to 'x-api-key' for authentication and 'content-type: application/json'. The SDK handles this automatically.",
+        "distractors": {
+          "A": "The model is specified in the request body, not as a header.",
+          "C": "'x-api-version' is not a valid Anthropic header. The correct header is 'anthropic-version'.",
+          "D": "'content-version' is not a real Anthropic API header."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/getting-started",
+        "verified_against_release": "2025",
+        "tags": ["api", "headers"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-004",
+        "difficulty": 3,
+        "stem": "What is the purpose of the 'anthropic-beta' HTTP header?",
+        "options": [
+          { "key": "A", "text": "To authenticate as a beta program member" },
+          { "key": "B", "text": "To opt into experimental or preview API features that are not yet in general availability" },
+          { "key": "C", "text": "To get discounted pricing as a beta tester" },
+          { "key": "D", "text": "To specify that the request should use the latest beta model" }
+        ],
+        "correct": "B",
+        "explanation": "The 'anthropic-beta' header enables access to beta features of the API that are in preview but not yet generally available. Features like extended prompt caching, computer use, and certain experimental capabilities are accessed by passing specific strings to this header (e.g., 'anthropic-beta: extended-cache-ttl-2025-04-11'). Multiple beta features can be comma-separated.",
+        "distractors": {
+          "A": "The header is not for authentication. Authentication uses the 'x-api-key' header.",
+          "C": "The beta header has nothing to do with pricing.",
+          "D": "Beta models are specified in the request body as the 'model' parameter, not via this header."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/beta-features",
+        "verified_against_release": "2025",
+        "tags": ["api", "beta", "headers"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-005",
+        "difficulty": 3,
+        "stem": "What HTTP status code does the Anthropic API return when a request is rate-limited?",
+        "options": [
+          { "key": "A", "text": "401 — Unauthorized" },
+          { "key": "B", "text": "403 — Forbidden" },
+          { "key": "C", "text": "429 — Too Many Requests" },
+          { "key": "D", "text": "503 — Service Unavailable" }
+        ],
+        "correct": "C",
+        "explanation": "HTTP 429 (Too Many Requests) is returned when you exceed your rate limits — either requests per minute or tokens per minute for your API tier. When you receive a 429, you should implement exponential backoff and retry. The response headers include information about when you can retry.",
+        "distractors": {
+          "A": "401 means your API key is invalid or missing, not that you're being rate-limited.",
+          "B": "403 means your key doesn't have permission for the requested resource, not rate limiting.",
+          "D": "503 means the service is temporarily unavailable (overloaded). Anthropic uses 529 for API overload specifically."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/errors",
+        "verified_against_release": "2025",
+        "tags": ["api", "errors", "rate-limits"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-006",
+        "difficulty": 4,
+        "stem": "What does HTTP status 529 indicate in the Anthropic API?",
+        "options": [
+          { "key": "A", "text": "Your API key has been suspended" },
+          { "key": "B", "text": "The API is overloaded and temporarily cannot process requests" },
+          { "key": "C", "text": "The response was too large to return" },
+          { "key": "D", "text": "Your account has exceeded its monthly budget" }
+        ],
+        "correct": "B",
+        "explanation": "HTTP 529 is Anthropic's custom status code indicating the API is temporarily overloaded. Unlike 429 (rate limit), which is about your specific quota, 529 is about the system-wide load. When you receive a 529, retry with exponential backoff. This is distinct from standard HTTP 503 (Service Unavailable).",
+        "distractors": {
+          "A": "Account suspension would typically result in a 403 Forbidden response.",
+          "C": "Large responses are not truncated with a 529. If anything, max_tokens would limit output.",
+          "D": "Budget exhaustion would likely result in a 403 or specific error message, not a 529."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/errors",
+        "verified_against_release": "2025",
+        "tags": ["api", "errors", "overload"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-ma-007",
+        "difficulty": 3,
+        "stem": "What is the purpose of the 'metadata.user_id' field in an API request?",
+        "options": [
+          { "key": "A", "text": "It authenticates the end user independently of the API key" },
+          { "key": "B", "text": "It is an optional field for associating a request with a specific end user, useful for attribution and abuse monitoring" },
+          { "key": "C", "text": "It is required for multi-user applications and must be a valid email address" },
+          { "key": "D", "text": "It changes the model's behavior based on user preferences" }
+        ],
+        "correct": "B",
+        "explanation": "The 'metadata.user_id' field is an optional string you can pass to associate API requests with specific end users in your application. This is useful for tracking usage per user, for abuse monitoring, and potentially for Anthropic's trust and safety systems. It does not authenticate the user or change model behavior.",
+        "distractors": {
+          "A": "API authentication is handled by the 'x-api-key' header only. user_id does not authenticate anyone.",
+          "C": "user_id is optional and can be any identifier string — it doesn't need to be a valid email.",
+          "D": "user_id is metadata for logging/tracking. It does not affect Claude's responses."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "metadata"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-008",
+        "difficulty": 4,
+        "stem": "When should you use 'top_p' instead of 'temperature' for controlling response randomness?",
+        "options": [
+          { "key": "A", "text": "Always use top_p for code generation and temperature for text" },
+          { "key": "B", "text": "Anthropic recommends adjusting only one of temperature OR top_p, not both simultaneously" },
+          { "key": "C", "text": "Use top_p when you want deterministic outputs and temperature for creative outputs" },
+          { "key": "D", "text": "top_p and temperature must always be set together" }
+        ],
+        "correct": "B",
+        "explanation": "Anthropic's documentation recommends adjusting either temperature OR top_p, but not both. Temperature scales the logit distribution directly; top_p (nucleus sampling) restricts the sampling pool to the top-p probability mass. Using both simultaneously makes the sampling behavior harder to reason about and control.",
+        "distractors": {
+          "A": "There is no strict rule about which to use for code vs. text. Both affect randomness.",
+          "C": "Both parameters affect randomness. Setting top_p=0.01 or temperature=0 gives near-deterministic results.",
+          "D": "You should use one OR the other, not both. Setting both creates unpredictable interaction effects."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "sampling", "temperature", "top_p"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-ma-009",
+        "difficulty": 3,
+        "stem": "What is the difference between a model 'alias' like 'claude-sonnet-5' and a versioned model ID like 'claude-sonnet-5-20251022'?",
+        "options": [
+          { "key": "A", "text": "Aliases are only for the Sonnet tier; versioned IDs work for all tiers" },
+          { "key": "B", "text": "Aliases automatically point to the latest version and may change; versioned IDs are pinned to a specific snapshot" },
+          { "key": "C", "text": "Versioned IDs are deprecated and should not be used in new applications" },
+          { "key": "D", "text": "Both are identical; the date suffix is only for internal Anthropic tracking" }
+        ],
+        "correct": "B",
+        "explanation": "Model aliases (like 'claude-sonnet-5') point to the most recent version of that model tier and may be updated by Anthropic as new snapshots are released. Versioned IDs (like 'claude-sonnet-5-20251022') are pinned to a specific model snapshot, guaranteeing consistent behavior. Use versioned IDs in production for stability; aliases are convenient for development/experimentation.",
+        "distractors": {
+          "A": "Both aliases and versioned IDs exist for all three tiers (Haiku, Sonnet, Opus).",
+          "C": "Versioned IDs are the RECOMMENDED approach for production use. They are not deprecated.",
+          "D": "The date suffix is meaningful — it pins the exact model version. Aliases and versioned IDs can have different behaviors."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["api", "models", "versioning"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-ma-010",
+        "difficulty": 4,
+        "stem": "A developer uses top_k: 1 in their API request. What effect does this have?",
+        "options": [
+          { "key": "A", "text": "Claude will only generate a single token and then stop" },
+          { "key": "B", "text": "Claude always picks the single most probable next token at each step, making responses fully deterministic (greedy decoding)" },
+          { "key": "C", "text": "The response is limited to 1 word" },
+          { "key": "D", "text": "Only the top 1% of vocabulary is considered for each token" }
+        ],
+        "correct": "B",
+        "explanation": "top_k specifies how many candidate tokens to consider at each generation step. Setting top_k=1 means only the single most probable token is selected at each step — this is called greedy decoding and produces fully deterministic outputs (equivalent to temperature=0). It removes all randomness from the generation process.",
+        "distractors": {
+          "A": "top_k=1 means 1 candidate token per step, not 1 token total. The full response is still generated.",
+          "C": "top_k controls the token selection pool at each step, not the total response length.",
+          "D": "top_k is about the raw count of candidate tokens (1, 5, 10...), not a percentage of vocabulary."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["api", "sampling", "top_k"],
+        "difficulty": 4
+      }
+    ]
+  },
+  {
+    "certification": "claude-developer",
+    "topic": "tool-use",
+    "topicLabel": "Tool Use & Function Calling",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "cd-tu-001",
+        "difficulty": 3,
+        "stem": "What is the correct structure for defining a tool in the Claude API?",
+        "options": [
+          { "key": "A", "text": "{ function_name: string, parameters: object }" },
+          { "key": "B", "text": "{ name: string, description: string, input_schema: JSONSchema }" },
+          { "key": "C", "text": "{ tool_id: string, args_schema: object, description: string }" },
+          { "key": "D", "text": "{ name: string, type: 'function', spec: object }" }
+        ],
+        "correct": "B",
+        "explanation": "Tools in the Claude API have three fields: 'name' (the tool identifier Claude will use when calling it), 'description' (what the tool does — this is critical for Claude to decide when to use it), and 'input_schema' (a JSON Schema object describing the tool's parameters). Good descriptions dramatically improve tool selection accuracy.",
+        "distractors": {
+          "A": "function_name is not the correct field name. The Anthropic API uses 'name', not 'function_name'.",
+          "C": "'tool_id' and 'args_schema' are not valid Anthropic API field names.",
+          "D": "The 'type' field and 'spec' are not part of the Anthropic tool definition structure."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "definition"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-tu-002",
+        "difficulty": 3,
+        "stem": "When Claude decides to call a tool, what does the API response look like?",
+        "options": [
+          { "key": "A", "text": "The response has stop_reason: 'end_turn' and the tool call is in a separate field" },
+          { "key": "B", "text": "The response has stop_reason: 'tool_use' and the content array includes a tool_use block with id, name, and input fields" },
+          { "key": "C", "text": "A webhook is triggered instead of returning a response" },
+          { "key": "D", "text": "Claude returns an error code indicating external help is needed" }
+        ],
+        "correct": "B",
+        "explanation": "When Claude decides to use a tool, the response has stop_reason: 'tool_use' and the content array includes one or more tool_use blocks. Each block contains: id (a unique identifier for this specific tool call), name (which tool to call), and input (an object with the tool's arguments matching the input_schema). You must execute the tool and return results to continue.",
+        "distractors": {
+          "A": "'end_turn' means normal completion, not a tool call. Tool calls use 'tool_use' as the stop_reason.",
+          "C": "The API returns a standard HTTP response. No webhooks are involved in the tool use flow.",
+          "D": "Tool use is a normal, expected response state. It's not an error condition."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "response"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-tu-003",
+        "difficulty": 4,
+        "stem": "After Claude calls a tool, how do you return the result to Claude to continue the conversation?",
+        "options": [
+          { "key": "A", "text": "Send a new API request with role: 'tool' and the result" },
+          { "key": "B", "text": "Append the assistant's tool_use message, then add a human message containing a tool_result content block with the matching tool_use_id" },
+          { "key": "C", "text": "Include the tool result in the system prompt of the next request" },
+          { "key": "D", "text": "POST the result directly to a tool_results endpoint" }
+        ],
+        "correct": "B",
+        "explanation": "The correct flow: 1) Receive Claude's response with tool_use block. 2) Append the full assistant message (including the tool_use block) to your messages array. 3) Add a new human message with content containing a tool_result block: { type: 'tool_result', tool_use_id: '<matching id>', content: '<result>' }. 4) Send the updated messages array in a new API request.",
+        "distractors": {
+          "A": "There is no 'tool' role. Results are sent as human messages containing tool_result content blocks.",
+          "C": "Injecting tool results into the system prompt breaks the conversation flow and doesn't use the proper tool_result type.",
+          "D": "There is no separate tool_results endpoint. Everything goes through the standard /messages endpoint."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "tool_result"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-tu-004",
+        "difficulty": 3,
+        "stem": "What does tool_choice: {\"type\": \"any\"} do?",
+        "options": [
+          { "key": "A", "text": "Claude decides whether to use a tool or respond with text (default behavior)" },
+          { "key": "B", "text": "Forces Claude to use at least one tool from the defined list, but lets Claude choose which one" },
+          { "key": "C", "text": "Forces Claude to use a specific named tool" },
+          { "key": "D", "text": "Disables tool use entirely for this request" }
+        ],
+        "correct": "B",
+        "explanation": "tool_choice: {\"type\": \"any\"} forces Claude to use at least one tool, but allows Claude to choose which tool from the available list. This is useful when you want to guarantee Claude makes a tool call but don't want to constrain it to a specific tool. Contrast with 'auto' (may or may not use tools) and {type: 'tool', name: '...'} (forces a specific tool).",
+        "distractors": {
+          "A": "That describes tool_choice: {\"type\": \"auto\"}, which is the default.",
+          "C": "Forcing a specific tool requires {\"type\": \"tool\", \"name\": \"tool_name\"}.",
+          "D": "Disabling tool use is done with tool_choice: {\"type\": \"none\"} or simply not defining tools."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#controlling-claudes-output",
+        "verified_against_release": "2025",
+        "tags": ["tools", "tool_choice"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-tu-005",
+        "difficulty": 4,
+        "stem": "Claude returns a response with two tool_use blocks in the content array. What does this indicate?",
+        "options": [
+          { "key": "A", "text": "An error occurred — Claude should only call one tool at a time" },
+          { "key": "B", "text": "Claude is calling two tools in parallel, and you must execute both and return both results before it can continue" },
+          { "key": "C", "text": "Claude is proposing two alternative tools; pick one to execute" },
+          { "key": "D", "text": "Claude is calling the same tool twice with different parameters as a retry" }
+        ],
+        "correct": "B",
+        "explanation": "Claude can make multiple parallel tool calls in a single response. When multiple tool_use blocks appear, Claude intends to call all of them concurrently. You must execute all of them and return all results in a single human message containing multiple tool_result blocks (one per tool_use_id). Returning only some results may cause Claude to wait or behave incorrectly.",
+        "distractors": {
+          "A": "Multiple tool_use blocks in one response is valid and intentional — it's parallel tool use.",
+          "C": "All tool_use blocks must be executed, not just one. Claude is not offering alternatives.",
+          "D": "Each tool_use block has a unique id and typically calls different tools or the same tool with different args."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#parallel-tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "parallel-tool-use"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-tu-006",
+        "difficulty": 4,
+        "stem": "How do you indicate to Claude that a tool call resulted in an error?",
+        "options": [
+          { "key": "A", "text": "Throw an exception in the API request" },
+          { "key": "B", "text": "Include is_error: true in the tool_result content block, along with the error message as content" },
+          { "key": "C", "text": "Omit the tool_result for that tool_use_id" },
+          { "key": "D", "text": "Set the tool_result content to null" }
+        ],
+        "correct": "B",
+        "explanation": "To signal a tool error, include 'is_error: true' in the tool_result block. The content field should contain a description of the error. Claude will then acknowledge the failure and can decide how to proceed — retry with different parameters, try another approach, or inform the user of the problem.",
+        "distractors": {
+          "A": "You cannot 'throw an exception' in an API request. Error signaling is done through the tool_result structure.",
+          "C": "Omitting a tool_result leaves the conversation in an ambiguous state and is likely to cause model confusion.",
+          "D": "Null content doesn't communicate an error. Use is_error: true with an explanatory message."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#handling-tool-use-and-tool-results",
+        "verified_against_release": "2025",
+        "tags": ["tools", "error-handling"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-tu-007",
+        "difficulty": 3,
+        "stem": "In tool use, what is the purpose of the 'id' field in a tool_use block?",
+        "options": [
+          { "key": "A", "text": "It identifies the tool definition (which tool was called)" },
+          { "key": "B", "text": "It is a unique identifier for this specific tool call instance, used to match it with the corresponding tool_result" },
+          { "key": "C", "text": "It is the order number of the tool call in sequence" },
+          { "key": "D", "text": "It is a session identifier for the overall conversation" }
+        ],
+        "correct": "B",
+        "explanation": "The 'id' field in a tool_use block is a unique identifier for that specific invocation. When you return results, the tool_result block's 'tool_use_id' field must match this id exactly. This is especially important in parallel tool use, where multiple tool calls need to be matched with their respective results.",
+        "distractors": {
+          "A": "The tool's identity is given by the 'name' field, not 'id'. The id is per-invocation, not per-tool-type.",
+          "C": "The id is not sequential ordering — it's a unique string like 'toolu_01AbC...' generated by the API.",
+          "D": "Session/conversation identity is tracked by you in the messages array, not via tool_use ids."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "tool_use_id"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-tu-008",
+        "difficulty": 4,
+        "stem": "What is the 'disable_parallel_tool_use' beta parameter?",
+        "options": [
+          { "key": "A", "text": "A stable parameter that prevents Claude from calling tools at all" },
+          { "key": "B", "text": "A beta feature that forces Claude to call at most one tool per response turn, preventing parallel tool calls" },
+          { "key": "C", "text": "A parameter that disables tool_use for the current session" },
+          { "key": "D", "text": "A setting that limits tool results to 1KB" }
+        ],
+        "correct": "B",
+        "explanation": "The disable_parallel_tool_use beta parameter, when set to true, restricts Claude to calling only one tool per response turn. This simplifies handling for applications that can't easily process parallel tool calls. It's accessed via tool_choice: {disable_parallel_tool_use: true} with the appropriate beta header.",
+        "distractors": {
+          "A": "disable_parallel_tool_use limits to one-at-a-time, not zero. Tools are still usable.",
+          "C": "It doesn't disable tools for the session — only prevents multiple tools being called in the same response.",
+          "D": "The parameter has nothing to do with tool result size limits."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#parallel-tool-use",
+        "verified_against_release": "2025",
+        "tags": ["tools", "parallel-tool-use", "beta"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-tu-009",
+        "difficulty": 3,
+        "stem": "Which tool_choice value forces Claude to always respond with text and never use a tool in this request?",
+        "options": [
+          { "key": "A", "text": "{\"type\": \"auto\"}" },
+          { "key": "B", "text": "{\"type\": \"any\"}" },
+          { "key": "C", "text": "{\"type\": \"none\"}" },
+          { "key": "D", "text": "Omitting the tool_choice parameter" }
+        ],
+        "correct": "C",
+        "explanation": "tool_choice: {\"type\": \"none\"} explicitly instructs Claude not to use any tools for this request, forcing a text response even if tools are defined. This is useful when you want to temporarily disable tool use while keeping tool definitions available, or when asking a question where tool use would be inappropriate.",
+        "distractors": {
+          "A": "{\"type\": \"auto\"} allows Claude to decide whether to use tools. Claude might still choose to use one.",
+          "B": "{\"type\": \"any\"} FORCES Claude to use at least one tool — the opposite of what's asked.",
+          "D": "Omitting tool_choice defaults to 'auto', which means Claude may choose to use a tool."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#controlling-claudes-output",
+        "verified_against_release": "2025",
+        "tags": ["tools", "tool_choice"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-tu-010",
+        "difficulty": 4,
+        "stem": "Why is a clear, specific tool description important?",
+        "options": [
+          { "key": "A", "text": "Descriptions are required by the JSON Schema spec" },
+          { "key": "B", "text": "Claude uses the tool description to decide when and whether to call the tool — poor descriptions lead to incorrect or missed tool calls" },
+          { "key": "C", "text": "The description is shown to end users as help text" },
+          { "key": "D", "text": "Descriptions affect the token cost of tool definitions" }
+        ],
+        "correct": "B",
+        "explanation": "Claude reads the tool description to understand what each tool does and when it's appropriate to use it. A clear, specific description that explains what the tool does, what input it expects, and what scenarios call for its use dramatically improves Claude's tool selection accuracy. Vague descriptions cause Claude to either miss relevant tool use opportunities or call tools inappropriately.",
+        "distractors": {
+          "A": "JSON Schema does not require descriptions, though they are part of its optional vocabulary.",
+          "C": "Tool descriptions are part of the API request, not exposed to end users directly.",
+          "D": "While descriptions do contribute to input tokens, their primary purpose is to guide Claude's tool selection."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use#best-practices-for-tool-definitions",
+        "verified_against_release": "2025",
+        "tags": ["tools", "best-practices"],
+        "difficulty": 4
+      }
+    ]
+  },
+  {
+    "certification": "claude-developer",
+    "topic": "streaming",
+    "topicLabel": "Streaming",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "cd-st-001",
+        "difficulty": 2,
+        "stem": "How do you enable streaming in a Claude Messages API request?",
+        "options": [
+          { "key": "A", "text": "Add the header 'Transfer-Encoding: chunked'" },
+          { "key": "B", "text": "Set stream: true in the request body" },
+          { "key": "C", "text": "Use a different endpoint: /messages/stream" },
+          { "key": "D", "text": "Streaming is always on and cannot be disabled" }
+        ],
+        "correct": "B",
+        "explanation": "To enable streaming, set 'stream: true' in the request body. When enabled, the API returns a stream of Server-Sent Events (SSE) instead of waiting for the complete response. The SDK provides helpful wrappers like client.messages.stream() that handle the SSE parsing automatically.",
+        "distractors": {
+          "A": "The Transfer-Encoding header is managed by the HTTP layer/SDK automatically. Setting stream: true in the body is the correct approach.",
+          "C": "There is no separate /messages/stream endpoint. The same /messages endpoint handles both streaming and non-streaming via the stream parameter.",
+          "D": "Streaming is opt-in, not the default. The default is a single response object when generation is complete."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming"],
+        "difficulty": 2
+      },
+      {
+        "id": "cd-st-002",
+        "difficulty": 3,
+        "stem": "What SSE event type carries the actual generated text content in a streaming response?",
+        "options": [
+          { "key": "A", "text": "message_start" },
+          { "key": "B", "text": "content_block_start" },
+          { "key": "C", "text": "content_block_delta with delta.type: 'text_delta'" },
+          { "key": "D", "text": "message_delta" }
+        ],
+        "correct": "C",
+        "explanation": "Text content arrives via 'content_block_delta' events where the delta has type 'text_delta' and a 'text' field containing the new text chunk. To reconstruct the full text, concatenate all text_delta.text values from content_block_delta events for a given content block.",
+        "distractors": {
+          "A": "message_start contains the initial message metadata (id, role, model, usage) but not text content.",
+          "B": "content_block_start signals that a new content block is beginning but carries no text yet.",
+          "D": "message_delta contains the stop_reason and final usage statistics, not text content."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "events"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-003",
+        "difficulty": 3,
+        "stem": "How does streaming tool use work differently from streaming text?",
+        "options": [
+          { "key": "A", "text": "Tool use cannot be streamed — it requires a non-streaming request" },
+          { "key": "B", "text": "Tool input arrives via content_block_delta events with delta.type: 'input_json_delta', and the partial_json field must be concatenated to reconstruct the full tool input" },
+          { "key": "C", "text": "Tool input arrives in a single message_delta event at the end" },
+          { "key": "D", "text": "Tool calls appear in content_block_start and have no delta events" }
+        ],
+        "correct": "B",
+        "explanation": "When Claude streams a tool call, the tool's input JSON arrives incrementally as content_block_delta events with delta.type: 'input_json_delta'. Each delta has a 'partial_json' field containing a fragment of the JSON. You concatenate all partial_json values to reconstruct the complete tool input. The content_block_start for a tool_use block has an empty input initially.",
+        "distractors": {
+          "A": "Tool use can be streamed. This is a supported and important use case.",
+          "C": "Tool input arrives progressively via multiple content_block_delta events, not in a single message_delta.",
+          "D": "content_block_start signals the beginning of a tool_use block, but the actual input comes through subsequent delta events."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "tool-use"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-004",
+        "difficulty": 3,
+        "stem": "Which streaming event contains the input token count for the request?",
+        "options": [
+          { "key": "A", "text": "content_block_start" },
+          { "key": "B", "text": "message_start — it contains the initial usage.input_tokens" },
+          { "key": "C", "text": "message_stop" },
+          { "key": "D", "text": "ping" }
+        ],
+        "correct": "B",
+        "explanation": "The message_start event is the first event in a streaming response and contains the initial message object with usage.input_tokens. This tells you how many input tokens the request consumed. The message_delta event at the end provides the final output_tokens count.",
+        "distractors": {
+          "A": "content_block_start marks the beginning of a content block but does not contain usage information.",
+          "C": "message_stop is the final event signaling end of stream but carries no usage data itself.",
+          "D": "ping events are keepalive signals with no content — they have no usage information."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "usage", "events"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-005",
+        "difficulty": 3,
+        "stem": "What is the correct order of streaming events for a simple text response?",
+        "options": [
+          { "key": "A", "text": "content_block_delta → message_start → content_block_stop → message_stop" },
+          { "key": "B", "text": "message_start → content_block_start → content_block_delta (×N) → content_block_stop → message_delta → message_stop" },
+          { "key": "C", "text": "message_start → message_delta → message_stop" },
+          { "key": "D", "text": "content_block_start → content_block_delta → content_block_stop" }
+        ],
+        "correct": "B",
+        "explanation": "The full event sequence for a text response: 1) message_start (with metadata), 2) content_block_start (index 0, type text), 3) Multiple content_block_delta events (each carrying a text_delta chunk), 4) content_block_stop, 5) message_delta (with stop_reason and output usage), 6) message_stop. Ping events may appear anywhere to keep the connection alive.",
+        "distractors": {
+          "A": "This order is wrong — message_start must come first, and content_block_delta cannot precede content_block_start.",
+          "C": "This skips content blocks entirely. Every response has content_block_start/delta/stop events.",
+          "D": "This is incomplete — it's missing message_start, message_delta, and message_stop."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "events", "order"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-006",
+        "difficulty": 3,
+        "stem": "Does enabling streaming reduce the cost of an API call?",
+        "options": [
+          { "key": "A", "text": "Yes, streaming is cheaper because you pay only for streamed chunks" },
+          { "key": "B", "text": "No, streaming reduces time-to-first-token but does not reduce the number of tokens billed" },
+          { "key": "C", "text": "Yes, streaming reduces output token costs by 50%" },
+          { "key": "D", "text": "Streaming doubles the cost due to SSE overhead" }
+        ],
+        "correct": "B",
+        "explanation": "Streaming improves the user experience by delivering tokens progressively (reducing perceived latency, allowing early rendering), but it does NOT reduce costs. You pay for the same input and output tokens regardless of whether streaming is enabled. Streaming is a delivery mechanism, not a pricing tier.",
+        "distractors": {
+          "A": "Cost is based on total tokens, not the number of SSE events delivered.",
+          "C": "There is no streaming discount. Token costs are the same for streaming and non-streaming.",
+          "D": "SSE adds negligible overhead. Streaming does not increase costs."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "cost"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-007",
+        "difficulty": 3,
+        "stem": "What do 'ping' events in a streaming response represent?",
+        "options": [
+          { "key": "A", "text": "Errors that should trigger a reconnection" },
+          { "key": "B", "text": "Keepalive signals to prevent connection timeouts, with no meaningful content" },
+          { "key": "C", "text": "Partial responses that should be accumulated" },
+          { "key": "D", "text": "Confirmations that the previous content_block_delta was received" }
+        ],
+        "correct": "B",
+        "explanation": "Ping events are periodic keepalive signals sent by the server to prevent connections from timing out during long-running generations. They carry no meaningful data and should be ignored by your application. The Anthropic SDK handles these transparently.",
+        "distractors": {
+          "A": "Ping events are normal, not errors. You should ignore them, not reconnect.",
+          "C": "No content needs to be accumulated from ping events. They're empty keepalives.",
+          "D": "Ping events are not acknowledgment signals. SSE is unidirectional from server to client."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "ping"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-st-008",
+        "difficulty": 4,
+        "stem": "When using the Anthropic SDK's streaming helper, which method returns the complete final message object after streaming finishes?",
+        "options": [
+          { "key": "A", "text": ".getText()" },
+          { "key": "B", "text": ".finalMessage()" },
+          { "key": "C", "text": ".complete()" },
+          { "key": "D", "text": ".getResult()" }
+        ],
+        "correct": "B",
+        "explanation": "The SDK's streaming helper (returned by client.messages.stream()) provides a .finalMessage() method that returns a Promise resolving to the complete Message object after streaming completes — equivalent to the non-streaming response format. You can also use .on('text', callback) to receive incremental text chunks during streaming.",
+        "distractors": {
+          "A": ".getText() is not a method on the stream helper. Use .on('text', ...) for incremental text.",
+          "C": ".complete() is not a method on the Anthropic SDK stream helper.",
+          "D": ".getResult() is not a method on the Anthropic SDK stream helper."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-streaming",
+        "verified_against_release": "2025",
+        "tags": ["streaming", "sdk"],
+        "difficulty": 4
+      }
+    ]
+  },
+  {
+    "certification": "claude-developer",
+    "topic": "prompt-caching",
+    "topicLabel": "Prompt Caching",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "cd-pc-001",
+        "difficulty": 3,
+        "stem": "How do you mark content for caching in the Claude API?",
+        "options": [
+          { "key": "A", "text": "Set a 'cache: true' parameter in the request" },
+          { "key": "B", "text": "Add cache_control: { type: 'ephemeral' } to a content block" },
+          { "key": "C", "text": "Wrap the content in <cache> XML tags" },
+          { "key": "D", "text": "Caching is automatic and cannot be explicitly controlled" }
+        ],
+        "correct": "B",
+        "explanation": "To mark content for caching, add cache_control: { type: 'ephemeral' } to a content block (in the system prompt, user messages, or tool definitions). Everything from the beginning of the prompt up to and including this marker is eligible for caching. The marker can be placed on text blocks, tool definitions, or document blocks.",
+        "distractors": {
+          "A": "There is no top-level 'cache: true' parameter. Caching is controlled per content block with cache_control.",
+          "C": "XML tags don't trigger caching. The cache_control object in the content block structure is required.",
+          "D": "Caching is opt-in through explicit cache_control markers. Content is not cached automatically."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "cache_control"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-pc-002",
+        "difficulty": 3,
+        "stem": "What is the default cache TTL (Time To Live) for prompt cache entries?",
+        "options": [
+          { "key": "A", "text": "1 minute" },
+          { "key": "B", "text": "5 minutes" },
+          { "key": "C", "text": "1 hour" },
+          { "key": "D", "text": "24 hours" }
+        ],
+        "correct": "B",
+        "explanation": "The default prompt cache TTL is 5 minutes. If you make two requests with the same cacheable prefix within 5 minutes, the second request reads from cache. An extended TTL of 1 hour is available via the 'extended-cache-ttl-2025-04-11' beta header. After the TTL expires, the cache entry is cleared and a new cache write occurs on the next matching request.",
+        "distractors": {
+          "A": "1 minute is too short. The default TTL is 5 minutes.",
+          "C": "1 hour is the EXTENDED TTL available via a beta header, not the default.",
+          "D": "24 hours is not a supported cache TTL option."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "TTL"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-pc-003",
+        "difficulty": 4,
+        "stem": "What is the minimum number of tokens required for content to be cached when using Claude Sonnet?",
+        "options": [
+          { "key": "A", "text": "100 tokens" },
+          { "key": "B", "text": "1,024 tokens" },
+          { "key": "C", "text": "2,048 tokens" },
+          { "key": "D", "text": "4,096 tokens" }
+        ],
+        "correct": "C",
+        "explanation": "Claude Sonnet and Opus require a minimum of 2,048 tokens in the cacheable prefix before caching takes effect. Claude Haiku has a lower threshold of 1,024 tokens. Content marked with cache_control that falls below these thresholds will NOT be cached even though the marker is present. Always check that your cached content is large enough to actually hit the threshold.",
+        "distractors": {
+          "A": "100 tokens is far below the minimum. Caching would not engage at this size.",
+          "B": "1,024 tokens is the threshold for Claude Haiku, not Sonnet. Sonnet and Opus require 2,048 tokens.",
+          "D": "4,096 is above the minimum, so any content this large would be cached. But the minimum threshold for Sonnet is 2,048."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "thresholds"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-pc-004",
+        "difficulty": 3,
+        "stem": "How does prompt caching pricing work compared to standard input token pricing?",
+        "options": [
+          { "key": "A", "text": "Cache writes are free; cache reads cost the same as input tokens" },
+          { "key": "B", "text": "Cache writes cost 25% more than input tokens; cache reads cost 10% of input token price" },
+          { "key": "C", "text": "Both cache writes and reads cost 50% of standard input token price" },
+          { "key": "D", "text": "Prompt caching is a flat monthly fee, not per-token" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt caching has a two-phase cost: writing the cache costs approximately 25% more than standard input tokens (a one-time cost). Reading from the cache costs approximately 10% of the standard input token price. This means cache reads are ~90% cheaper than uncached reads. Break-even occurs after just 2 uses of a large prompt.",
+        "distractors": {
+          "A": "Cache writes are not free — they cost slightly more than standard input tokens.",
+          "C": "50% for both is incorrect. Cache reads are much cheaper (10%), while writes are slightly more expensive (125%).",
+          "D": "Prompt caching is charged per-token, not as a flat fee."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "pricing"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-pc-005",
+        "difficulty": 3,
+        "stem": "Which usage fields indicate prompt caching activity in an API response?",
+        "options": [
+          { "key": "A", "text": "cache_hits and cache_misses" },
+          { "key": "B", "text": "cache_creation_input_tokens and cache_read_input_tokens" },
+          { "key": "C", "text": "cached_tokens and uncached_tokens" },
+          { "key": "D", "text": "The usage object has no caching-specific fields" }
+        ],
+        "correct": "B",
+        "explanation": "When prompt caching is active, the usage object includes two additional fields: cache_creation_input_tokens (tokens written to cache for the first time) and cache_read_input_tokens (tokens read from cache). A cache miss shows cache_creation_input_tokens > 0 and cache_read_input_tokens = 0. A cache hit shows the opposite pattern.",
+        "distractors": {
+          "A": "cache_hits and cache_misses are not field names in the Anthropic API response.",
+          "C": "cached_tokens and uncached_tokens are not the field names used.",
+          "D": "The usage object does include caching-specific fields when caching is active."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "usage"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-pc-006",
+        "difficulty": 4,
+        "stem": "What invalidates a prompt cache entry?",
+        "options": [
+          { "key": "A", "text": "Any change to the API key used" },
+          { "key": "B", "text": "Any modification to the content before the cache_control marker invalidates the cache" },
+          { "key": "C", "text": "Changing max_tokens in the request" },
+          { "key": "D", "text": "Making more than 100 cache hits" }
+        ],
+        "correct": "B",
+        "explanation": "The cache key is based on the exact content prefix up to and including the cache_control marker. Any change to any part of that prefix — even a single character — results in a cache miss and a new cache write. This means: changing the system prompt, adding content before the marker, or modifying tool definitions all break the cache.",
+        "distractors": {
+          "A": "Cache entries are keyed to content, not to API keys. Rotating keys doesn't invalidate caches.",
+          "C": "max_tokens is an output parameter and does not affect the input cache key.",
+          "D": "There is no hit limit. Cache entries are invalidated by TTL expiration or content changes, not by usage count."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "invalidation"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-pc-007",
+        "difficulty": 3,
+        "stem": "Which types of content can be marked for prompt caching?",
+        "options": [
+          { "key": "A", "text": "Only the system prompt" },
+          { "key": "B", "text": "System prompts, tool definitions, and messages (human turns including documents)" },
+          { "key": "C", "text": "Only user messages, not system prompts" },
+          { "key": "D", "text": "Only tool definitions, not text content" }
+        ],
+        "correct": "B",
+        "explanation": "Prompt caching can be applied to: system prompts (for static context/instructions), tool definitions (for expensive tool schemas), and messages in the conversation history (including large documents passed as user messages). This flexibility allows you to cache whichever parts of your prompt are static across requests.",
+        "distractors": {
+          "A": "System prompt caching is supported, but it's not the only option. Tools and messages can also be cached.",
+          "C": "System prompts are often the most valuable thing to cache. Excluding them would miss a major use case.",
+          "D": "Both text content and tool definitions can be cached. It's not limited to tools."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "cacheable-content"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-pc-008",
+        "difficulty": 3,
+        "stem": "How does the extended cache TTL feature work?",
+        "options": [
+          { "key": "A", "text": "It automatically extends to 24 hours if the cache entry is frequently used" },
+          { "key": "B", "text": "It extends the default 5-minute TTL to 1 hour, enabled via the 'extended-cache-ttl-2025-04-11' beta header" },
+          { "key": "C", "text": "Cache TTL is permanently extended once you upgrade to a paid plan" },
+          { "key": "D", "text": "Extended TTL is automatically applied to system prompts but not user messages" }
+        ],
+        "correct": "B",
+        "explanation": "Extended cache TTL increases the cache lifetime from 5 minutes to 1 hour. To use it, include 'extended-cache-ttl-2025-04-11' in the anthropic-beta header. This is particularly valuable for applications where users interact with Claude less frequently than every 5 minutes, as it keeps the cache warm for longer.",
+        "distractors": {
+          "A": "Cache TTL doesn't auto-extend based on usage frequency. You explicitly opt into the extended TTL beta.",
+          "C": "Extended TTL is a beta feature requiring a specific header, not a plan upgrade.",
+          "D": "Extended TTL applies uniformly to all cached content when enabled — it's not automatically applied to system prompts only."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+        "verified_against_release": "2025",
+        "tags": ["caching", "extended-ttl"],
+        "difficulty": 3
+      }
+    ]
+  },
+  {
+    "certification": "claude-developer",
+    "topic": "context-management",
+    "topicLabel": "Context & Multi-turn",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "cd-cm-001",
+        "difficulty": 2,
+        "stem": "What is the context window size for current Claude models?",
+        "options": [
+          { "key": "A", "text": "32,000 tokens" },
+          { "key": "B", "text": "100,000 tokens" },
+          { "key": "C", "text": "200,000 tokens" },
+          { "key": "D", "text": "The context window varies significantly by model with no consistent value" }
+        ],
+        "correct": "C",
+        "explanation": "Current Claude models (Claude 3.x, 4, and 5 families) support a 200,000 token context window. This applies to both input tokens and the combined input+output limit. A 200K context can hold approximately 150,000 words or hundreds of pages of text.",
+        "distractors": {
+          "A": "32K was an earlier Claude context window. Current models support 200K.",
+          "B": "100K was a previous milestone. Current Claude models support 200K.",
+          "D": "While exact specifications vary by model version, current Claude models consistently support 200K."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+        "verified_against_release": "2025",
+        "tags": ["context", "context-window"],
+        "difficulty": 2
+      },
+      {
+        "id": "cd-cm-002",
+        "difficulty": 3,
+        "stem": "How does multi-turn conversation work in the Claude API?",
+        "options": [
+          { "key": "A", "text": "Claude maintains conversation history server-side between requests" },
+          { "key": "B", "text": "Each request must include the full conversation history in the messages array — the API is stateless" },
+          { "key": "C", "text": "Use a session_id parameter to link requests to existing conversations" },
+          { "key": "D", "text": "Context is automatically saved after the first message" }
+        ],
+        "correct": "B",
+        "explanation": "The Claude API is completely stateless. Each request is independent. To maintain a multi-turn conversation, you must include the complete conversation history (alternating human/assistant turns) in every request's messages array. You are responsible for storing and passing the conversation history; Claude has no memory between separate API calls.",
+        "distractors": {
+          "A": "The API does not maintain server-side state. No session management exists at the API level.",
+          "C": "There is no session_id parameter in the Claude Messages API.",
+          "D": "Context is not automatically saved. The stateless nature of the API is fundamental to its design."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/conversation-history",
+        "verified_against_release": "2025",
+        "tags": ["context", "multi-turn", "stateless"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-cm-003",
+        "difficulty": 3,
+        "stem": "When a conversation grows too long for the context window, which approach is recommended for managing history?",
+        "options": [
+          { "key": "A", "text": "Start a fresh conversation discarding all previous history" },
+          { "key": "B", "text": "Options include: summarizing older messages, using a sliding window (dropping oldest messages), or selective retention of key turns" },
+          { "key": "C", "text": "Use the truncate_history: true API parameter" },
+          { "key": "D", "text": "The API automatically handles truncation, so no action is needed" }
+        ],
+        "correct": "B",
+        "explanation": "When conversations approach the context limit, common strategies include: 1) Summarization — asking Claude to summarize the early part of the conversation, then replacing those turns with the summary. 2) Sliding window — dropping the oldest messages while keeping recent ones. 3) Selective retention — keeping only the most important turns. Each approach trades completeness for staying within limits.",
+        "distractors": {
+          "A": "Starting fresh loses all conversational context. This is a last resort, not a recommended approach.",
+          "C": "There is no truncate_history parameter in the Claude API.",
+          "D": "The API does not automatically manage conversation history. This is the developer's responsibility."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/conversation-history",
+        "verified_against_release": "2025",
+        "tags": ["context", "context-management"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-cm-004",
+        "difficulty": 4,
+        "stem": "What is 'extended thinking' and how does it relate to the context window?",
+        "options": [
+          { "key": "A", "text": "A longer timeout for slow responses" },
+          { "key": "B", "text": "A feature where Claude uses an internal reasoning scratch pad (thinking blocks) before responding, consuming additional tokens from the budget_tokens parameter" },
+          { "key": "C", "text": "An automatic mode activated for complex questions" },
+          { "key": "D", "text": "A way to extend the context window beyond 200K tokens" }
+        ],
+        "correct": "B",
+        "explanation": "Extended thinking (accessed via thinking: { type: 'enabled', budget_tokens: N }) allows Claude to reason internally before responding. This reasoning uses tokens within the specified budget_tokens limit. Thinking tokens count toward input token costs but help Claude solve complex, multi-step problems more accurately. The output shows Claude's reasoning in thinking blocks.",
+        "distractors": {
+          "A": "Extended thinking is about reasoning quality, not response timeouts.",
+          "C": "Extended thinking must be explicitly enabled. It is not an automatic mode.",
+          "D": "Extended thinking uses tokens within the existing context window, not beyond it."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking",
+        "verified_against_release": "2025",
+        "tags": ["context", "extended-thinking"],
+        "difficulty": 4
+      },
+      {
+        "id": "cd-cm-005",
+        "difficulty": 3,
+        "stem": "Approximately how many tokens does a 1080p image consume in the context window?",
+        "options": [
+          { "key": "A", "text": "10 tokens" },
+          { "key": "B", "text": "85 tokens" },
+          { "key": "C", "text": "~170 tokens" },
+          { "key": "D", "text": "~1,500 tokens" }
+        ],
+        "correct": "C",
+        "explanation": "Images consume approximately 170 tokens for a standard 1080p image in Claude's context. The exact count depends on image dimensions and content. For planning purposes, assume images are expensive relative to text — a single image can cost as much as a medium paragraph of text.",
+        "distractors": {
+          "A": "10 tokens would make images nearly free. In reality, they consume significantly more.",
+          "B": "85 tokens is too low. The estimate is closer to 170 tokens for a full-size image.",
+          "D": "1,500 tokens would make images extremely expensive. ~170 is the typical estimate for standard resolution images."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/vision",
+        "verified_against_release": "2025",
+        "tags": ["context", "vision", "tokens"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-cm-006",
+        "difficulty": 3,
+        "stem": "How can you count tokens before making an API call?",
+        "options": [
+          { "key": "A", "text": "Tokens must be counted manually by splitting on spaces and punctuation" },
+          { "key": "B", "text": "Use the client.messages.count_tokens() beta method or the /v1/messages/count_tokens endpoint" },
+          { "key": "C", "text": "Token counting is only possible after the API call by reading the usage field" },
+          { "key": "D", "text": "Use the tokenize endpoint which is available in all SDK versions" }
+        ],
+        "correct": "B",
+        "explanation": "The Anthropic API provides a token counting endpoint (accessible as client.messages.count_tokens() in the SDK or via /v1/messages/count_tokens) that accepts the same parameters as a messages request and returns token counts without generating a response. This is useful for checking if your prompt fits within the context window before incurring the full request cost.",
+        "distractors": {
+          "A": "Manual counting is inaccurate. Claude uses BPE tokenization which doesn't split on spaces/punctuation predictably.",
+          "C": "You can count tokens before making a request. The count_tokens endpoint exists specifically for this.",
+          "D": "There is no separate 'tokenize' endpoint. The correct endpoint is /v1/messages/count_tokens."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages-count-tokens",
+        "verified_against_release": "2025",
+        "tags": ["context", "token-counting"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-cm-007",
+        "difficulty": 3,
+        "stem": "Where does tool definition content count when calculating token usage?",
+        "options": [
+          { "key": "A", "text": "Tool definitions are free and don't count toward any token limit" },
+          { "key": "B", "text": "Tool definitions count as input tokens" },
+          { "key": "C", "text": "Tool definitions count as output tokens" },
+          { "key": "D", "text": "Tool definitions have a separate tool_tokens field" }
+        ],
+        "correct": "B",
+        "explanation": "Tool definitions passed in the 'tools' array count as input tokens. Each tool's name, description, and input_schema contribute to your input token count. For applications with many or complex tool definitions, this overhead can be significant. Prompt caching tool definitions helps amortize this cost.",
+        "distractors": {
+          "A": "Tool definitions are not free. They can be quite expensive for large, detailed schemas.",
+          "C": "Tool definitions are provided in the request, so they count as input, not output.",
+          "D": "There is no separate tool_tokens field. Tool tokens are included in input_tokens."
+        },
+        "citation_url": "https://docs.anthropic.com/en/docs/build-with-claude/tool-use",
+        "verified_against_release": "2025",
+        "tags": ["context", "tokens", "tools"],
+        "difficulty": 3
+      },
+      {
+        "id": "cd-cm-008",
+        "difficulty": 3,
+        "stem": "What does it mean that max_tokens is a 'ceiling, not a target'?",
+        "options": [
+          { "key": "A", "text": "Claude will always generate exactly max_tokens tokens" },
+          { "key": "B", "text": "Claude stops at max_tokens if it hasn't finished, but may produce a shorter response if it naturally completes earlier" },
+          { "key": "C", "text": "The max_tokens value is the minimum response length guarantee" },
+          { "key": "D", "text": "Setting max_tokens has no effect on actual response length" }
+        ],
+        "correct": "B",
+        "explanation": "max_tokens sets an upper bound on output length. Claude generates until it naturally finishes (producing a stop_reason of 'end_turn') or reaches the max_tokens limit (producing 'max_tokens'). A 500-word question answer might be naturally complete at 150 tokens — Claude won't pad to hit max_tokens. Set max_tokens high enough to avoid truncating real responses.",
+        "distractors": {
+          "A": "Claude does not pad responses to hit max_tokens. It stops at natural completion or the limit, whichever is first.",
+          "C": "max_tokens is a maximum, not a minimum. Short responses can and do occur.",
+          "D": "max_tokens absolutely affects response length — it hard-stops generation. The point is it doesn't force a minimum length."
+        },
+        "citation_url": "https://docs.anthropic.com/en/api/messages",
+        "verified_against_release": "2025",
+        "tags": ["context", "max_tokens"],
+        "difficulty": 3
+      }
+    ]
+  }
+]
