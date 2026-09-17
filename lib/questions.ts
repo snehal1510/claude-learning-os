@@ -74,6 +74,54 @@ export const CERTIFICATIONS: Certification[] = [
     ],
   },
   {
+    id: "agentforce-specialist",
+    label: "Agentforce Specialist",
+    shortLabel: "Agentforce",
+    description: "Covers Agent Builder, topics and instructions, agent actions, prompt templates, the Einstein Trust Layer, and Einstein AI concepts for the Agentforce Specialist certification.",
+    mode: "exam",
+    color: "gold",
+    examGuideUrl: "https://trailhead.salesforce.com/credentials/agentforcespecialist",
+    examFormat: { questionCount: 60, timeMinutes: 105, passingScore: 65 },
+    domains: [
+      { label: "Agent Builder & Configuration", weight: 25 },
+      { label: "Topics & Instructions", weight: 20 },
+      { label: "Agent Actions", weight: 25 },
+      { label: "Prompt Templates", weight: 15 },
+      { label: "Einstein Trust Layer & Governance", weight: 15 },
+    ],
+    topics: [
+      { id: "af-agent-builder", label: "Agent Builder & Configuration", description: "Creating and configuring agents, agent types, channels, versioning, and the agent user record.", difficulty: 2, questionCount: 5, tags: ["agent-builder"] },
+      { id: "af-topics-instructions", label: "Topics & Instructions", description: "Defining agent topics, writing effective instructions, scope, routing, and out-of-scope handling.", difficulty: 3, questionCount: 5, tags: ["topics", "instructions"] },
+      { id: "af-actions", label: "Agent Actions", description: "Standard actions, Apex actions (@InvocableMethod), Flow actions (Autolaunched only), MuleSoft, and External Service actions.", difficulty: 3, questionCount: 5, tags: ["actions", "flow", "apex"] },
+      { id: "af-prompt-templates", label: "Prompt Templates", description: "Flex templates, Field Generation templates, merge fields, grounding with Data Cloud, and template versioning.", difficulty: 3, questionCount: 5, tags: ["prompts", "templates"] },
+      { id: "af-trust-layer", label: "Einstein Trust Layer", description: "Data masking, toxicity detection, zero data retention, audit trail, grounding, and LLM gateway.", difficulty: 3, questionCount: 5, tags: ["trust", "safety", "governance"] },
+      { id: "af-einstein-ai", label: "Einstein AI & AIforce Concepts", description: "Einstein Copilot vs Agentforce, Einstein 1 Platform, AIforce, generative vs predictive AI, and use cases.", difficulty: 2, questionCount: 5, tags: ["einstein", "aiforce"] },
+    ],
+  },
+  {
+    id: "agentforce-fda",
+    label: "Agentforce Fundamentals Delivery Accreditation",
+    shortLabel: "Agentforce FDA",
+    description: "Partner accreditation covering Agentforce delivery methodology, discovery and design, governance, testing and QA, and ROI measurement for FDA readiness.",
+    mode: "accreditation",
+    color: "gold",
+    examGuideUrl: "https://partners.salesforce.com",
+    domains: [
+      { label: "Discovery & Design", weight: 30 },
+      { label: "Delivery & Implementation", weight: 25 },
+      { label: "Governance & Trust", weight: 20 },
+      { label: "Testing & Quality Assurance", weight: 15 },
+      { label: "ROI & Success Metrics", weight: 10 },
+    ],
+    topics: [
+      { id: "fda-discovery-design", label: "Discovery & Design", description: "Stakeholder discovery, use case prioritization, agent persona design, success criteria, and conversation flow documentation.", difficulty: 3, questionCount: 5, tags: ["discovery", "design"] },
+      { id: "fda-delivery", label: "Delivery & Implementation", description: "Implementation phases, configuration sequence, data preparation, sandbox-to-production deployment, and post-deployment monitoring.", difficulty: 3, questionCount: 5, tags: ["delivery", "implementation"] },
+      { id: "fda-governance", label: "Governance & Trust", description: "AI governance frameworks, Trust Layer configuration, data retention, GDPR/CCPA, acceptable use policy, and incident response.", difficulty: 3, questionCount: 5, tags: ["governance", "trust"] },
+      { id: "fda-testing", label: "Testing & Quality Assurance", description: "Test scenario categories, containment rate measurement, defect severity, UAT, and regression testing.", difficulty: 3, questionCount: 5, tags: ["testing", "qa"] },
+      { id: "fda-roi", label: "ROI & Success Metrics", description: "Containment rate, cost savings calculation, CSAT, NPS, business case structure, and reporting cadence.", difficulty: 2, questionCount: 5, tags: ["roi", "metrics"] },
+    ],
+  },
+  {
     id: "data-cloud",
     label: "Data Cloud Consultant",
     shortLabel: "Data Cloud",
@@ -121,6 +169,8 @@ export async function loadCertQuestions(certId: string): Promise<TopicQuestions[
     "claude-developer": () => import("@/content/questions/claude-developer.json").then((m) => m.default as unknown as TopicQuestions[]),
     "claude-architect": () => import("@/content/questions/claude-architect.json").then((m) => m.default as unknown as TopicQuestions[]),
     "data-cloud": () => import("@/content/questions/data-cloud.json").then((m) => m.default as unknown as TopicQuestions[]),
+    "agentforce-specialist": () => import("@/content/questions/agentforce-specialist.json").then((m) => m.default as unknown as TopicQuestions[]),
+    "agentforce-fda": () => import("@/content/questions/agentforce-fda.json").then((m) => m.default as unknown as TopicQuestions[]),
   }
 
   if (!fileMap[certId]) return []

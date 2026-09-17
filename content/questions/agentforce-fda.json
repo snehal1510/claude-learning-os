@@ -1,0 +1,567 @@
+[
+  {
+    "certification": "agentforce-fda",
+    "topic": "fda-discovery-design",
+    "topicLabel": "Discovery & Design",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "fda-dd-001",
+        "difficulty": 3,
+        "stem": "During an Agentforce discovery workshop, a consultant wants to prioritize which use cases to build first. Which framework is most effective for ranking potential agent use cases?",
+        "options": [
+          { "key": "A", "text": "Effort vs. Impact matrix — prioritize high-impact, low-effort use cases for the first release" },
+          { "key": "B", "text": "Alphabetical ordering of use case names to ensure objectivity" },
+          { "key": "C", "text": "Build the most technically complex use case first to prove platform capability" },
+          { "key": "D", "text": "Start with the use case the IT team is most comfortable building" }
+        ],
+        "correct": "A",
+        "explanation": "The Effort vs. Impact matrix is the standard prioritization tool in Agentforce delivery methodology. Use cases in the high-impact, low-effort quadrant deliver the fastest ROI and build stakeholder confidence early. Starting with quick wins also reduces change management risk and allows the team to learn the platform before tackling complex scenarios.",
+        "distractors": {
+          "B": "Alphabetical ordering has no relevance to business value or implementation feasibility. Prioritization must be driven by business outcomes.",
+          "C": "Building the most complex use case first is a high-risk approach — it delays time to value, and early failures erode stakeholder trust. FDA methodology recommends proving value quickly.",
+          "D": "IT comfort is a constraint to manage, not a prioritization criterion. Business impact and customer value should drive the decision, with IT complexity as a secondary factor."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["discovery", "prioritization", "methodology"]
+      },
+      {
+        "id": "fda-dd-002",
+        "difficulty": 3,
+        "stem": "A consulting team is designing an Agentforce agent persona for a telecommunications company's customer service agent. Which elements are essential to define during the persona design phase?",
+        "options": [
+          { "key": "A", "text": "Agent name, tone and communication style, scope of topics handled, and escalation triggers" },
+          { "key": "B", "text": "The underlying LLM model version, token limits, and API endpoint configuration" },
+          { "key": "C", "text": "The number of Salesforce licenses required and the org edition" },
+          { "key": "D", "text": "The color scheme and branding of the chat widget" }
+        ],
+        "correct": "A",
+        "explanation": "Agent persona design during the discovery phase defines the human-facing characteristics of the agent: its name (what customers call it), tone (formal vs conversational), scope (which topics it handles), and escalation triggers (when and how to hand off to a human). These decisions directly shape Topic and Instruction configuration in Agentforce and set customer expectations. Technical configuration details come later in the build phase.",
+        "distractors": {
+          "B": "LLM model selection and API configuration are technical implementation decisions made during the build phase, not discovery. The persona is about how the agent presents to users.",
+          "C": "License counts and org edition are commercial and infrastructure considerations, not persona design elements. They belong in the scoping and commercial phases.",
+          "D": "Widget styling is a UI design task. While branding matters, it is handled in the deployment/channel configuration phase, not persona design."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["discovery", "persona", "design"]
+      },
+      {
+        "id": "fda-dd-003",
+        "difficulty": 3,
+        "stem": "Before beginning Agentforce configuration, a consultant assesses technical prerequisites. Which factor most directly affects the quality of agent responses after go-live?",
+        "options": [
+          { "key": "A", "text": "CRM data quality — completeness and accuracy of records used for agent grounding" },
+          { "key": "B", "text": "The number of custom objects in the Salesforce org" },
+          { "key": "C", "text": "Whether the org uses Classic or Lightning Experience UI" },
+          { "key": "D", "text": "The version of the Salesforce mobile app installed on user devices" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce grounds its responses in Salesforce data — when a customer asks about their account, the agent retrieves CRM records. If those records are incomplete, outdated, or inaccurate, the agent's answers will be too. Data quality assessment is a critical pre-implementation step. Poor data quality is one of the most common causes of poor agent performance post-deployment.",
+        "distractors": {
+          "B": "The number of custom objects affects implementation complexity but does not directly determine response quality. What matters is whether the relevant data is complete and accurate.",
+          "C": "Agentforce operates independently of the UI experience. Agents interact through channels like messaging, Experience Cloud, or embedded widgets, not through the Classic/Lightning toggle.",
+          "D": "The mobile app version is irrelevant to Agentforce agent response quality. Agentforce is a server-side service."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["discovery", "prerequisites", "data-quality"]
+      },
+      {
+        "id": "fda-dd-004",
+        "difficulty": 3,
+        "stem": "A project team is documenting the conversation design for a new Agentforce implementation. Which artifacts should be produced during the design phase to guide the build team?",
+        "options": [
+          { "key": "A", "text": "Conversation flow diagrams, topic maps, sample utterances, and escalation decision trees" },
+          { "key": "B", "text": "Apex code stubs and Flow metadata XML files" },
+          { "key": "C", "text": "Network topology diagrams and firewall rule specifications" },
+          { "key": "D", "text": "User license assignment lists and permission set configurations" }
+        ],
+        "correct": "A",
+        "explanation": "Conversation design artifacts capture the intended behavior of the agent in human-readable form before any configuration begins. Conversation flow diagrams show how a user interaction unfolds. Topic maps document which topics the agent covers. Sample utterances help calibrate topic routing. Escalation decision trees define when and how the agent hands off to a human. These documents align business stakeholders and developers on the expected agent behavior.",
+        "distractors": {
+          "B": "Apex code and metadata XML are build-phase outputs. Creating code before the conversation design is complete leads to rework when requirements change.",
+          "C": "Network topology is an infrastructure concern unrelated to Agentforce conversation design. Agentforce is a cloud-hosted service with no on-premise networking requirements.",
+          "D": "Permission set configuration is a setup task, not a design artifact. It should happen after the design is approved, not during it."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["design", "documentation", "conversation-design"]
+      },
+      {
+        "id": "fda-dd-005",
+        "difficulty": 3,
+        "stem": "A client is resistant to adopting an Agentforce agent because their service team fears job displacement. How should a consultant address this during the discovery phase?",
+        "options": [
+          { "key": "A", "text": "Develop a change management plan that reframes the agent as a tool that handles routine queries so agents can focus on complex, high-value interactions" },
+          { "key": "B", "text": "Avoid discussing the topic and focus only on technical implementation details" },
+          { "key": "C", "text": "Promise the client that no service agents will be affected by the implementation" },
+          { "key": "D", "text": "Recommend delaying the project until the resistance subsides naturally" }
+        ],
+        "correct": "A",
+        "explanation": "Change management is a core FDA delivery competency. Resistance to AI adoption is common and must be addressed proactively during discovery, not ignored. The most effective approach is reframing: the agent handles high-volume, repetitive queries (password resets, order status, FAQs), freeing human agents for complex cases, empathy-required situations, and upsell opportunities. Involving the service team early, showing pilot results, and updating job profiles are all part of effective change management.",
+        "distractors": {
+          "B": "Ignoring stakeholder resistance is a project risk. Unaddressed change management issues lead to poor adoption, deliberate sabotage of the rollout, or executive escalations post-launch.",
+          "C": "Making specific promises about headcount impact is outside the consultant's authority and may be inaccurate. The honest message is that the agent changes the nature of work, not necessarily reduces headcount.",
+          "D": "Delaying a project for cultural reasons without a resolution plan simply defers the conflict. Discovery is the right time to surface and address this, not avoid it."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["change-management", "discovery", "adoption"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-fda",
+    "topic": "fda-delivery",
+    "topicLabel": "Delivery & Implementation",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "fda-del-001",
+        "difficulty": 3,
+        "stem": "What is the correct sequence of phases in a standard Agentforce FDA delivery methodology?",
+        "options": [
+          { "key": "A", "text": "Discovery → Design → Build → Test → Pilot → Full Deployment" },
+          { "key": "B", "text": "Build → Test → Design → Discovery → Pilot → Full Deployment" },
+          { "key": "C", "text": "Full Deployment → Pilot → Test → Build → Design → Discovery" },
+          { "key": "D", "text": "Discovery → Build → Test → Design → Full Deployment → Pilot" }
+        ],
+        "correct": "A",
+        "explanation": "The FDA delivery methodology follows a logical progression: Discovery (requirements gathering, use case identification) → Design (conversation design, architecture) → Build (configuration in Agentforce) → Test (functional, regression, UAT) → Pilot (limited production rollout with real users) → Full Deployment (organisation-wide release). This sequence ensures requirements are understood before building, quality is validated before exposing users, and risks are managed through a controlled pilot before full rollout.",
+        "distractors": {
+          "B": "Building before designing leads to rework and misaligned outcomes. The discovery and design phases produce the specifications that the build phase executes.",
+          "C": "Deploying to production before testing is a critical project risk. This sequence bypasses quality validation and exposes customers to untested agent behaviour.",
+          "D": "Inserting design after build is illogical — the design phase produces the blueprint that the build team follows. This sequence would require rebuilding after the design is completed."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["delivery", "methodology", "phases"]
+      },
+      {
+        "id": "fda-del-002",
+        "difficulty": 3,
+        "stem": "During the build phase, a consultant notices that the agent's responses are often inaccurate because it cannot find relevant account records. What is the most likely root cause?",
+        "options": [
+          { "key": "A", "text": "CRM data quality issues — the account records lack the fields or data the agent needs to ground its responses" },
+          { "key": "B", "text": "The Salesforce org is running too many background jobs" },
+          { "key": "C", "text": "The agent's LLM token limit has been exceeded" },
+          { "key": "D", "text": "The sandbox environment does not support Agentforce" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce grounds its responses by retrieving Salesforce records. If those records are missing key fields, contain stale data, or do not exist for the queried customer, the agent cannot give accurate answers. This is why data quality assessment is a mandatory prerequisite in the discovery phase. The fix is to improve data completeness in the CRM before or alongside the Agentforce implementation.",
+        "distractors": {
+          "B": "Background jobs affect general org performance but not specifically Agentforce's ability to retrieve and use record data for grounding.",
+          "C": "Token limits affect response length and processing, but the described symptom (cannot find records) points to a data availability issue, not a token constraint.",
+          "D": "Salesforce Developer and full sandboxes support Agentforce. The scenario describes a data problem, not an environment limitation."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["delivery", "data-quality", "troubleshooting"]
+      },
+      {
+        "id": "fda-del-003",
+        "difficulty": 3,
+        "stem": "An Agentforce implementation is ready to move from sandbox to production. Which deployment approach aligns with Salesforce best practices?",
+        "options": [
+          { "key": "A", "text": "Use change sets or the Metadata API to migrate Agentforce components, then activate the agent in production after smoke testing" },
+          { "key": "B", "text": "Recreate all Agentforce configuration manually in production to ensure accuracy" },
+          { "key": "C", "text": "Export the agent configuration as a JSON file and import it using Data Loader" },
+          { "key": "D", "text": "Grant the sandbox org's admin user production access and copy settings directly" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce components (agents, topics, actions, prompt templates) are Salesforce metadata and can be deployed using change sets or the Metadata API — the same approach used for all Salesforce configuration. After deployment, the agent should be tested in production with a smoke test (basic happy-path conversation) before being activated for all users. This approach is repeatable, auditable, and reduces manual error.",
+        "distractors": {
+          "B": "Manual recreation is error-prone and time-consuming. It introduces the risk of configuration drift between sandbox and production. Metadata deployment is always preferred.",
+          "C": "Data Loader is for record-level data (Accounts, Contacts, etc.), not Salesforce metadata. Agentforce components are metadata, not data records.",
+          "D": "Sharing admin credentials between orgs is a serious security violation. Sandbox and production are separate orgs with separate authentication."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["delivery", "deployment", "metadata"]
+      },
+      {
+        "id": "fda-del-004",
+        "difficulty": 3,
+        "stem": "In the first 30 days after Agentforce go-live, which metric should a delivery team monitor most closely to assess agent health?",
+        "options": [
+          { "key": "A", "text": "Containment rate — the percentage of conversations fully resolved by the agent without human escalation" },
+          { "key": "B", "text": "Number of Apex code deployments completed" },
+          { "key": "C", "text": "Total number of Salesforce user logins per day" },
+          { "key": "D", "text": "The size of the org's data storage in megabytes" }
+        ],
+        "correct": "A",
+        "explanation": "Containment rate is the primary health indicator for an AI agent. A high containment rate means the agent is successfully resolving customer queries end-to-end. A low or declining containment rate signals that topics are misconfigured, actions are failing, or the agent is encountering queries it cannot handle. Monitoring this daily in the first 30 days allows the team to make rapid configuration adjustments before issues compound.",
+        "distractors": {
+          "B": "Apex deployments are a development activity metric, not a measure of agent health or customer experience.",
+          "C": "User login counts measure platform adoption, not Agentforce agent performance. Agents operate in channels (messaging, Experience Cloud) that may not require traditional Salesforce logins.",
+          "D": "Data storage is an infrastructure metric unrelated to agent performance or customer satisfaction."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["delivery", "monitoring", "post-deployment"]
+      },
+      {
+        "id": "fda-del-005",
+        "difficulty": 3,
+        "stem": "Which FDA deliverable document should be created to support the client's internal team in maintaining and updating the Agentforce agent after the consulting engagement ends?",
+        "options": [
+          { "key": "A", "text": "A runbook documenting how to update topics, add actions, test changes, and deploy from sandbox to production" },
+          { "key": "B", "text": "A list of all Salesforce AppExchange packages installed in the org" },
+          { "key": "C", "text": "A report of all Apex test class execution results" },
+          { "key": "D", "text": "A diagram of the client's network topology and VPN configuration" }
+        ],
+        "correct": "A",
+        "explanation": "A runbook is an operational manual that enables the client team to self-sufficiently manage the Agentforce agent after handover. It should cover: how to add or modify topics and instructions, how to add new actions, the testing procedure for changes, and the sandbox-to-production deployment steps. Without a runbook, the client is dependent on the consulting team for every change, increasing total cost of ownership and reducing the value of the implementation.",
+        "distractors": {
+          "B": "An AppExchange package list is an inventory document, not an operational guide. It does not help the client team make changes to the agent.",
+          "C": "Apex test results are relevant during build and QA but are not the primary operational document needed for ongoing agent maintenance.",
+          "D": "Network topology is an infrastructure document irrelevant to Agentforce agent administration. Agentforce is a cloud service with no on-premise network configuration."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["delivery", "documentation", "runbook"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-fda",
+    "topic": "fda-governance",
+    "topicLabel": "Governance & Trust",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "fda-gov-001",
+        "difficulty": 3,
+        "stem": "An enterprise client asks how Salesforce ensures their customer data is not used to train the underlying LLM when using Agentforce. What is the correct answer?",
+        "options": [
+          { "key": "A", "text": "Salesforce's zero data retention agreement with LLM providers ensures customer data sent to the LLM is not stored or used for training" },
+          { "key": "B", "text": "Customer data is anonymised before being sent, so it can be used for training without privacy risk" },
+          { "key": "C", "text": "Agentforce does not use any external LLM — all processing happens on-premise at the client's data centre" },
+          { "key": "D", "text": "Customers must opt out of LLM training through the Salesforce Trust website" }
+        ],
+        "correct": "A",
+        "explanation": "Salesforce has zero data retention (ZDR) agreements with its LLM providers (such as Azure OpenAI). This means data sent through the Einstein Trust Layer for processing is not retained by the LLM provider after the request completes and is never used for model training. This is a contractual and architectural guarantee, not just a configuration option. It is a key differentiator of the Einstein Trust Layer for enterprise compliance requirements.",
+        "distractors": {
+          "B": "Anonymisation is not Salesforce's approach to LLM data protection. The Einstein Trust Layer uses data masking for PII before the LLM call, and zero data retention ensures nothing is stored afterward.",
+          "C": "Agentforce uses cloud-based LLMs through the Einstein Trust Layer gateway. It is not an on-premise solution. Claiming otherwise would be inaccurate.",
+          "D": "There is no opt-out mechanism required — zero data retention is the default, contractually guaranteed behaviour, not something customers must activate."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["governance", "trust", "zero-data-retention"]
+      },
+      {
+        "id": "fda-gov-002",
+        "difficulty": 3,
+        "stem": "A healthcare client is concerned about GDPR compliance when Agentforce processes EU customer data. Which Einstein Trust Layer feature most directly addresses the right to explanation requirement?",
+        "options": [
+          { "key": "A", "text": "The audit trail, which logs all LLM interactions including inputs and outputs for review" },
+          { "key": "B", "text": "Data masking, which replaces PII with tokens before sending to the LLM" },
+          { "key": "C", "text": "Toxicity detection, which screens responses for harmful content" },
+          { "key": "D", "text": "The LLM gateway, which routes requests to the correct model" }
+        ],
+        "correct": "A",
+        "explanation": "GDPR's right to explanation (Article 22) requires that organisations can explain automated decisions affecting individuals. The Einstein Trust Layer's audit trail logs every LLM interaction — what was sent, what was received, and when — providing the evidence base needed to reconstruct and explain an agent's response to a regulator or data subject. Without audit logging, organisations cannot demonstrate compliance with automated decision-making requirements.",
+        "distractors": {
+          "B": "Data masking protects PII from being exposed to the LLM (addressing data minimisation under GDPR Article 5), but it does not address the right to explanation of automated decisions.",
+          "C": "Toxicity detection is a content safety measure. It screens for harmful outputs but does not create the audit record needed to explain decisions to regulators.",
+          "D": "The LLM gateway is a routing infrastructure component. It determines which model processes the request but does not itself create compliance-grade audit logs."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["governance", "gdpr", "audit-trail"]
+      },
+      {
+        "id": "fda-gov-003",
+        "difficulty": 3,
+        "stem": "A client wants to define an acceptable use policy for their Agentforce implementation. Which element is most important to include?",
+        "options": [
+          { "key": "A", "text": "Clear scope boundaries defining which tasks the agent is authorised to perform and which require human approval" },
+          { "key": "B", "text": "A list of all Salesforce user names with access to the org" },
+          { "key": "C", "text": "The technical specifications of the underlying LLM model" },
+          { "key": "D", "text": "The pricing breakdown of the Agentforce license" }
+        ],
+        "correct": "A",
+        "explanation": "An acceptable use policy for an AI agent defines the boundaries of its authority: what it can do autonomously (answer FAQs, look up order status), what requires human confirmation before action (process refunds over a threshold, cancel subscriptions), and what it must never do (give medical or legal advice, make promises outside policy). These boundaries are implemented through Topic instructions and Action guardrails. Without clear scope definition, the agent may overstep or underperform.",
+        "distractors": {
+          "B": "A user list is an access management document, not an acceptable use policy. The policy governs what the agent itself is permitted to do, not which humans have org access.",
+          "C": "LLM technical specifications are vendor information. They are not relevant to defining what the agent is allowed to do within the customer's business context.",
+          "D": "License pricing is a commercial document, completely separate from the governance policy governing agent behaviour."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["governance", "acceptable-use", "policy"]
+      },
+      {
+        "id": "fda-gov-004",
+        "difficulty": 3,
+        "stem": "An Agentforce agent responds to a customer with inaccurate information that causes the customer to make a poor financial decision. What should the incident response procedure include?",
+        "options": [
+          { "key": "A", "text": "Immediately escalate to human review, retrieve the audit log of the conversation, investigate the root cause, and implement a corrective Topic instruction or Action change" },
+          { "key": "B", "text": "Restart the Salesforce org to clear the agent's memory" },
+          { "key": "C", "text": "Delete the customer record from the CRM to prevent future incidents" },
+          { "key": "D", "text": "Disable all Agentforce features across the entire org immediately and permanently" }
+        ],
+        "correct": "A",
+        "explanation": "A mature incident response process for AI agents follows four steps: contain (escalate the immediate customer issue to a human), investigate (use the audit trail to understand exactly what the agent said and why), remediate (fix the Topic instruction, Action behaviour, or data quality issue that caused the error), and review (check if the same error could occur in other topics). Overreacting by disabling the entire agent is disproportionate and harms customers with legitimate queries.",
+        "distractors": {
+          "B": "Agentforce is stateless — restarting the org does not clear any 'memory'. The agent's behaviour is determined by its configuration (topics, instructions, actions), not transient state.",
+          "C": "Deleting the customer record is a data destruction action that could violate data retention regulations and does not address the root cause of the inaccurate response.",
+          "D": "Disabling all Agentforce features is a disproportionate response. The appropriate action is to identify and fix the specific failure point, not take down the entire service."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["governance", "incident-response", "trust"]
+      },
+      {
+        "id": "fda-gov-005",
+        "difficulty": 3,
+        "stem": "Which Einstein Trust Layer component is specifically responsible for preventing the agent from revealing customer PII (such as social security numbers or credit card numbers) to the LLM?",
+        "options": [
+          { "key": "A", "text": "Data masking — PII fields are detected and replaced with tokens before the data is sent to the LLM" },
+          { "key": "B", "text": "Toxicity detection — harmful content is screened before delivery to the customer" },
+          { "key": "C", "text": "Grounding — the agent is anchored to Salesforce data rather than the LLM's training data" },
+          { "key": "D", "text": "Zero data retention — the LLM provider does not store data after the request" }
+        ],
+        "correct": "A",
+        "explanation": "Data masking is the Einstein Trust Layer component that intercepts data before it reaches the LLM and replaces sensitive PII fields (SSN, credit card numbers, medical record IDs) with anonymised tokens. The LLM processes the masked version and never sees the actual sensitive values. This protects customer privacy even if the LLM provider were to have a security incident. Masking happens automatically based on Salesforce's PII field classification.",
+        "distractors": {
+          "B": "Toxicity detection operates on LLM outputs, not inputs. It screens the agent's response for harmful content before it is shown to the customer. It does not protect PII going into the LLM.",
+          "C": "Grounding anchors the agent's responses to Salesforce data (reducing hallucination), but it does not mask PII. Grounded data still passes through the LLM and needs masking protection.",
+          "D": "Zero data retention ensures data is not stored after the request completes, but it does not prevent the LLM from seeing the PII during processing. Data masking is the preventive control."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["governance", "data-masking", "trust-layer", "pii"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-fda",
+    "topic": "fda-testing",
+    "topicLabel": "Testing & Quality Assurance",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "fda-tst-001",
+        "difficulty": 3,
+        "stem": "A QA team is building a test suite for a new Agentforce implementation. Which category of test scenarios should be included to ensure the agent behaves safely when users ask it to do something outside its defined scope?",
+        "options": [
+          { "key": "A", "text": "Out-of-scope tests — inputs that fall outside defined topics to verify the agent declines gracefully and offers to escalate" },
+          { "key": "B", "text": "Performance tests only — measuring response time under peak load" },
+          { "key": "C", "text": "Regression tests only — re-running previous test cases after configuration changes" },
+          { "key": "D", "text": "Happy path tests only — ensuring the agent works correctly for the expected primary use case" }
+        ],
+        "correct": "A",
+        "explanation": "A comprehensive Agentforce test suite must include out-of-scope tests. These verify that when a user asks something outside the agent's defined topics — such as asking a customer service agent for investment advice — the agent responds appropriately (declines politely, explains its scope, and offers to transfer to a human). Without out-of-scope testing, agents may attempt to answer questions they are not equipped to handle, producing inaccurate or inappropriate responses.",
+        "distractors": {
+          "B": "Performance testing is important but is one category among many. Testing only performance ignores functional correctness, edge cases, and safety behaviours.",
+          "C": "Regression testing is essential after changes but only verifies that existing behaviour is preserved. It does not cover new edge cases or out-of-scope scenarios for a first implementation.",
+          "D": "Happy path tests only validate the ideal scenario. Real customer interactions include unexpected queries, misspellings, and off-topic requests. Testing only the happy path gives a false sense of readiness."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["testing", "out-of-scope", "qa"]
+      },
+      {
+        "id": "fda-tst-002",
+        "difficulty": 3,
+        "stem": "During User Acceptance Testing (UAT) for an Agentforce implementation, who should be involved as the primary validators?",
+        "options": [
+          { "key": "A", "text": "Business stakeholders and frontline service agents who understand real customer interactions and expected outcomes" },
+          { "key": "B", "text": "Only the Salesforce consulting team that built the implementation" },
+          { "key": "C", "text": "The Salesforce account executive and licence administrator" },
+          { "key": "D", "text": "Only the IT security team responsible for compliance" }
+        ],
+        "correct": "A",
+        "explanation": "UAT is a business validation exercise, not a technical one. Frontline service agents and their supervisors know what good and bad agent responses look like in their specific business context. They can identify when the agent's tone is wrong, when it mishandles a sensitive situation, or when it gives a technically correct but contextually inappropriate answer. Business stakeholders validate that the agent meets the success criteria defined in the discovery phase. The consulting team acts as a support resource during UAT, not the primary validator.",
+        "distractors": {
+          "B": "The consulting team performing their own UAT is a conflict of interest and misses the purpose of acceptance testing — which is for the client to confirm the solution meets their requirements, not for the builder to confirm their own work.",
+          "C": "The account executive and licence administrator have commercial and administrative roles. They are not the right validators for whether the agent handles customer conversations appropriately.",
+          "D": "The security team validates compliance and risk controls. They should be involved in security review but are not the right audience for validating conversational quality and business accuracy."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["testing", "uat", "stakeholders"]
+      },
+      {
+        "id": "fda-tst-003",
+        "difficulty": 3,
+        "stem": "After a consultant adds three new Actions to an existing Agentforce agent, which type of testing is most important to run immediately?",
+        "options": [
+          { "key": "A", "text": "Regression testing — verifying that the existing topics and actions still behave correctly after the new additions" },
+          { "key": "B", "text": "Load testing — simulating thousands of concurrent users to measure performance" },
+          { "key": "C", "text": "Security penetration testing — attempting to hack the Salesforce org through the agent" },
+          { "key": "D", "text": "User acceptance testing — having the client formally sign off on the new actions" }
+        ],
+        "correct": "A",
+        "explanation": "When configuration changes are made to an existing Agentforce agent, regression testing verifies that the change did not break existing behaviour. Adding new Actions can affect Topic routing — the agent may now invoke the new action when it should not, or the new action may conflict with an existing one. Running the existing test suite immediately after any change catches regressions before they reach production or UAT.",
+        "distractors": {
+          "B": "Load testing is relevant at deployment time or periodically for capacity planning, not immediately after adding individual actions. It would not surface the functional regressions that action additions can cause.",
+          "C": "Security penetration testing is a periodic activity governed by a security review schedule. It is not the immediate response to adding new actions.",
+          "D": "UAT should come after the team has confirmed through regression testing that the changes work as expected. Sending untested changes to UAT wastes stakeholder time and erodes trust."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["testing", "regression", "qa"]
+      },
+      {
+        "id": "fda-tst-004",
+        "difficulty": 2,
+        "stem": "What is the correct formula for calculating containment rate, a primary QA metric for Agentforce?",
+        "options": [
+          { "key": "A", "text": "(Conversations fully resolved by the agent ÷ Total conversations) × 100" },
+          { "key": "B", "text": "(Conversations escalated to humans ÷ Total conversations) × 100" },
+          { "key": "C", "text": "(Positive CSAT responses ÷ Total survey responses) × 100" },
+          { "key": "D", "text": "(Agent response time in seconds ÷ Total conversations) × 100" }
+        ],
+        "correct": "A",
+        "explanation": "Containment rate measures the percentage of customer conversations that the AI agent handles from start to finish without requiring a human agent. A conversation is 'contained' when the customer's query is resolved by the agent alone. The formula is: (agent-resolved conversations ÷ total conversations) × 100. A higher containment rate indicates the agent is effectively handling its intended use cases. Industry benchmarks vary by use case, but rates below 40% typically signal that the agent's topics or actions need significant improvement.",
+        "distractors": {
+          "B": "This formula calculates the escalation rate — the inverse of containment rate. An escalation rate of 30% equals a containment rate of 70%.",
+          "C": "This is the CSAT positive response rate, which measures customer satisfaction, not the agent's ability to resolve queries independently.",
+          "D": "This formula is mathematically meaningless as a percentage and does not relate to any standard Agentforce metric."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["testing", "containment-rate", "metrics"]
+      },
+      {
+        "id": "fda-tst-005",
+        "difficulty": 3,
+        "stem": "A P1 defect is identified during Agentforce UAT. According to FDA defect severity classification, what type of issue would be classified as P1?",
+        "options": [
+          { "key": "A", "text": "The agent provides a response that could cause harm — for example, giving dangerous medical advice or making discriminatory statements" },
+          { "key": "B", "text": "The agent's response is accurate but uses a slightly informal tone inconsistent with brand guidelines" },
+          { "key": "C", "text": "A minor typo is present in one of the agent's standard responses" },
+          { "key": "D", "text": "The agent takes 3 seconds to respond instead of the target of 2 seconds" }
+        ],
+        "correct": "A",
+        "explanation": "In FDA defect severity classification: P1 = harmful response (the agent says something dangerous, discriminatory, or that could cause real-world harm — requires immediate agent deactivation and investigation), P2 = wrong answer (the agent gives an incorrect but non-harmful response — requires urgent fix before go-live), P3 = suboptimal answer (correct information but poorly phrased or incomplete — should be fixed but not a blocker), P4 = cosmetic issue (tone, typo, formatting — low priority). P1 defects are the only category that warrants stopping the deployment.",
+        "distractors": {
+          "B": "Tone inconsistency with brand guidelines is a P3 or P4 issue — it affects quality but does not cause harm. It should be corrected but is not a blocker.",
+          "C": "A typo in a response is a P4 cosmetic defect. It is the lowest severity level and should be logged and fixed in a future sprint, not escalated as critical.",
+          "D": "A 1-second response time overage is a performance observation, not a functional defect. Performance optimisation is addressed separately from functional defect classification."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["testing", "defect-severity", "qa"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-fda",
+    "topic": "fda-roi",
+    "topicLabel": "ROI & Success Metrics",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "fda-roi-001",
+        "difficulty": 2,
+        "stem": "A client's service centre handles 10,000 customer conversations per month. After Agentforce deployment, the agent fully resolves 6,500 conversations without human involvement. What is the containment rate?",
+        "options": [
+          { "key": "A", "text": "65%" },
+          { "key": "B", "text": "35%" },
+          { "key": "C", "text": "6.5%" },
+          { "key": "D", "text": "150%" }
+        ],
+        "correct": "A",
+        "explanation": "Containment rate = (agent-resolved conversations ÷ total conversations) × 100 = (6,500 ÷ 10,000) × 100 = 65%. This means the agent independently handled 65% of all customer enquiries. The remaining 35% were escalated to or handled by human agents. A 65% containment rate is a strong result for a first Agentforce deployment and represents significant cost savings.",
+        "distractors": {
+          "B": "35% is the escalation rate (conversations that required human involvement), not the containment rate. These two metrics are complements of each other.",
+          "C": "6.5% would result from not multiplying by 100, leaving the result as a raw ratio rather than a percentage.",
+          "D": "150% is mathematically impossible for a rate that represents a fraction of total conversations. It suggests a calculation error."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["roi", "containment-rate", "metrics"]
+      },
+      {
+        "id": "fda-roi-002",
+        "difficulty": 2,
+        "stem": "A client wants to calculate monthly cost savings from Agentforce. The agent deflects 5,000 conversations per month, each with an average handle time of 8 minutes. The loaded cost per human agent minute is $1.20. What is the monthly saving?",
+        "options": [
+          { "key": "A", "text": "$48,000" },
+          { "key": "B", "text": "$6,000" },
+          { "key": "C", "text": "$40,000" },
+          { "key": "D", "text": "$4,800" }
+        ],
+        "correct": "A",
+        "explanation": "Monthly saving = deflected conversations × average handle time (minutes) × loaded cost per minute = 5,000 × 8 × $1.20 = $48,000. The 'loaded' cost per minute includes salary, benefits, overhead, training, and management costs — not just the hourly wage. Using the loaded cost gives a more accurate picture of true savings than using base salary alone.",
+        "distractors": {
+          "B": "$6,000 results from multiplying only 5,000 × $1.20, omitting the 8-minute handle time factor.",
+          "C": "$40,000 results from using $1.00 per minute instead of $1.20, or from a rounding error in the handle time.",
+          "D": "$4,800 results from using 100 conversations instead of 5,000, or another order-of-magnitude error."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["roi", "cost-savings", "business-case"]
+      },
+      {
+        "id": "fda-roi-003",
+        "difficulty": 2,
+        "stem": "Which set of KPIs provides the most complete picture of Agentforce success for a customer service deployment?",
+        "options": [
+          { "key": "A", "text": "Containment rate, CSAT (customer satisfaction score), average handle time reduction, and first contact resolution rate" },
+          { "key": "B", "text": "Number of Apex classes deployed and number of custom objects created" },
+          { "key": "C", "text": "Salesforce org storage usage and API call volume" },
+          { "key": "D", "text": "Number of Trailhead badges earned by the implementation team" }
+        ],
+        "correct": "A",
+        "explanation": "A balanced Agentforce KPI dashboard for customer service covers: containment rate (efficiency — how much the agent handles independently), CSAT (quality — are customers satisfied with AI interactions?), average handle time reduction (productivity — how much faster are issues resolved?), and first contact resolution rate (effectiveness — are issues resolved in one interaction?). Together, these four metrics capture efficiency, quality, and customer experience — the three dimensions of a successful AI deployment.",
+        "distractors": {
+          "B": "Apex class and custom object counts are development effort metrics. They measure implementation complexity, not business outcomes or agent performance.",
+          "C": "Storage and API call volume are technical infrastructure metrics. High API volume might indicate agent activity but does not indicate whether customers are satisfied or issues are being resolved.",
+          "D": "Trailhead badges measure team learning but have no relationship to the agent's business impact or customer experience quality."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["roi", "kpis", "success-metrics"]
+      },
+      {
+        "id": "fda-roi-004",
+        "difficulty": 2,
+        "stem": "When presenting an Agentforce business case to a CFO, which structure most effectively demonstrates financial value?",
+        "options": [
+          { "key": "A", "text": "Total investment (licences + implementation) vs. projected annual savings (deflection + efficiency), with a calculated payback period and 3-year ROI" },
+          { "key": "B", "text": "A list of all Agentforce features and their technical specifications" },
+          { "key": "C", "text": "Screenshots of the Agent Builder configuration interface" },
+          { "key": "D", "text": "A comparison of Agentforce pricing vs. competing AI platforms" }
+        ],
+        "correct": "A",
+        "explanation": "A CFO-facing business case must speak in financial terms: what does it cost (total investment including Year 1 licences and implementation fees), what does it save (annual savings from conversation deflection, handle time reduction, and efficiency gains), when does it break even (payback period = total investment ÷ annual savings), and what is the 3-year return (total 3-year savings minus total 3-year costs). This structure allows a CFO to compare the Agentforce investment against other capital allocation options.",
+        "distractors": {
+          "B": "Technical feature specifications are relevant to a technical audience but mean nothing to a CFO. The business case must translate features into financial outcomes.",
+          "C": "Screenshots of the UI demonstrate that the solution exists but do not answer the CFO's primary question: what is the financial return on this investment?",
+          "D": "Competitive pricing comparison may be useful in a vendor selection context but does not constitute a business case. A business case demonstrates value, not just relative cost."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["roi", "business-case", "cfo"]
+      },
+      {
+        "id": "fda-roi-005",
+        "difficulty": 2,
+        "stem": "A client reports that their Agentforce CSAT score (4.1/5.0) is lower than their human agent CSAT score (4.6/5.0). What is the most appropriate consultant response?",
+        "options": [
+          { "key": "A", "text": "Investigate the conversations where CSAT was low to identify whether the gap is due to topic gaps, poor escalation handling, or customer preference for humans, then prioritise targeted improvements" },
+          { "key": "B", "text": "Immediately decommission the Agentforce agent and revert to full human handling" },
+          { "key": "C", "text": "Tell the client that AI CSAT is always lower than human CSAT and the gap is acceptable" },
+          { "key": "D", "text": "Increase the agent's response speed to improve CSAT automatically" }
+        ],
+        "correct": "A",
+        "explanation": "A CSAT gap between AI and human agents is normal in early deployments and is an improvement signal, not necessarily a failure signal. The right response is to analyse the low-CSAT conversations: Are customers getting wrong answers (topic or action problem)? Are they frustrated by not being escalated quickly enough when they need a human (escalation design problem)? Or are they expressing a general preference for humans (change management/communication challenge)? Each root cause has a different fix. Blind escalation to 'decommission' without investigation wastes the investment.",
+        "distractors": {
+          "B": "Decommissioning the agent based on a CSAT gap of 0.5 points is an overreaction. The agent is still achieving a 4.1/5.0 score, which is good. Investigation and improvement is the appropriate response.",
+          "C": "Accepting a permanent CSAT gap without investigation is a failure of continuous improvement. FDA methodology requires ongoing optimisation, not static acceptance of underperformance.",
+          "D": "Response speed is one factor in CSAT but is rarely the primary driver of a 0.5-point gap. Speed improvements alone will not close a gap caused by accuracy or escalation issues."
+        },
+        "citation_url": "https://partners.salesforce.com",
+        "verified_against_release": "Summer '25",
+        "tags": ["roi", "csat", "continuous-improvement"]
+      }
+    ]
+  }
+]

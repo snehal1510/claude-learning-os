@@ -1,0 +1,680 @@
+[
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-agent-builder",
+    "topicLabel": "Agent Builder & Configuration",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "af-ab-001",
+        "difficulty": 2,
+        "stem": "What is the fundamental architectural difference between an Agentforce agent and a traditional Einstein Bot?",
+        "options": [
+          { "key": "A", "text": "Agentforce uses LLM-powered reasoning to autonomously determine which actions to take; Einstein Bots rely on rule-based decision trees defined by an admin" },
+          { "key": "B", "text": "Einstein Bots support more deployment channels than Agentforce agents" },
+          { "key": "C", "text": "Agentforce requires Apex code to configure; Einstein Bots are entirely no-code" },
+          { "key": "D", "text": "Einstein Bots can call external APIs; Agentforce agents are restricted to Salesforce data only" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce agents are powered by a large language model (LLM) that autonomously interprets user intent, selects appropriate actions, and reasons through multi-step tasks — all without a predefined decision tree. Einstein Bots, by contrast, follow explicit dialog flows and decision trees built by admins. This LLM-driven autonomy is the defining characteristic of Agentforce.",
+        "distractors": {
+          "B": "Agentforce supports multiple channels including Experience Cloud, Messaging (SMS/WhatsApp), and Slack — comparable or broader than Einstein Bots.",
+          "C": "Agentforce is primarily configured through the no-code Agent Builder UI. Apex can be used to build custom actions, but it is not required for basic configuration.",
+          "D": "Agentforce agents can call external APIs through Apex actions, MuleSoft actions, and External Service actions — external connectivity is a core capability."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["agent-builder", "fundamentals", "einstein-bot"]
+      },
+      {
+        "id": "af-ab-002",
+        "difficulty": 2,
+        "stem": "What is the role of the Agent User in an Agentforce configuration?",
+        "options": [
+          { "key": "A", "text": "It is the Salesforce user record under which the agent executes actions, determining the agent's data access and permissions" },
+          { "key": "B", "text": "It represents the human supervisor who monitors and approves agent responses before they are sent" },
+          { "key": "C", "text": "It is the end customer who interacts with the agent through the deployed channel" },
+          { "key": "D", "text": "It is a special admin account required to access the Agent Builder Setup page" }
+        ],
+        "correct": "A",
+        "explanation": "The Agent User is a dedicated Salesforce user record whose profile and permission sets define what data and actions the agent can access. When the agent executes a Query Records action or calls an Apex method, it does so with the permissions of this user. Properly scoping the Agent User's permissions is a critical security configuration step.",
+        "distractors": {
+          "B": "Human supervision is handled through escalation topics and handoff configurations, not the Agent User record. The Agent User has nothing to do with human oversight.",
+          "C": "The end customer interacts through the channel (e.g., a Messaging session or Experience Cloud site). They are never the Agent User.",
+          "D": "Agent Builder is accessible to any admin with the appropriate permission set. The Agent User is a runtime execution context, not an access control for Setup."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_agent_builder.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["agent-builder", "permissions", "agent-user"]
+      },
+      {
+        "id": "af-ab-003",
+        "difficulty": 2,
+        "stem": "Which deployment channels are supported for Agentforce agents?",
+        "options": [
+          { "key": "A", "text": "Experience Cloud sites, Messaging channels (SMS, WhatsApp, Facebook Messenger), Slack, and embedded web deployments" },
+          { "key": "B", "text": "Email only, because agents require threading to maintain conversation context across turns" },
+          { "key": "C", "text": "Only Salesforce Service Console, because agents need direct access to CRM record pages" },
+          { "key": "D", "text": "Only Experience Cloud, because Agentforce requires a branded self-service portal" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce supports multiple channels out of the box: Experience Cloud sites, Messaging (including SMS, WhatsApp, and Facebook Messenger via Messaging for In-App and Web), Slack, and embedded deployments in custom web apps. This multi-channel support enables organizations to deploy the same agent configuration across customer-facing touchpoints.",
+        "distractors": {
+          "B": "Email is not a primary Agentforce channel. Context is maintained within a session regardless of channel.",
+          "C": "Agentforce is designed to serve customers on external channels, not just the internal Service Console.",
+          "D": "Experience Cloud is one of several supported channels; Agentforce does not require a portal deployment."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_agent_builder.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["agent-builder", "channels", "deployment"]
+      },
+      {
+        "id": "af-ab-004",
+        "difficulty": 2,
+        "stem": "What is the practical difference between a Draft agent version and an Active agent version?",
+        "options": [
+          { "key": "A", "text": "Only the Active version handles live customer interactions; Draft versions are used for development and testing changes without affecting production users" },
+          { "key": "B", "text": "Draft versions can be deployed to production while Active versions are automatically archived after 30 days" },
+          { "key": "C", "text": "Active versions require manager approval before going live; Draft versions are immediately available to customers" },
+          { "key": "D", "text": "There is no versioning concept in Agentforce; all changes apply immediately to live conversations" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce uses version control to separate development from live deployments. A Draft version allows admins to make changes — adding topics, modifying instructions, adjusting actions — without disrupting customers who are interacting with the Active version. Once tested, the draft is activated to become the new active version.",
+        "distractors": {
+          "B": "It is the Active version that serves live users. Draft versions are not customer-facing.",
+          "C": "There is no approval workflow required to activate an agent version. Activation is a direct admin action.",
+          "D": "Versioning is a core feature of Agentforce to enable safe iterative development."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_agent_builder.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["agent-builder", "versioning"]
+      },
+      {
+        "id": "af-ab-005",
+        "difficulty": 2,
+        "stem": "When creating an agent in Agent Builder, which configuration element primarily defines the scope of what the agent can and cannot discuss with users?",
+        "options": [
+          { "key": "A", "text": "Topics, which group related user intents and contain instructions that guide and constrain the agent's conversational behavior" },
+          { "key": "B", "text": "The agent description field, which the LLM reads at runtime to determine allowed conversation scope" },
+          { "key": "C", "text": "The permission sets assigned to the Agent User record" },
+          { "key": "D", "text": "The channel configuration, which filters conversation content based on the deployment channel" }
+        ],
+        "correct": "A",
+        "explanation": "Topics are the primary mechanism for defining an agent's scope and behavior. Each topic groups related user intents (e.g., 'Order Status', 'Returns') and includes natural-language instructions that tell the agent how to handle those intents, what actions to take, and what boundaries to respect. An agent without topics cannot handle any user requests.",
+        "distractors": {
+          "B": "The agent description helps users and admins understand the agent's purpose, but it is not the runtime constraint mechanism — Topics and their instructions serve that role.",
+          "C": "Permission sets control data access for the Agent User, not the conversational scope of topics the agent can handle.",
+          "D": "Channel configuration governs how the agent is deployed and accessed, not the content of conversations."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["agent-builder", "topics", "scope"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-topics-instructions",
+    "topicLabel": "Topics & Instructions",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "af-ti-001",
+        "difficulty": 3,
+        "stem": "What is the correct definition of a Topic in Agentforce?",
+        "options": [
+          { "key": "A", "text": "A grouping of related user intents that the agent can handle, paired with natural-language instructions defining how the agent should respond and behave within that scope" },
+          { "key": "B", "text": "A keyword filter that routes incoming messages to the correct human agent team" },
+          { "key": "C", "text": "A conversation flow diagram, similar to an Einstein Bot dialog, with branching logic" },
+          { "key": "D", "text": "A Salesforce custom object that stores conversation history and intent classifications" }
+        ],
+        "correct": "A",
+        "explanation": "A Topic in Agentforce combines two elements: a set of related user intents (what users might ask in that domain) and natural-language instructions (how the agent should behave, what actions to invoke, what to avoid). The LLM uses the topic's description and examples to classify incoming messages, then follows the topic's instructions to generate responses and call actions.",
+        "distractors": {
+          "B": "Topics are not keyword filters — they use LLM-based intent classification, which is far more flexible than keyword matching and handles paraphrasing, synonyms, and context.",
+          "C": "Agentforce does not use decision tree flows like Einstein Bots. Topics leverage LLM reasoning, not predefined branching logic.",
+          "D": "Topics are configuration objects in Setup, not data storage objects. Conversation history is maintained in the messaging session, not a Topic record."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["topics", "instructions", "fundamentals"]
+      },
+      {
+        "id": "af-ti-002",
+        "difficulty": 3,
+        "stem": "How does Agentforce determine which configured Topic applies to a given user message?",
+        "options": [
+          { "key": "A", "text": "The underlying LLM classifies the user's intent by comparing the message against topic descriptions and example utterances, then routes to the best-matching topic" },
+          { "key": "B", "text": "The system uses exact keyword matching between the user's message and topic names" },
+          { "key": "C", "text": "A decision tree evaluates the first keyword of the message and routes to a preconfigured topic" },
+          { "key": "D", "text": "Topics are assigned manually by a supervisor before each conversation starts" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce uses LLM-based intent classification. When a user message arrives, the LLM evaluates it against all configured topic descriptions and sample utterances to identify the most relevant topic. This approach handles natural language variation — users don't need to use specific keywords — and the LLM can select 'none of the above' if no topic matches, triggering out-of-scope handling.",
+        "distractors": {
+          "B": "Keyword matching is brittle and the old chatbot approach. Agentforce's LLM understands meaning, not just exact words.",
+          "C": "There is no decision tree in Agentforce. The entire routing and reasoning process is handled by the LLM.",
+          "D": "Topic routing is fully automated at runtime. No manual assignment is possible or required."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["topics", "routing", "llm"]
+      },
+      {
+        "id": "af-ti-003",
+        "difficulty": 3,
+        "stem": "Which approach produces the most effective Topic instructions for an Agentforce agent?",
+        "options": [
+          { "key": "A", "text": "Write specific, action-oriented natural-language instructions that tell the agent precisely what to do, in what order, and what to avoid within the topic scope" },
+          { "key": "B", "text": "Use complex conditional logic with nested if/else rules for comprehensive scenario coverage" },
+          { "key": "C", "text": "Keep instructions as brief as possible — one sentence or less — to avoid overloading the LLM" },
+          { "key": "D", "text": "Copy dialog scripts from existing Einstein Bots to leverage proven conversation patterns" }
+        ],
+        "correct": "A",
+        "explanation": "Effective Agentforce instructions are written in clear, specific, imperative natural language. They should tell the agent what to do (e.g., 'Always verify the customer's account before retrieving order details'), what not to do (e.g., 'Do not discuss competitor pricing'), and how to handle specific scenarios. Vague instructions produce inconsistent agent behavior.",
+        "distractors": {
+          "B": "Topic instructions are natural language, not code. Conditional logic (if/else) is not valid syntax — the LLM interprets instructions as guidance, not executable branching.",
+          "C": "Excessively brief instructions leave too much to interpretation. Specific, detailed instructions lead to more reliable and predictable agent behavior.",
+          "D": "Einstein Bot dialog scripts use decision tree syntax incompatible with Agentforce's natural-language instruction format. They would be meaningless to the LLM."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["instructions", "best-practices"]
+      },
+      {
+        "id": "af-ti-004",
+        "difficulty": 3,
+        "stem": "What is the recommended pattern for handling user requests that fall outside all defined Topics?",
+        "options": [
+          { "key": "A", "text": "Configure an Escalation topic with instructions to acknowledge the out-of-scope request, inform the user of the agent's limitations, and transfer to a human agent if needed" },
+          { "key": "B", "text": "Allow the LLM to answer using its general knowledge, since it has broad training data" },
+          { "key": "C", "text": "Terminate the conversation immediately and display a standard 'session ended' message" },
+          { "key": "D", "text": "Silently discard out-of-scope messages and wait for the user to rephrase" }
+        ],
+        "correct": "A",
+        "explanation": "Best practice is to configure an Escalation (or General/Fallback) topic with instructions for out-of-scope handling. This topic catches unmatched intents, gives the agent a graceful response (e.g., 'I can help with orders and returns — for billing questions, let me connect you with our team'), and can invoke a transfer-to-agent action. This prevents the LLM from improvising answers outside its sanctioned scope.",
+        "distractors": {
+          "B": "Allowing the LLM to answer from general knowledge is a governance risk. Without a defined topic, responses are ungrounded and may be inaccurate or off-brand.",
+          "C": "Abruptly ending the conversation creates a poor customer experience. Graceful out-of-scope handling maintains trust.",
+          "D": "Silently ignoring messages creates confusion. Users need acknowledgment and guidance when their request is outside scope."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["topics", "escalation", "out-of-scope"]
+      },
+      {
+        "id": "af-ti-005",
+        "difficulty": 3,
+        "stem": "What is the recommended method to verify that topic routing is working correctly during development?",
+        "options": [
+          { "key": "A", "text": "Use the Agent Builder conversation simulator to send sample utterances and confirm which topic and actions the agent selects" },
+          { "key": "B", "text": "Deploy the agent to production and monitor live conversations for misrouted messages" },
+          { "key": "C", "text": "Write Apex unit tests that mock LLM responses and assert correct topic selection" },
+          { "key": "D", "text": "Review the Salesforce debug log for topic classification events after each test conversation" }
+        ],
+        "correct": "A",
+        "explanation": "Agent Builder includes a built-in conversation simulator that allows developers to test the agent in a sandboxed environment without deploying to a live channel. You can type sample user messages and observe which topic is selected, which actions are invoked, and what responses are generated. This is the primary testing tool during development and should be used before activating a new agent version.",
+        "distractors": {
+          "B": "Testing in production is risky and impacts real customers. The simulator exists specifically to enable safe pre-production testing.",
+          "C": "Apex unit tests cannot simulate LLM behavior. The LLM's topic classification is not deterministic in the same way as Apex code.",
+          "D": "Debug logs capture Apex execution and DML, not LLM reasoning or topic selection events."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_topics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["topics", "testing", "simulator"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-actions",
+    "topicLabel": "Agent Actions",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "af-ac-001",
+        "difficulty": 3,
+        "stem": "A developer wants to create a custom Agentforce action that queries an external system and returns structured data. What is the minimum requirement for the Apex method?",
+        "options": [
+          { "key": "A", "text": "The method must be annotated with @InvocableMethod and use @InvocableVariable to define typed input and output parameters" },
+          { "key": "B", "text": "The method must be annotated with @future(callout=true) to support asynchronous HTTP callouts" },
+          { "key": "C", "text": "The method must extend the AgentforceAction abstract class and override the execute() method" },
+          { "key": "D", "text": "The method must be a REST resource annotated with @RestResource for the agent to invoke it" }
+        ],
+        "correct": "A",
+        "explanation": "@InvocableMethod is the standard annotation that makes an Apex method callable from Agentforce (as well as Flow and Process Builder). The @InvocableVariable annotation on inner class properties defines the typed inputs the agent passes in and the outputs it receives back. This is the same mechanism used by Flow-callable Apex, making it reusable across the Salesforce platform.",
+        "distractors": {
+          "B": "@future methods are for deferred asynchronous execution and cannot return values to the caller — making them unsuitable for actions that need to return data to the agent.",
+          "C": "There is no AgentforceAction base class in Salesforce. The @InvocableMethod annotation is the correct mechanism.",
+          "D": "@RestResource exposes Apex as an external web service endpoint, not as an internal invocable action for Agentforce."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["actions", "apex", "invocable-method"]
+      },
+      {
+        "id": "af-ac-002",
+        "difficulty": 3,
+        "stem": "A business analyst wants to create an Agentforce action using Flow. Which Flow type is supported for autonomous Agentforce agents?",
+        "options": [
+          { "key": "A", "text": "Autolaunched Flow, because it executes without requiring user interaction and can return output variables to the agent" },
+          { "key": "B", "text": "Screen Flow, because it provides the richest user experience with input components and screens" },
+          { "key": "C", "text": "Both Screen Flow and Autolaunched Flow are equally supported for Agentforce actions" },
+          { "key": "D", "text": "Only Platform Event-Triggered Flows are supported so the agent can fire-and-forget" }
+        ],
+        "correct": "A",
+        "explanation": "Autolaunched Flows (including record-triggered and schedulable variants) are supported as Agentforce actions because they execute server-side without requiring a UI. Screen Flows are NOT supported for autonomous Agentforce agents because they require rendering UI components in a user's browser — something an autonomous agent cannot do. This is a commonly tested distinction in the exam.",
+        "distractors": {
+          "B": "Screen Flows are explicitly not supported for autonomous Agentforce agents due to their UI dependency.",
+          "C": "Screen Flows are not supported. Only Autolaunched Flows work as Agentforce actions.",
+          "D": "Platform Event-Triggered Flows are triggered by events, not invoked by agents. They cannot be called as actions."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["actions", "flow", "screen-flow"]
+      },
+      {
+        "id": "af-ac-003",
+        "difficulty": 3,
+        "stem": "Which standard Agentforce action can retrieve Salesforce records matching specified filter criteria and return them to the agent?",
+        "options": [
+          { "key": "A", "text": "Query Records, which retrieves records from any Salesforce object based on filter criteria defined by the agent" },
+          { "key": "B", "text": "Get Related Records, which is only available within Einstein Copilot and not standard Agentforce" },
+          { "key": "C", "text": "SOQL Runner, which executes raw SOQL statements constructed by the agent" },
+          { "key": "D", "text": "Find Account, a dedicated lookup action available only for Account objects" }
+        ],
+        "correct": "A",
+        "explanation": "Query Records is a standard Agentforce action that allows the agent to retrieve Salesforce records. The agent specifies the object and filter conditions, and the action returns matching records for the agent to use in its response. This is one of the most commonly used standard actions for building data-driven service agents.",
+        "distractors": {
+          "B": "Query Records is a standard Agentforce action, not an Einstein Copilot-exclusive feature.",
+          "C": "There is no 'SOQL Runner' action. Agents interact with data through configured actions, not raw SOQL.",
+          "D": "There is no object-specific 'Find Account' action. Query Records handles all objects."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["actions", "standard-actions", "query-records"]
+      },
+      {
+        "id": "af-ac-004",
+        "difficulty": 4,
+        "stem": "How can an Agentforce agent call an external REST API that has not been registered as a Salesforce External Service?",
+        "options": [
+          { "key": "A", "text": "Build an Apex @InvocableMethod that makes the HTTP callout using a Named Credential, then configure it as an agent action" },
+          { "key": "B", "text": "Configure a MuleSoft API action that proxies the external API through MuleSoft Anypoint Platform" },
+          { "key": "C", "text": "Both A and B are valid approaches depending on whether MuleSoft is available in the org" },
+          { "key": "D", "text": "External REST APIs cannot be called from Agentforce without first registering them as External Services" }
+        ],
+        "correct": "C",
+        "explanation": "Both approaches are valid. An Apex action with a Named Credential callout is the most common approach for orgs without MuleSoft — the Apex method calls the external API and returns results as InvocableVariables. A MuleSoft API action is the preferred approach for organizations that use MuleSoft Anypoint as their integration layer. The External Services path (registering an OpenAPI spec) is a third option for API-first integrations.",
+        "distractors": {
+          "A": "Correct but incomplete — it omits the valid MuleSoft path.",
+          "B": "Correct but incomplete — it omits the Apex path.",
+          "D": "External Service registration is one option, not a requirement. Apex callouts provide a direct path without External Services."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["actions", "external-api", "named-credentials", "mulesoft"]
+      },
+      {
+        "id": "af-ac-005",
+        "difficulty": 3,
+        "stem": "When multiple actions are configured for a topic, how does Agentforce decide which action(s) to invoke?",
+        "options": [
+          { "key": "A", "text": "The LLM reasons about the user's request and the descriptions of available actions to select the most appropriate action(s), potentially chaining multiple actions to complete a task" },
+          { "key": "B", "text": "Actions are always executed sequentially in the order they are listed in the topic configuration" },
+          { "key": "C", "text": "The first action in the list always runs first, and subsequent actions are triggered only if the previous action fails" },
+          { "key": "D", "text": "The agent presents a numbered menu to the user and executes whichever action number the user selects" }
+        ],
+        "correct": "A",
+        "explanation": "The LLM reads each action's name and description to understand what it does, then selects the most appropriate action(s) based on the user's request and the topic's instructions. It can invoke multiple actions in sequence (chaining) when a task requires multiple steps — for example, querying a record and then drafting an email about it. Well-written action descriptions are critical to correct action selection.",
+        "distractors": {
+          "B": "Action order in the UI is not deterministic in terms of execution. The LLM decides based on reasoning, not list position.",
+          "C": "Actions are selected by reasoning, not executed in fallback order. There is no automatic failure-triggered chaining.",
+          "D": "Agentforce is an autonomous agent — it selects actions without asking the user to pick from a menu."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["actions", "chaining", "llm-reasoning"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-prompt-templates",
+    "topicLabel": "Prompt Templates",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "af-pt-001",
+        "difficulty": 3,
+        "stem": "What is the primary difference between a Flex prompt template and a Field Generation prompt template in Salesforce?",
+        "options": [
+          { "key": "A", "text": "Flex templates are designed for dynamic, conversational agent interactions and can adapt structure; Field Generation templates generate text for a specific Salesforce record field" },
+          { "key": "B", "text": "Field Generation templates support multimodal inputs (images and text); Flex templates are text-only" },
+          { "key": "C", "text": "Flex templates require a Data Cloud license; Field Generation templates work with standard CRM data only" },
+          { "key": "D", "text": "Flex templates are used for external API integrations; Field Generation templates are for internal Salesforce workflows" }
+        ],
+        "correct": "A",
+        "explanation": "Flex templates are versatile, open-ended templates used in Agentforce actions and other conversational AI contexts where the output structure can vary. Field Generation templates have a specific purpose: generating text for a defined Salesforce record field (e.g., auto-populating a Case Description or Call Summary). Field Generation templates are used in Einstein features like Auto-Fill and Copilot actions that write to record fields.",
+        "distractors": {
+          "B": "Multimodal support is not the distinguishing factor between these template types.",
+          "C": "Both template types can use Data Cloud for grounding if Data Cloud is licensed. The distinction is about use case, not licensing.",
+          "D": "Both template types can interact with Salesforce data and external sources via merge fields and grounding."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["prompt-templates", "flex-template", "field-generation"]
+      },
+      {
+        "id": "af-pt-002",
+        "difficulty": 3,
+        "stem": "In a Salesforce prompt template, which syntax is used to dynamically reference a Salesforce record field?",
+        "options": [
+          { "key": "A", "text": "{!Record.FieldName} or {!Input.FieldName} depending on how the context variable is defined in the template" },
+          { "key": "B", "text": "SOQL queries embedded directly in double curly braces: {{SELECT FieldName FROM Object}}" },
+          { "key": "C", "text": "JavaScript variable syntax: ${record.fieldName}" },
+          { "key": "D", "text": "Visualforce binding expressions: {!controller.fieldName}" }
+        ],
+        "correct": "A",
+        "explanation": "Prompt Builder uses merge field syntax similar to other Salesforce tools. For record context variables, fields are referenced as {!Record.FieldName} (e.g., {!Record.Description} to include a Case description). The exact prefix depends on how the input resource is named in the template. This allows templates to dynamically pull live Salesforce data into the prompt at runtime.",
+        "distractors": {
+          "B": "SOQL is not embedded directly in prompt templates. Data is pulled through defined resource inputs using merge field syntax.",
+          "C": "JavaScript syntax is not used in Salesforce prompt templates. This would be relevant for Lightning Web Components, not Prompt Builder.",
+          "D": "Visualforce expressions are for Visualforce pages. Prompt Builder has its own merge field syntax."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["prompt-templates", "merge-fields"]
+      },
+      {
+        "id": "af-pt-003",
+        "difficulty": 3,
+        "stem": "What does 'grounding' mean when applied to Agentforce prompt templates?",
+        "options": [
+          { "key": "A", "text": "Anchoring the LLM's response to specific Salesforce or Data Cloud data so the output is factually tied to real records rather than generated from model knowledge alone" },
+          { "key": "B", "text": "Running the prompt template processing on Salesforce's on-premise servers rather than in the cloud" },
+          { "key": "C", "text": "Converting prompt templates into SOQL for database retrieval before sending to the LLM" },
+          { "key": "D", "text": "Restricting prompt templates to approved topics and preventing off-topic generation" }
+        ],
+        "correct": "A",
+        "explanation": "Grounding is the practice of including relevant, verifiable data from Salesforce (CRM records, Data Cloud unified profiles, knowledge articles) directly in the prompt context. When the LLM generates a response based on specific provided data — rather than its training knowledge — it is 'grounded' in that data. Grounding significantly reduces hallucination and ensures responses reflect the actual customer's situation.",
+        "distractors": {
+          "B": "Grounding has nothing to do with server infrastructure or on-premise vs cloud execution.",
+          "C": "Templates use merge fields to include data, not SOQL embedded in the template. SOQL may run behind the scenes to fetch data, but that is not what 'grounding' refers to.",
+          "D": "That description is closer to topic scope control in Agentforce, not grounding."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["prompt-templates", "grounding", "hallucination"]
+      },
+      {
+        "id": "af-pt-004",
+        "difficulty": 3,
+        "stem": "Before a prompt template can be used by an Agentforce action or Einstein feature, what step must be completed?",
+        "options": [
+          { "key": "A", "text": "The template must be set to Active status; only active templates are available to agents and Einstein features" },
+          { "key": "B", "text": "The template must be approved through a Salesforce approval process initiated by a Salesforce admin" },
+          { "key": "C", "text": "The template must be deployed from sandbox to production via a change set before it can be used" },
+          { "key": "D", "text": "The template must be compiled using the Salesforce CLI with the 'force:source:deploy' command" }
+        ],
+        "correct": "A",
+        "explanation": "Prompt templates have an Active/Inactive status. A template in Draft or Inactive status is not available for use by agents, Einstein features, or Flow. The admin must explicitly activate the template after building and testing it. This activation gate prevents untested templates from accidentally being used in production interactions.",
+        "distractors": {
+          "B": "There is no built-in approval workflow for prompt templates. Activation is a direct action by an authorized admin.",
+          "C": "Prompt templates are metadata that can be deployed via change sets or CLI, but deployment is not the same as activation. A deployed but inactive template is still unusable.",
+          "D": "CLI deployment is a deployment mechanism, not an activation step. Activation happens in the Prompt Builder UI."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["prompt-templates", "activation", "deployment"]
+      },
+      {
+        "id": "af-pt-005",
+        "difficulty": 3,
+        "stem": "How can an admin verify how a prompt template will render with real data before deploying it to production?",
+        "options": [
+          { "key": "A", "text": "Use the Preview panel in Prompt Builder, which allows supplying sample record IDs to see the fully rendered prompt with actual field values" },
+          { "key": "B", "text": "Run the Agentforce simulator with the template connected to a test topic to observe rendering in a full conversation" },
+          { "key": "C", "text": "Write an Apex unit test that instantiates the template class and calls the render() method" },
+          { "key": "D", "text": "Use Salesforce Optimizer to validate template syntax and check for merge field errors" }
+        ],
+        "correct": "A",
+        "explanation": "Prompt Builder includes a Preview panel where admins can enter a record ID (or other input) to see the prompt as the LLM will receive it — with all merge fields resolved to actual data. This is essential for catching merge field errors, verifying that grounding data is being included correctly, and seeing what output the LLM generates before the template goes live.",
+        "distractors": {
+          "B": "The Agentforce simulator tests the full agent conversation but is not the primary tool for inspecting how a specific template renders.",
+          "C": "There is no Apex class interface for prompt templates. They are platform-managed metadata, not instantiable Apex classes.",
+          "D": "Salesforce Optimizer reviews org configuration health, not prompt template rendering."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["prompt-templates", "testing", "preview"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-trust-layer",
+    "topicLabel": "Einstein Trust Layer",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "af-tl-001",
+        "difficulty": 3,
+        "stem": "What does 'zero data retention' mean in the context of the Einstein Trust Layer?",
+        "options": [
+          { "key": "A", "text": "Salesforce's LLM providers are contractually prohibited from storing customer data or using it to train or improve their models" },
+          { "key": "B", "text": "Salesforce automatically deletes all conversation logs from its own systems after 24 hours" },
+          { "key": "C", "text": "The Einstein Trust Layer prevents any customer data from ever being sent to an external LLM" },
+          { "key": "D", "text": "Users can configure an opt-out setting to prevent their conversations from being stored in Salesforce" }
+        ],
+        "correct": "A",
+        "explanation": "Zero data retention is a contractual commitment from Salesforce's LLM providers (such as Azure OpenAI) that they will not store, log, or use customer data sent through the Einstein Trust Layer LLM gateway for model training or any other purpose. The data is processed in-flight and immediately discarded. This is a key compliance assurance for enterprise customers in regulated industries.",
+        "distractors": {
+          "B": "Zero data retention refers to the LLM provider's handling, not Salesforce's own audit trail retention. Salesforce maintains its own audit logs separately.",
+          "C": "Data is still sent to the LLM — it must be, for the LLM to process it. Zero data retention governs what the LLM provider does with that data after processing.",
+          "D": "Zero data retention is a platform-wide guarantee, not a user-configurable opt-out setting."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["trust-layer", "zero-data-retention", "compliance"]
+      },
+      {
+        "id": "af-tl-002",
+        "difficulty": 3,
+        "stem": "Before customer data is sent to an LLM through the Einstein Trust Layer, which process automatically protects sensitive PII such as Social Security Numbers or credit card numbers?",
+        "options": [
+          { "key": "A", "text": "Data masking, which detects and replaces sensitive field values with anonymized placeholder tokens before the data is transmitted to the LLM" },
+          { "key": "B", "text": "Field-Level Security (FLS), which prevents inaccessible fields from being included in prompts" },
+          { "key": "C", "text": "AES-256 encryption, which encrypts all data in transit so the LLM receives only ciphertext" },
+          { "key": "D", "text": "The Apex Data Masking API, which must be manually configured for each sensitive field" }
+        ],
+        "correct": "A",
+        "explanation": "The Einstein Trust Layer includes an automatic data masking component. When a prompt is constructed that includes sensitive PII (SSNs, credit card numbers, phone numbers, etc.), the Trust Layer detects these values and replaces them with placeholder tokens (e.g., '[MASKED_SSN]') before the prompt leaves Salesforce. The LLM never sees the actual sensitive values, while the rest of the context remains intact.",
+        "distractors": {
+          "B": "FLS controls which fields a user can see in the UI and in SOQL, but does not automatically mask sensitive values in LLM prompts at the Trust Layer level.",
+          "C": "Encryption protects data in transit from eavesdropping, but the LLM itself would still receive the decrypted plaintext. Masking removes the sensitive value entirely.",
+          "D": "There is no manual 'Apex Data Masking API' for this purpose. Trust Layer masking is automatic and platform-managed."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["trust-layer", "data-masking", "pii"]
+      },
+      {
+        "id": "af-tl-003",
+        "difficulty": 3,
+        "stem": "What is the purpose of the Audit Trail component within the Einstein Trust Layer?",
+        "options": [
+          { "key": "A", "text": "It creates a complete, tamper-evident log of all LLM interactions — including inputs sent and outputs received — for compliance review and troubleshooting" },
+          { "key": "B", "text": "It tracks Setup configuration changes made to Agentforce in the standard Salesforce Setup Audit Trail" },
+          { "key": "C", "text": "It monitors real-time agent performance metrics such as response latency and containment rate" },
+          { "key": "D", "text": "It records which Salesforce users have logged into Agent Builder and made configuration changes" }
+        ],
+        "correct": "A",
+        "explanation": "The Einstein Trust Layer Audit Trail captures every LLM invocation — what prompt was sent, what response was received, which user or agent triggered it, and when. This log is critical for regulated industries (financial services, healthcare) that must demonstrate AI governance, investigate incidents, or prove compliance with policies. It is separate from the standard Salesforce Setup Audit Trail.",
+        "distractors": {
+          "B": "The standard Salesforce Setup Audit Trail tracks Setup changes. The Einstein Trust Layer Audit Trail specifically tracks LLM interactions.",
+          "C": "Performance metrics like containment rate are tracked in agent analytics dashboards, not the Trust Layer Audit Trail.",
+          "D": "Agent Builder access logging is handled by standard Salesforce user activity monitoring, not the Trust Layer."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["trust-layer", "audit-trail", "compliance"]
+      },
+      {
+        "id": "af-tl-004",
+        "difficulty": 3,
+        "stem": "An enterprise customer is deploying Agentforce for customer service. They are concerned about the AI generating harmful or offensive responses. Which Einstein Trust Layer component directly addresses this risk?",
+        "options": [
+          { "key": "A", "text": "Toxicity detection, which screens both incoming user messages and outgoing AI responses for harmful, offensive, or policy-violating content" },
+          { "key": "B", "text": "Data masking, which ensures sensitive customer data is not visible in AI responses" },
+          { "key": "C", "text": "Zero data retention, which prevents the LLM provider from training on and amplifying harmful content" },
+          { "key": "D", "text": "Audit Trail, which allows compliance teams to retroactively identify and report harmful responses" }
+        ],
+        "correct": "A",
+        "explanation": "Toxicity detection is the Trust Layer's real-time content safety mechanism. It evaluates inputs (what users send to the agent) and outputs (what the LLM generates) against toxicity, violence, hate speech, and other harmful content categories. Flagged content can be blocked before delivery. This proactive screening is the primary safeguard against harmful AI outputs reaching customers.",
+        "distractors": {
+          "B": "Data masking protects PII confidentiality, not content quality or safety.",
+          "C": "Zero data retention is a privacy commitment about data storage, not a content quality filter.",
+          "D": "Audit Trail enables after-the-fact review but does not prevent harmful content from reaching users in real time."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["trust-layer", "toxicity-detection", "safety"]
+      },
+      {
+        "id": "af-tl-005",
+        "difficulty": 3,
+        "stem": "What is the primary benefit of routing all Agentforce LLM calls through the Einstein Trust Layer's LLM gateway rather than calling LLM APIs directly?",
+        "options": [
+          { "key": "A", "text": "It provides a single governed interface that consistently applies data masking, toxicity detection, zero data retention, and audit logging across all LLM calls regardless of the underlying provider" },
+          { "key": "B", "text": "It improves response latency by caching LLM responses for frequently asked questions" },
+          { "key": "C", "text": "It allows each Agentforce topic to choose a different LLM provider for cost optimization" },
+          { "key": "D", "text": "It converts all natural-language prompts into structured SOQL before processing, improving data accuracy" }
+        ],
+        "correct": "A",
+        "explanation": "The LLM gateway is the enforcement point for all Einstein Trust Layer capabilities. By routing every LLM call through this gateway, Salesforce guarantees that data masking, toxicity detection, zero data retention agreements, and audit logging apply uniformly — regardless of which LLM provider (Azure OpenAI, Anthropic, etc.) processes the request. This architectural centralization is what makes the Trust Layer enforceable at scale.",
+        "distractors": {
+          "B": "The gateway is not a caching layer. LLM responses are generally not cached due to their context-dependent nature.",
+          "C": "While Salesforce supports multiple LLM providers, the gateway's primary purpose is governance, not per-topic provider routing.",
+          "D": "LLM prompts remain natural language. The gateway does not convert them to SOQL."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.einstein_trust_layer_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["trust-layer", "llm-gateway", "governance"]
+      }
+    ]
+  },
+  {
+    "certification": "agentforce-specialist",
+    "topic": "af-einstein-ai",
+    "topicLabel": "Einstein AI & AIforce Concepts",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "af-ea-001",
+        "difficulty": 2,
+        "stem": "What is the key architectural difference between Einstein Copilot and Agentforce?",
+        "options": [
+          { "key": "A", "text": "Einstein Copilot is an AI assistant that works alongside Salesforce users in the UI (sidecar mode); Agentforce agents operate autonomously to complete multi-step tasks without continuous human direction" },
+          { "key": "B", "text": "Einstein Copilot requires a Data Cloud license while Agentforce works with standard Salesforce data" },
+          { "key": "C", "text": "Agentforce supports only text interactions; Einstein Copilot supports voice, images, and text" },
+          { "key": "D", "text": "Einstein Copilot is only available to Salesforce administrators; Agentforce is designed for external customers" }
+        ],
+        "correct": "A",
+        "explanation": "Einstein Copilot is a conversational AI assistant embedded in the Salesforce UI — a 'sidecar' that helps Salesforce users (sales reps, service agents) by answering questions, summarizing records, and taking actions when directed. Agentforce is an autonomous agent that interacts directly with customers (or handles tasks independently) without a human directing each step. Copilot is human-assisted; Agentforce is autonomous.",
+        "distractors": {
+          "B": "Both Einstein Copilot and Agentforce can leverage Data Cloud, but it is not a licensing prerequisite for either.",
+          "C": "Both support text-based interactions. Modality is not the defining difference between them.",
+          "D": "Einstein Copilot is designed for Salesforce users; Agentforce is for customer-facing channels. However, the deeper distinction is autonomous vs. assistant mode."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["einstein-ai", "copilot", "agentforce", "autonomous"]
+      },
+      {
+        "id": "af-ea-002",
+        "difficulty": 2,
+        "stem": "What does the Einstein 1 Platform represent in Salesforce's AI strategy?",
+        "options": [
+          { "key": "A", "text": "Salesforce's unified platform that combines CRM data, Data Cloud, and AI capabilities (including Agentforce and Einstein features) into a single integrated architecture" },
+          { "key": "B", "text": "The first generation of Salesforce's Einstein AI, focused primarily on predictive lead scoring" },
+          { "key": "C", "text": "A standalone AI development environment separate from the Salesforce CRM ecosystem" },
+          { "key": "D", "text": "Salesforce's cloud infrastructure layer (IaaS) that powers all of its SaaS applications" }
+        ],
+        "correct": "A",
+        "explanation": "Einstein 1 is Salesforce's strategic platform that unifies CRM (Sales Cloud, Service Cloud, etc.), Data Cloud (unified customer data), and AI (Agentforce, Einstein Copilot, predictive AI). The goal is a single platform where customer data, processes, and AI all work together — rather than disconnected products. Agentforce is a key pillar of the Einstein 1 vision.",
+        "distractors": {
+          "B": "Einstein 1 is not the first generation — it is the current unified platform branding. Earlier Einstein features (prediction, recommendations) predate this branding.",
+          "C": "Einstein 1 is the Salesforce platform itself, not a separate development environment.",
+          "D": "Einstein 1 refers to the application and data platform, not the underlying infrastructure layer."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["einstein-ai", "einstein-1-platform", "strategy"]
+      },
+      {
+        "id": "af-ea-003",
+        "difficulty": 2,
+        "stem": "How does generative AI differ from predictive AI in the Salesforce context?",
+        "options": [
+          { "key": "A", "text": "Generative AI (like Agentforce) creates new content and responses based on context; predictive AI (like Einstein Prediction Builder) uses historical CRM data to forecast outcomes or classify records" },
+          { "key": "B", "text": "Generative AI is more accurate because it uses larger training datasets than predictive AI" },
+          { "key": "C", "text": "Predictive AI generates text recommendations while generative AI predicts future record field values" },
+          { "key": "D", "text": "Both generative and predictive AI in Salesforce use the same underlying LLM model, differentiated only by prompt engineering" }
+        ],
+        "correct": "A",
+        "explanation": "Generative AI produces new content — answers, summaries, emails, code — based on a prompt and context. Agentforce and Einstein Copilot are generative AI applications. Predictive AI uses machine learning trained on historical data to make forecasts or classifications — for example, Einstein Opportunity Scoring predicts which deals are likely to close based on past wins and losses. Both types coexist in the Salesforce platform and serve complementary purposes.",
+        "distractors": {
+          "B": "Accuracy is domain-specific and not a universal comparison between the two AI types.",
+          "C": "The definitions are reversed. Generative AI generates content; predictive AI predicts outcomes.",
+          "D": "Predictive AI uses classical ML models (random forests, neural nets for structured data), not LLMs."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["einstein-ai", "generative-ai", "predictive-ai"]
+      },
+      {
+        "id": "af-ea-004",
+        "difficulty": 2,
+        "stem": "A company wants Agentforce to automatically handle routine customer service inquiries 24/7 without human intervention for common issues. Which concept best describes this Agentforce capability?",
+        "options": [
+          { "key": "A", "text": "Autonomous agent operation — Agentforce independently interprets customer intent, selects appropriate actions, and resolves interactions end-to-end within configured topic boundaries" },
+          { "key": "B", "text": "Robotic Process Automation (RPA) — the agent follows a scripted step-by-step workflow defined by an admin for each scenario" },
+          { "key": "C", "text": "Einstein Bot deflection — pre-built dialogs route users to relevant knowledge articles to resolve their own queries" },
+          { "key": "D", "text": "Supervised AI — a human reviewer approves each agent action before it is executed" }
+        ],
+        "correct": "A",
+        "explanation": "Agentforce's autonomous operation is its defining feature: the agent interprets unstructured customer messages, reasons about the best course of action using configured topics and their instructions, invokes appropriate actions, and completes tasks — all without a human directing each step. This enables true 24/7 self-service at scale. Escalation to humans happens only when the agent reaches a defined limit or the customer requests it.",
+        "distractors": {
+          "B": "RPA follows rigid, scripted sequences — the opposite of Agentforce's LLM-driven adaptive reasoning.",
+          "C": "Einstein Bot deflection routes to static articles; Agentforce takes active actions and resolves cases end-to-end.",
+          "D": "Supervised AI requires human approval per action, which would defeat the purpose of autonomous 24/7 operation."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["einstein-ai", "autonomous", "use-cases"]
+      },
+      {
+        "id": "af-ea-005",
+        "difficulty": 2,
+        "stem": "Which of the following is NOT highlighted by Salesforce as a typical Agentforce use case?",
+        "options": [
+          { "key": "A", "text": "Real-time video stream analysis for manufacturing quality control" },
+          { "key": "B", "text": "Customer service — autonomously handling common support inquiries and case resolution" },
+          { "key": "C", "text": "Sales development — qualifying inbound leads and scheduling meetings with prospects" },
+          { "key": "D", "text": "HR onboarding — guiding new employees through onboarding tasks and answering policy questions" }
+        ],
+        "correct": "A",
+        "explanation": "Real-time video stream analysis requires specialized computer vision infrastructure that is outside Agentforce's scope. Agentforce is a language-model-based conversational and action-taking platform. Salesforce highlights customer service deflection, sales development (SDR agents), field service scheduling, HR onboarding, and commerce as primary Agentforce use cases. Video analysis would require a separate computer vision system.",
+        "distractors": {
+          "B": "Customer service is the primary and most mature Agentforce use case — handling returns, order status, case routing, and resolution.",
+          "C": "Salesforce has specifically marketed 'Sales Development Representative (SDR) Agent' as a core Agentforce use case for lead qualification.",
+          "D": "HR onboarding — helping new hires navigate policies, benefits, and tasks — is a recognized Agentforce deployment pattern."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=ai.agentforce_intro.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["einstein-ai", "use-cases", "limitations"]
+      }
+    ]
+  }
+]
