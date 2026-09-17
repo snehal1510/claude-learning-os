@@ -1,0 +1,906 @@
+[
+  {
+    "certification": "data-cloud",
+    "topic": "dc-architecture",
+    "topicLabel": "Data Cloud Architecture & Setup",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "dc-arch-001",
+        "difficulty": 2,
+        "stem": "A company operates three distinct brands and wants to keep each brand's customer data completely isolated within a single Data Cloud org. Which Data Cloud feature enables this separation?",
+        "options": [
+          { "key": "A", "text": "Data Spaces — logical partitions within Data Cloud that isolate data management per brand or business unit" },
+          { "key": "B", "text": "Separate Data Cloud orgs — one org must be provisioned per brand" },
+          { "key": "C", "text": "Permission Sets — assigning different permission sets per brand user group" },
+          { "key": "D", "text": "Data Streams — creating one data stream per brand to keep ingestion isolated" }
+        ],
+        "correct": "A",
+        "explanation": "Data Spaces are logical partitions within a single Data Cloud org that allow separate data governance, visibility, and management for different brands, business units, or regions. They are the standard mechanism for multi-brand data isolation without requiring multiple orgs.",
+        "distractors": {
+          "B": "Separate orgs are not required and are not the recommended approach. Data Spaces were designed specifically to avoid this overhead while maintaining isolation.",
+          "C": "Permission sets control user access to Data Cloud features but do not partition or isolate underlying data between brands.",
+          "D": "Data streams define data ingestion pipelines, not data isolation boundaries. Records from all data streams are visible within the same data space unless explicitly partitioned."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_spaces.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["architecture", "data-spaces"]
+      },
+      {
+        "id": "dc-arch-002",
+        "difficulty": 2,
+        "stem": "Which permission set grants a user full administrative rights in Data Cloud, including the ability to configure data streams, identity resolution, and activation targets?",
+        "options": [
+          { "key": "A", "text": "Data Cloud User" },
+          { "key": "B", "text": "Salesforce Administrator" },
+          { "key": "C", "text": "Data Cloud Admin" },
+          { "key": "D", "text": "Data Cloud Viewer" }
+        ],
+        "correct": "C",
+        "explanation": "The Data Cloud Admin permission set grants full administrative access, including configuring data streams, running identity resolution, managing activation targets, and managing permission sets for other users. It is the highest-privilege Data Cloud permission set.",
+        "distractors": {
+          "A": "Data Cloud User has read and limited write access but cannot configure data streams, identity resolution rulesets, or activation targets.",
+          "B": "The Salesforce Administrator system permission does not automatically grant Data Cloud administrative rights. Data Cloud has its own permission set model.",
+          "D": "Data Cloud Viewer is a read-only permission set, restricted to viewing profiles, segments, and dashboards without the ability to make configuration changes."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_cloud_permissions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["architecture", "permissions", "setup"]
+      },
+      {
+        "id": "dc-arch-003",
+        "difficulty": 2,
+        "stem": "What is the correct order of the data pipeline hierarchy in Salesforce Data Cloud, from raw ingestion to unified customer profile?",
+        "options": [
+          { "key": "A", "text": "DMO → DLO → Data Stream → Unified Individual" },
+          { "key": "B", "text": "Data Stream → DMO → DLO → Unified Individual" },
+          { "key": "C", "text": "Data Stream → DLO → DMO → Unified Individual" },
+          { "key": "D", "text": "DLO → Data Stream → Unified Individual → DMO" }
+        ],
+        "correct": "C",
+        "explanation": "Data flows through Data Cloud in this sequence: a Data Stream ingests raw data from a source → the raw data lands in a Data Lake Object (DLO) → you map DLO fields to a Data Model Object (DMO) for curation and standardization → Identity Resolution runs on DMO data to create Unified Individual profiles.",
+        "distractors": {
+          "A": "This order is reversed. DMOs come after DLOs, not before them.",
+          "B": "DMOs are produced from DLOs, not the other way around. The DLO is the intermediate raw storage layer that feeds into the curated DMO.",
+          "D": "The Unified Individual is the end product of identity resolution running on DMO data, not an intermediate step before DMOs."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_cloud.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["architecture", "data-pipeline"]
+      },
+      {
+        "id": "dc-arch-004",
+        "difficulty": 1,
+        "stem": "What was Salesforce Data Cloud called before it was rebranded in 2023?",
+        "options": [
+          { "key": "A", "text": "Salesforce 360 Audiences" },
+          { "key": "B", "text": "Marketing Cloud Intelligence" },
+          { "key": "C", "text": "Salesforce Customer Data Platform (CDP)" },
+          { "key": "D", "text": "Einstein Analytics Cloud" }
+        ],
+        "correct": "C",
+        "explanation": "Salesforce Data Cloud was previously called Salesforce Customer Data Platform (CDP). It was rebranded to 'Data Cloud' and repositioned as a broader real-time data platform integrated across the Einstein 1 Platform.",
+        "distractors": {
+          "A": "Salesforce 360 Audiences was an earlier product name in the CDP evolution but is not the immediate predecessor name before the Data Cloud rebrand.",
+          "B": "Marketing Cloud Intelligence (formerly Datorama) is a separate analytics product focused on marketing performance reporting.",
+          "D": "Einstein Analytics Cloud is a predecessor to CRM Analytics (Tableau CRM), a completely separate analytics product unrelated to Data Cloud."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_cloud.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["architecture", "history"]
+      },
+      {
+        "id": "dc-arch-005",
+        "difficulty": 2,
+        "stem": "How does Data Cloud connect to a Salesforce CRM org to ingest standard CRM data such as Contacts and Accounts?",
+        "options": [
+          { "key": "A", "text": "By installing a managed package in the CRM org that exposes objects via a REST API" },
+          { "key": "B", "text": "Through the Connected Org feature using the built-in CRM Connector" },
+          { "key": "C", "text": "Via a MuleSoft Anypoint integration requiring custom API development" },
+          { "key": "D", "text": "By enabling the Data Cloud add-on license which automatically merges the two orgs" }
+        ],
+        "correct": "B",
+        "explanation": "Data Cloud uses the Connected Org feature to link a Salesforce CRM org. Once connected, the built-in CRM Connector makes standard CRM objects (Contacts, Leads, Accounts, Opportunities, etc.) available for ingestion into Data Cloud as data streams without custom development.",
+        "distractors": {
+          "A": "No managed package installation is required. The CRM Connector is a native Data Cloud capability that connects to CRM orgs through a supported authentication mechanism.",
+          "C": "MuleSoft is one available connector option, but it is not required for CRM data. The native CRM Connector handles standard CRM object ingestion directly.",
+          "D": "The Data Cloud license does not merge orgs. Data Cloud is a separate platform that connects to CRM orgs via the Connected Org mechanism while remaining a distinct system."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_connect_an_org.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["architecture", "crm-connector", "connected-org"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-ingestion",
+    "topicLabel": "Data Ingestion & Connectors",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "dc-ing-001",
+        "difficulty": 3,
+        "stem": "A development team needs to push customer event data into Data Cloud in real-time from a custom mobile application. Which connector type is most appropriate?",
+        "options": [
+          { "key": "A", "text": "Amazon S3 Connector — configure the app to write event files to S3 for batch pickup" },
+          { "key": "B", "text": "CRM Connector — create a custom object in Salesforce CRM and sync it to Data Cloud" },
+          { "key": "C", "text": "Ingestion API — use HTTP POST requests to stream event data directly into Data Cloud in real-time" },
+          { "key": "D", "text": "Marketing Cloud Connector — route all events through Marketing Cloud first" }
+        ],
+        "correct": "C",
+        "explanation": "The Ingestion API is the correct choice for real-time programmatic data push into Data Cloud. It accepts HTTP POST requests with JSON payloads, supports upsert and delete operations, and delivers data in near real-time — making it ideal for custom application integrations where low latency is required.",
+        "distractors": {
+          "A": "Amazon S3 is a batch connector — files are ingested on a schedule, not in real-time. This introduces latency that is not suitable for real-time event scenarios.",
+          "B": "The CRM Connector syncs CRM object records, not custom application events. It also requires creating Salesforce CRM objects as an intermediary, which adds unnecessary complexity.",
+          "D": "Routing events through Marketing Cloud adds an extra hop and is not a real-time ingestion path for custom event data from a mobile app."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_ingestion_api.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["ingestion", "ingestion-api", "real-time"]
+      },
+      {
+        "id": "dc-ing-002",
+        "difficulty": 2,
+        "stem": "Which file formats does the Amazon S3 connector support for ingesting data into Data Cloud?",
+        "options": [
+          { "key": "A", "text": "XML and JSON only" },
+          { "key": "B", "text": "CSV, Parquet, and JSON" },
+          { "key": "C", "text": "CSV and Excel (.xlsx) only" },
+          { "key": "D", "text": "Avro and ORC only" }
+        ],
+        "correct": "B",
+        "explanation": "The Amazon S3 connector for Data Cloud supports CSV, Parquet, and JSON file formats. Parquet is particularly efficient for large datasets due to its columnar compression. All three formats are commonly used in data lake scenarios.",
+        "distractors": {
+          "A": "XML is not a supported file format for S3 ingestion in Data Cloud. JSON is supported, but XML is not.",
+          "C": "Excel (.xlsx) files are not natively supported by the S3 connector. Data must be converted to CSV, Parquet, or JSON before upload.",
+          "D": "Avro and ORC are Hadoop-ecosystem formats not supported by the Data Cloud S3 connector."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_s3_connector.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["ingestion", "s3", "connectors"]
+      },
+      {
+        "id": "dc-ing-003",
+        "difficulty": 3,
+        "stem": "When configuring a data stream's refresh mode, what is the key difference between a full refresh and an incremental refresh?",
+        "options": [
+          { "key": "A", "text": "Full refresh runs daily; incremental refresh runs hourly" },
+          { "key": "B", "text": "Full refresh replaces all existing DLO data with the current source snapshot; incremental refresh ingests only new or changed records since the last run" },
+          { "key": "C", "text": "Full refresh applies only to CRM Connector data; incremental refresh applies only to S3 data" },
+          { "key": "D", "text": "Full refresh creates a new DLO with each run; incremental refresh appends to the same DMO" }
+        ],
+        "correct": "B",
+        "explanation": "A full refresh replaces all records in the Data Lake Object with the complete current export from the source system. An incremental refresh appends only records that are new or have changed since the previous ingestion run. Incremental refresh is preferred for large datasets to minimize processing time and cost.",
+        "distractors": {
+          "A": "The refresh mode (full vs incremental) is independent of refresh frequency. Both modes can be scheduled at various intervals.",
+          "C": "Both refresh modes are available for multiple connector types; they are not restricted to specific connectors.",
+          "D": "Both modes write data to the same DLO. Neither mode automatically creates a new DLO or writes to a DMO — that mapping is a separate configuration step."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_stream_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["ingestion", "refresh-mode", "data-streams"]
+      },
+      {
+        "id": "dc-ing-004",
+        "difficulty": 2,
+        "stem": "Which Salesforce CRM standard objects are automatically available for ingestion via the CRM Connector without requiring additional configuration to enable them?",
+        "options": [
+          { "key": "A", "text": "Custom objects only — standard objects require manual enablement" },
+          { "key": "B", "text": "Contact, Lead, Account, and Opportunity, among other standard objects" },
+          { "key": "C", "text": "Only the Individual object is auto-synced" },
+          { "key": "D", "text": "All objects including custom ones are available automatically" }
+        ],
+        "correct": "B",
+        "explanation": "The CRM Connector makes standard Salesforce objects such as Contact, Lead, Account, Opportunity, Case, and others readily available for data stream creation. These standard objects appear in the connector's object list without requiring additional org configuration. Custom objects may also be available but typically need to be selected manually.",
+        "distractors": {
+          "A": "Standard objects are the primary use case for the CRM Connector. Custom objects require additional selection steps.",
+          "C": "The Individual object is one of many available objects. The CRM Connector exposes a broad set of standard objects by default.",
+          "D": "Not all objects are automatically available. Custom objects and some less common standard objects require explicit selection or additional enablement."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_connect_an_org.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["ingestion", "crm-connector"]
+      },
+      {
+        "id": "dc-ing-005",
+        "difficulty": 3,
+        "stem": "A Data Cloud admin is troubleshooting why records deleted from the source CRM system still appear in Data Cloud after the daily data stream refresh. What is the most likely explanation?",
+        "options": [
+          { "key": "A", "text": "Data Cloud does not support record deletion — all ingested records are permanent" },
+          { "key": "B", "text": "The data stream is configured for incremental refresh, which does not automatically propagate hard deletes from the source" },
+          { "key": "C", "text": "The CRM Connector requires a Salesforce Flow to trigger deletion events in Data Cloud" },
+          { "key": "D", "text": "Deleted records are retained in Data Cloud for 30 days before automatic removal" }
+        ],
+        "correct": "B",
+        "explanation": "Incremental refresh ingests new and changed records but does not automatically detect or propagate hard deletes from the source system. To remove deleted records, you can use the Ingestion API's delete operation, switch to full refresh (which replaces all data), or implement a soft-delete pattern using a status field.",
+        "distractors": {
+          "A": "Data Cloud does support record deletion via the Ingestion API delete operation and via full refresh mode overwriting the dataset.",
+          "C": "No Salesforce Flow is required for record deletion. The mechanism for deletion is through ingestion configuration or the Ingestion API.",
+          "D": "There is no automatic 30-day retention/deletion policy for deleted source records in Data Cloud. Records persist until explicitly removed."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_stream_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["ingestion", "deletes", "incremental-refresh"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-data-modeling",
+    "topicLabel": "Data Modeling & DMOs",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "dc-dm-001",
+        "difficulty": 2,
+        "stem": "What is the fundamental difference between a Data Lake Object (DLO) and a Data Model Object (DMO) in Data Cloud?",
+        "options": [
+          { "key": "A", "text": "DLOs store aggregated metric data; DMOs store raw event records" },
+          { "key": "B", "text": "DLOs hold raw ingested data exactly as it arrived from the source; DMOs are curated, standardized objects used for segmentation, identity resolution, and activation" },
+          { "key": "C", "text": "DLOs are used for segmentation; DMOs are only used for identity resolution" },
+          { "key": "D", "text": "DLOs are created manually by admins; DMOs are created automatically when a data stream is configured" }
+        ],
+        "correct": "B",
+        "explanation": "A DLO (Data Lake Object) is automatically created for each data stream and stores the raw ingested data in its original structure. A DMO (Data Model Object) is a curated schema — either a standard Salesforce data model object or a custom one — that you map DLO fields into for standardization. DMOs are what you segment on, run identity resolution against, and activate.",
+        "distractors": {
+          "A": "This is reversed. DLOs hold raw source data; DMOs hold the curated, usable data.",
+          "C": "DMOs are the foundation for both segmentation AND identity resolution — they are the primary working layer in Data Cloud, not limited to just one function.",
+          "D": "It is actually the DLO that is auto-created per data stream. DMOs require explicit field mapping configuration by an admin."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_model.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["modeling", "dmo", "dlo"]
+      },
+      {
+        "id": "dc-dm-002",
+        "difficulty": 2,
+        "stem": "Which standard Data Model Object in Data Cloud is designed to store a customer's email address and is used as a Contact Point during identity resolution?",
+        "options": [
+          { "key": "A", "text": "Individual" },
+          { "key": "B", "text": "Unified Individual" },
+          { "key": "C", "text": "Contact Point Email" },
+          { "key": "D", "text": "Contact Point Address" }
+        ],
+        "correct": "C",
+        "explanation": "Contact Point Email is the standard DMO for storing individual email addresses. It is one of the key Contact Point objects used during identity resolution to match records belonging to the same person. It has a belongs-to relationship with the Individual object.",
+        "distractors": {
+          "A": "Individual represents the person entity (name, demographics) but does not store the email address field itself — that lives in Contact Point Email.",
+          "B": "Unified Individual is the result object created after identity resolution — it represents the merged unified profile, not a Contact Point for email.",
+          "D": "Contact Point Address stores physical mailing addresses, not email addresses."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_standard_data_model.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["modeling", "standard-dmo", "contact-point"]
+      },
+      {
+        "id": "dc-dm-003",
+        "difficulty": 3,
+        "stem": "A retailer wants to store website page view events in Data Cloud to use for behavioral segmentation. Which data category should these engagement events be assigned to when creating the DMO?",
+        "options": [
+          { "key": "A", "text": "Profile" },
+          { "key": "B", "text": "Engagement" },
+          { "key": "C", "text": "Other" },
+          { "key": "D", "text": "Behavioral (a custom category)" }
+        ],
+        "correct": "B",
+        "explanation": "The Engagement data category is designed for behavioral and interaction data, such as website page views, email opens, app events, and purchase interactions. This category enables these records to be related to Individual profiles and used in engagement-based segmentation filters.",
+        "distractors": {
+          "A": "Profile data category is for person/entity data — demographics, contact information, preferences — not for behavioral events.",
+          "C": "Other is used for transactional and non-person, non-engagement data such as product catalogs or order line items.",
+          "D": "Behavioral is not a standard Data Cloud data category. The three standard categories are Profile, Engagement, and Other."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_model.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["modeling", "data-categories"]
+      },
+      {
+        "id": "dc-dm-004",
+        "difficulty": 3,
+        "stem": "When mapping fields from a DLO to a DMO, what is required for the mapping to be valid and save successfully?",
+        "options": [
+          { "key": "A", "text": "The field names must be identical in both the DLO and the DMO" },
+          { "key": "B", "text": "The data types must be compatible between the source DLO field and the target DMO field" },
+          { "key": "C", "text": "Every DLO field must be mapped — unmapped fields cause a validation error" },
+          { "key": "D", "text": "The DLO field must already be designated as a primary key before mapping" }
+        ],
+        "correct": "B",
+        "explanation": "Field mapping requires compatible data types between the source DLO field and the target DMO field. For example, a text DLO field can map to a text DMO field, but mapping a text field to a date field would fail. You do not need to map every DLO field — only the fields you want to use in the DMO need to be mapped.",
+        "distractors": {
+          "A": "Field names do not need to match. The mapping is explicit — you choose which DLO field maps to which DMO field regardless of name.",
+          "C": "Unmapped DLO fields are simply ignored and remain in the DLO. Only mapped fields are promoted to the DMO.",
+          "D": "Primary key designation is set on the DMO field, not as a prerequisite on the DLO field before mapping."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_map_data.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["modeling", "field-mapping"]
+      },
+      {
+        "id": "dc-dm-005",
+        "difficulty": 3,
+        "stem": "What is the purpose of configuring a Primary Key field on a Data Model Object in Data Cloud?",
+        "options": [
+          { "key": "A", "text": "It encrypts the records stored in that DMO for compliance purposes" },
+          { "key": "B", "text": "It uniquely identifies each record in the DMO and is used for upsert operations — new records are inserted, existing records with matching keys are updated" },
+          { "key": "C", "text": "It determines which records are included in identity resolution matching" },
+          { "key": "D", "text": "It creates a relationship link between the DMO and its source DLO" }
+        ],
+        "correct": "B",
+        "explanation": "The Primary Key field on a DMO uniquely identifies each record. During data ingestion, if a record with a matching primary key already exists in the DMO, it is updated (upserted) rather than duplicated. Choosing the right primary key — a stable, unique identifier from the source — is critical for data quality.",
+        "distractors": {
+          "A": "Primary keys are not an encryption mechanism. Data Cloud has separate data residency and security controls.",
+          "C": "Identity resolution uses match rules defined in the Identity Resolution ruleset, not the DMO primary key directly.",
+          "D": "The DLO-to-DMO relationship is established through field mapping configuration, not the primary key designation."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_model.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["modeling", "primary-key"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-identity-resolution",
+    "topicLabel": "Identity Resolution",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "dc-ir-001",
+        "difficulty": 3,
+        "stem": "What are the three stages of the Data Cloud identity resolution process, in the correct sequence?",
+        "options": [
+          { "key": "A", "text": "Unify → Match → Reconcile" },
+          { "key": "B", "text": "Reconcile → Match → Unify" },
+          { "key": "C", "text": "Match → Reconcile → Unify" },
+          { "key": "D", "text": "Match → Unify → Reconcile" }
+        ],
+        "correct": "C",
+        "explanation": "Identity resolution follows three sequential stages: (1) Match — apply match rules to identify Individual records that likely belong to the same real-world person; (2) Reconcile — apply reconciliation rules to determine which field value to use when matched records have conflicting data; (3) Unify — create the Unified Individual record that consolidates all matched records into a single profile.",
+        "distractors": {
+          "A": "Unification is the final step, not the first. You must match and reconcile before a unified profile can be created.",
+          "B": "Reconciliation requires matching to have already occurred. You cannot reconcile conflicting field values until you have identified which records match.",
+          "D": "Reconciliation happens before unification. Field values must be resolved before the unified profile is assembled."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_identity_resolution.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["identity", "identity-resolution", "match-reconcile-unify"]
+      },
+      {
+        "id": "dc-ir-002",
+        "difficulty": 4,
+        "stem": "Two Individual records in Data Cloud have conflicting 'First Name' values — one says 'Robert' and the other says 'Bob'. An admin wants to keep the name that appears most often across all matched records. Which reconciliation rule should be configured?",
+        "options": [
+          { "key": "A", "text": "Most Recent — use the value from the most recently updated record" },
+          { "key": "B", "text": "Source Priority — prefer the value from the highest-ranked source system" },
+          { "key": "C", "text": "Most Frequent — use the value that appears most often across all matched records" },
+          { "key": "D", "text": "Longest Non-Null — use the longest non-empty value across matched records" }
+        ],
+        "correct": "C",
+        "explanation": "The Most Frequent reconciliation rule selects the field value that appears the highest number of times across all Individual records matched into the same Unified Individual. This is ideal for name fields where the most commonly used version is likely the canonical one.",
+        "distractors": {
+          "A": "Most Recent uses the timestamp of the last update — it would pick whichever name was updated most recently, not the most common one.",
+          "B": "Source Priority uses a ranked list of source systems to determine which system's value wins, regardless of frequency.",
+          "D": "Longest Non-Null is not a standard reconciliation rule in Data Cloud's identity resolution configuration."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_reconciliation_rules.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["identity", "reconciliation-rules"]
+      },
+      {
+        "id": "dc-ir-003",
+        "difficulty": 3,
+        "stem": "What does a Unified Individual record in Data Cloud represent?",
+        "options": [
+          { "key": "A", "text": "A single Contact or Lead record imported from Salesforce CRM" },
+          { "key": "B", "text": "A consolidated profile created by identity resolution that merges multiple matched Individual records into one unified view of a real-world person" },
+          { "key": "C", "text": "A permission set that grants a user access to view all Data Cloud profiles" },
+          { "key": "D", "text": "A Marketing Cloud contact record synchronized to Data Cloud" }
+        ],
+        "correct": "B",
+        "explanation": "A Unified Individual is the output of the identity resolution process. It represents a single real-world person by consolidating all Individual records from various sources that were determined to belong to the same person. It includes reconciled field values and links to all contributing source records via the identity graph.",
+        "distractors": {
+          "A": "A single CRM Contact or Lead maps to an Individual record in Data Cloud, not a Unified Individual. Unified Individuals are created only after identity resolution runs.",
+          "C": "Unified Individual is a data object, not a permission concept.",
+          "D": "Marketing Cloud contacts sync to Data Cloud as Individual records via the Marketing Cloud Connector, not as Unified Individuals. Unified Individuals are created through the identity resolution process."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_identity_resolution.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["identity", "unified-individual"]
+      },
+      {
+        "id": "dc-ir-004",
+        "difficulty": 4,
+        "stem": "A Data Cloud admin is configuring identity resolution and wants to link records that share the same email address as likely belonging to the same person. Which match rule type should be used?",
+        "options": [
+          { "key": "A", "text": "Fuzzy Name match — matches records with similar names, tolerating typos" },
+          { "key": "B", "text": "Exact Email match — matches records where the Contact Point Email value is identical" },
+          { "key": "C", "text": "Phone Number match — matches records sharing the same phone number" },
+          { "key": "D", "text": "Custom match — requires writing a formula to compare email fields across records" }
+        ],
+        "correct": "B",
+        "explanation": "Exact Email match is the standard match rule type for identifying records that share the same email address. Data Cloud compares Contact Point Email records and, when the email values match exactly (case-insensitive), it considers the associated Individual records as belonging to the same person.",
+        "distractors": {
+          "A": "Fuzzy Name match applies to name fields with tolerance for spelling variations — not appropriate for email address matching.",
+          "C": "Phone Number match is a separate rule type for matching on phone numbers, not emails.",
+          "D": "Email matching is a built-in rule type in Data Cloud's identity resolution. No custom formula is required for standard email matching."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_match_rules.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["identity", "match-rules"]
+      },
+      {
+        "id": "dc-ir-005",
+        "difficulty": 2,
+        "stem": "Where in the Data Cloud UI can an administrator view a specific customer's Unified Individual profile, including their merged attributes and identity graph showing all contributing source records?",
+        "options": [
+          { "key": "A", "text": "Data Explorer" },
+          { "key": "B", "text": "Segment Builder" },
+          { "key": "C", "text": "Profile Explorer" },
+          { "key": "D", "text": "Identity Resolution Manager" }
+        ],
+        "correct": "C",
+        "explanation": "Profile Explorer is the Data Cloud feature for viewing individual Unified Profiles. You can search for a specific person by email, name, or other identifiers, and see their consolidated attributes, all associated Contact Points (email, phone, address), and the identity graph that shows which source records contributed to the unified profile.",
+        "distractors": {
+          "A": "Data Explorer is used to browse the data within DLOs and DMOs at an object/table level — not for viewing individual unified profiles.",
+          "B": "Segment Builder is for creating audience segments based on filter criteria, not for looking up individual profiles.",
+          "D": "Identity Resolution Manager (the identity resolution ruleset configuration page) is where you configure match and reconciliation rules, not where you view individual profiles."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_profile_explorer.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["identity", "profile-explorer"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-calculated-insights",
+    "topicLabel": "Calculated Insights & SQL",
+    "difficulty": 4,
+    "questions": [
+      {
+        "id": "dc-ci-001",
+        "difficulty": 3,
+        "stem": "What are Calculated Insights in Salesforce Data Cloud?",
+        "options": [
+          { "key": "A", "text": "Pre-built reports that display Data Cloud ingestion metrics and job statuses" },
+          { "key": "B", "text": "SQL-based metric definitions that compute aggregated values from Data Model Objects, which can then be used as attributes in segmentation" },
+          { "key": "C", "text": "Real-time alerts that fire when data quality thresholds — such as null rates — are breached" },
+          { "key": "D", "text": "Machine learning models within Data Cloud that predict customer lifetime value" }
+        ],
+        "correct": "B",
+        "explanation": "Calculated Insights are user-defined SQL queries that run against Data Model Objects and produce aggregated metrics (e.g., total purchase value, number of email opens, days since last purchase). Once created, these insights become attributes that can be used in Segment Builder to filter audiences based on computed values.",
+        "distractors": {
+          "A": "Ingestion metrics and job statuses are viewable in the Data Stream monitoring and audit logs, not in Calculated Insights.",
+          "C": "Data quality alerts and threshold monitoring are separate capabilities. Calculated Insights produce metric values, not alerts.",
+          "D": "Data Cloud does not include built-in ML prediction models. Predictive features are part of Einstein Prediction Builder or Data Cloud for AI, separate products."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_calculated_insights.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["insights", "sql", "calculated-insights"]
+      },
+      {
+        "id": "dc-ci-002",
+        "difficulty": 4,
+        "stem": "In a Calculated Insight definition, what is the difference between a dimension and a measure?",
+        "options": [
+          { "key": "A", "text": "Dimensions are numeric aggregated values; measures are categorical grouping attributes" },
+          { "key": "B", "text": "Dimensions are categorical attributes used for grouping (e.g., product category, channel); measures are numeric aggregated values computed by the insight (e.g., SUM, COUNT, AVG)" },
+          { "key": "C", "text": "Dimensions apply to Profile data; measures apply to Engagement data only" },
+          { "key": "D", "text": "Dimensions and measures are interchangeable terms in Data Cloud's Calculated Insights" }
+        ],
+        "correct": "B",
+        "explanation": "In Calculated Insights, dimensions are the categorical grouping fields (like 'product_category' or 'purchase_channel') that define how data is sliced, similar to GROUP BY columns in SQL. Measures are the numeric aggregations computed within those groups (like SUM(purchase_amount) or COUNT(order_id)). Both are exposed as segmentation attributes.",
+        "distractors": {
+          "A": "This is the opposite of the correct definition. Dimensions are categorical (for grouping); measures are numeric.",
+          "C": "Dimensions and measures are concepts about the structure of the insight calculation, not about data category types.",
+          "D": "Dimensions and measures serve distinct structural roles in Calculated Insights and are not interchangeable."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_calculated_insights.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["insights", "dimensions", "measures"]
+      },
+      {
+        "id": "dc-ci-003",
+        "difficulty": 4,
+        "stem": "What is the key difference between a Streaming Calculated Insight and a Batch Calculated Insight in Data Cloud?",
+        "options": [
+          { "key": "A", "text": "Streaming insights operate on DLO data; batch insights operate on DMO data" },
+          { "key": "B", "text": "Streaming insights are computed in near real-time as new qualifying data arrives; batch insights are computed on a scheduled basis" },
+          { "key": "C", "text": "Streaming insights support only COUNT aggregations; batch insights support all aggregation functions" },
+          { "key": "D", "text": "Streaming insights are free; batch insights require an additional Data Cloud add-on license" }
+        ],
+        "correct": "B",
+        "explanation": "Streaming Calculated Insights are updated in near real-time as new records are ingested, making them suitable for time-sensitive metrics like 'current cart value' or 'last 24-hour activity score'. Batch Calculated Insights are recomputed on a schedule (e.g., daily), suitable for metrics like 'total purchases in the last 90 days' where real-time precision is not required.",
+        "distractors": {
+          "A": "Both streaming and batch insights operate on DMO data. The difference is the computation frequency, not the data source layer.",
+          "C": "Both insight types support the same aggregation functions. The distinction is timing, not supported functions.",
+          "D": "Licensing considerations depend on the Data Cloud edition, not on insight type. Both types are available within standard Data Cloud licensing."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_calculated_insights.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["insights", "streaming", "batch"]
+      },
+      {
+        "id": "dc-ci-004",
+        "difficulty": 3,
+        "stem": "After creating a Calculated Insight in Data Cloud, how can the insight's output be used within Segment Builder?",
+        "options": [
+          { "key": "A", "text": "Calculated Insight values cannot be used in Segment Builder; they must first be exported to CRM Analytics" },
+          { "key": "B", "text": "As filter attributes — the insight's measure and dimension values appear as attributes in Segment Builder that can be used in filter conditions" },
+          { "key": "C", "text": "Only as segment labels or descriptions, not as filter criteria" },
+          { "key": "D", "text": "As activation attributes only — insights can be included in activation payloads but not used to qualify segment membership" }
+        ],
+        "correct": "B",
+        "explanation": "Once a Calculated Insight is created and published, its measure fields become available as attributes in the Segment Builder. You can add filter conditions such as 'Total Purchase Value > 500' or 'Email Open Count in last 30 days > 3', directly qualifying segment membership based on computed insight values.",
+        "distractors": {
+          "A": "Calculated Insights are natively integrated with Segment Builder — no export to CRM Analytics is required to use them in segments.",
+          "C": "Insight values are first-class filter criteria in Segment Builder, not just labels.",
+          "D": "While insights can be included as activation attributes, their primary use case in segmentation is as filter criteria for qualifying membership."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_calculated_insights.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["insights", "segmentation"]
+      },
+      {
+        "id": "dc-ci-005",
+        "difficulty": 4,
+        "stem": "A Data Cloud admin writes a Calculated Insight with the SQL: `SELECT ssot__Individual__c.ssot__Id__c AS individual_id, SUM(Order.order_amount) AS total_spend FROM ssot__Individual__c JOIN Order ON ...`. What does 'total_spend' represent in this Calculated Insight?",
+        "options": [
+          { "key": "A", "text": "A dimension — a grouping attribute that classifies individuals by spend tier" },
+          { "key": "B", "text": "A measure — the numeric aggregated value computed for each individual" },
+          { "key": "C", "text": "A primary key — used to join the insight back to the Individual DMO" },
+          { "key": "D", "text": "A filter — a condition that excludes individuals with zero spend" }
+        ],
+        "correct": "B",
+        "explanation": "In this Calculated Insight, 'total_spend' is produced by a SUM() aggregation function, making it a measure — a numeric value computed for each grouped individual. The 'individual_id' is the dimension (the grouping key). Measures are the aggregated outputs that appear as insight attributes available in Segment Builder.",
+        "distractors": {
+          "A": "A dimension is the grouping attribute (individual_id in this case), not the aggregated numeric result.",
+          "C": "The individual_id field serves as the grouping dimension and linking key, not 'total_spend'.",
+          "D": "SUM() is an aggregation, not a filter condition. Filters in Calculated Insights use HAVING or WHERE clauses, not aggregate expressions in the SELECT."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_calculated_insights.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["insights", "sql", "measures"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-segmentation",
+    "topicLabel": "Segmentation & Audiences",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "dc-seg-001",
+        "difficulty": 3,
+        "stem": "A marketing team needs to create a segment that is immediately updated whenever a customer makes a new purchase, without waiting for a scheduled batch run. Which segment type should they use?",
+        "options": [
+          { "key": "A", "text": "Batch segment — scheduled to run nightly" },
+          { "key": "B", "text": "Scheduled segment — runs every 4 hours" },
+          { "key": "C", "text": "Streaming segment — updates membership in near real-time as qualifying data changes" },
+          { "key": "D", "text": "Published segment — immediately available after the first manual publish" }
+        ],
+        "correct": "C",
+        "explanation": "Streaming segments in Data Cloud update their membership in near real-time as new qualifying data arrives. When a customer record changes in a way that meets or no longer meets the segment criteria, the segment membership is updated without waiting for a scheduled refresh. This is ideal for time-sensitive use cases like cart abandonment or post-purchase journeys.",
+        "distractors": {
+          "A": "Batch segments recalculate membership on a scheduled basis (e.g., nightly), not in real-time.",
+          "B": "There is no standard '4-hour scheduled' segment type as a distinct category. Batch segments run on configurable schedules.",
+          "D": "'Published' refers to the action of sending segment data to an activation target, not a real-time segment type."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_segments.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["segmentation", "streaming-segment"]
+      },
+      {
+        "id": "dc-seg-002",
+        "difficulty": 4,
+        "stem": "In Data Cloud Segment Builder, what is the purpose of 'related attributes'?",
+        "options": [
+          { "key": "A", "text": "Attributes inherited from a parent segment via segment nesting" },
+          { "key": "B", "text": "Custom attributes computed by Calculated Insights" },
+          { "key": "C", "text": "Attributes from related DMOs accessed by traversing the relationship path from the segment's primary DMO" },
+          { "key": "D", "text": "Attributes shared between two different segments for suppression logic" }
+        ],
+        "correct": "C",
+        "explanation": "Related attributes allow you to use fields from related Data Model Objects when building a segment. For example, if segmenting on Unified Individuals, you can traverse the relationship to Contact Point Email to filter by email domain, or traverse to a Sales Order DMO to filter by purchase history. The relationship traversal is configured via DMO relationships.",
+        "distractors": {
+          "A": "Data Cloud does not have a concept of parent/child segment nesting with attribute inheritance.",
+          "B": "Calculated Insight values are also available in Segment Builder, but they appear as insight attributes, not as 'related attributes'. Related attributes specifically refer to attributes from connected DMOs.",
+          "D": "Suppression logic is handled via waterfall segmentation or exclusion filters, not through 'related attributes'."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_segments.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["segmentation", "related-attributes"]
+      },
+      {
+        "id": "dc-seg-003",
+        "difficulty": 4,
+        "stem": "A retailer wants to target its top loyalty customers but suppress anyone who has already received a promotional email this month. Which Data Cloud segmentation approach handles this priority-and-suppression scenario?",
+        "options": [
+          { "key": "A", "text": "Create a single segment with complex AND/OR filter logic combining both conditions" },
+          { "key": "B", "text": "Use waterfall segmentation to define priority ordering across segments, with suppression rules to exclude records that qualify for higher-priority segments" },
+          { "key": "C", "text": "Create two separate segments and manually remove overlapping records in Marketing Cloud" },
+          { "key": "D", "text": "Use a Calculated Insight to pre-filter records before they enter the segment pool" }
+        ],
+        "correct": "B",
+        "explanation": "Waterfall segmentation in Data Cloud allows you to define a priority order across multiple segments. Records are evaluated against segments in order, and once assigned to a segment, they are excluded ('suppressed') from lower-priority segments. This ensures each record appears in at most one segment, solving the priority-and-suppression use case natively.",
+        "distractors": {
+          "A": "Single segment AND/OR logic can filter on criteria but does not handle cross-segment suppression or priority ordering across multiple audience groups.",
+          "C": "Manual deduplication in Marketing Cloud is error-prone, not scalable, and bypasses Data Cloud's native suppression capabilities.",
+          "D": "Calculated Insights compute metrics but do not control segment assignment priority or suppression across multiple segments."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_waterfall_segmentation.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["segmentation", "waterfall", "suppression"]
+      },
+      {
+        "id": "dc-seg-004",
+        "difficulty": 3,
+        "stem": "In Segment Builder, a marketer adds two filter containers. Container 1 filters for 'Total Spend > $500', and Container 2 filters for 'Email Opt-In = True'. The containers are joined with AND logic. Which records are included in the segment?",
+        "options": [
+          { "key": "A", "text": "Records that match Container 1 only OR Container 2 only, as well as records matching both" },
+          { "key": "B", "text": "Only records that satisfy BOTH Container 1 (Total Spend > $500) AND Container 2 (Email Opt-In = True)" },
+          { "key": "C", "text": "Records matching the first container (Total Spend > $500) only — the second container is a refinement of the first" },
+          { "key": "D", "text": "All records in the DMO — AND logic broadens the criteria" }
+        ],
+        "correct": "B",
+        "explanation": "AND logic between containers requires a record to satisfy all container conditions to qualify for segment membership. In this case, a customer must have Total Spend > $500 AND have opted into email. Records that meet only one condition are excluded. AND logic narrows (restricts) the audience; OR logic broadens it.",
+        "distractors": {
+          "A": "This describes OR logic, not AND. OR includes records matching any container; AND requires all containers to be satisfied.",
+          "C": "AND does not create a hierarchy where the second container 'refines' the first. Both containers are evaluated independently, and the record must pass both.",
+          "D": "AND logic narrows the result set, not broadens it. OR logic broadens the audience."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_segments.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["segmentation", "filter-logic"]
+      },
+      {
+        "id": "dc-seg-005",
+        "difficulty": 2,
+        "stem": "After a marketer finishes building a segment in Data Cloud, what action is required before the segment can be used by an activation target such as Marketing Cloud?",
+        "options": [
+          { "key": "A", "text": "The segment must be reviewed and approved by a Data Cloud Admin before it can be used" },
+          { "key": "B", "text": "The segment must be published to the activation target" },
+          { "key": "C", "text": "The segment must be exported as a CSV and manually imported into Marketing Cloud" },
+          { "key": "D", "text": "The segment records must be run through identity resolution before activation is possible" }
+        ],
+        "correct": "B",
+        "explanation": "After building a segment, you publish it to one or more activation targets. Publishing triggers Data Cloud to send the segment's member records to the configured target (e.g., Marketing Cloud, Salesforce CRM). Batch segments publish on a schedule; streaming segments publish continuously. No manual approval step is required.",
+        "distractors": {
+          "A": "There is no built-in admin approval workflow for segments in Data Cloud before publishing.",
+          "C": "No manual CSV export is required. Data Cloud's activation framework handles the data transfer automatically through the configured activation target.",
+          "D": "Identity resolution is a data preparation step that typically happens before segmentation, not as a required step between building a segment and publishing it."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_activation.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["segmentation", "publishing", "activation"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-activation",
+    "topicLabel": "Activation & Data Actions",
+    "difficulty": 3,
+    "questions": [
+      {
+        "id": "dc-act-001",
+        "difficulty": 2,
+        "stem": "Which activation target type in Data Cloud allows segment members to be synchronized back into a Salesforce CRM org to update records or trigger CRM workflows?",
+        "options": [
+          { "key": "A", "text": "Cloud File Storage" },
+          { "key": "B", "text": "Marketing Cloud Activation" },
+          { "key": "C", "text": "Salesforce CRM Activation" },
+          { "key": "D", "text": "MuleSoft Activation" }
+        ],
+        "correct": "C",
+        "explanation": "Salesforce CRM Activation allows Data Cloud segment members to be pushed back to a connected Salesforce CRM org. This can create or update CRM records, trigger CRM automations, or update campaign membership — enabling CRM-side workflows based on Data Cloud audience membership.",
+        "distractors": {
+          "A": "Cloud File Storage delivers segment data to a file location (such as Amazon S3 or SFTP), not directly to Salesforce CRM.",
+          "B": "Marketing Cloud Activation sends data to Marketing Cloud contacts and journeys, not to Salesforce CRM objects.",
+          "D": "MuleSoft-based activation routes data through MuleSoft to external systems, not directly to CRM object records."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_activation.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["activation", "crm-activation"]
+      },
+      {
+        "id": "dc-act-002",
+        "difficulty": 3,
+        "stem": "What is a Data Action in Salesforce Data Cloud?",
+        "options": [
+          { "key": "A", "text": "A scheduled job that triggers a full data stream refresh on demand" },
+          { "key": "B", "text": "A near real-time trigger that fires a Salesforce Flow or Platform Event when a record enters or exits a segment" },
+          { "key": "C", "text": "A field mapping tool used when configuring activation attribute sets" },
+          { "key": "D", "text": "An API endpoint for manually activating a batch segment outside its schedule" }
+        ],
+        "correct": "B",
+        "explanation": "Data Actions are event-driven triggers in Data Cloud that fire when a customer record's segment membership changes — either entering or exiting a segment. They can invoke a Salesforce Flow or publish a Platform Event, enabling real-time downstream actions such as sending a push notification, creating a case, or updating a field in CRM.",
+        "distractors": {
+          "A": "Data stream refreshes are configured separately in the data stream settings and are not called 'Data Actions'.",
+          "C": "Attribute mapping for activation is configured in the Activation Target's attribute set, a different configuration area from Data Actions.",
+          "D": "Manual segment publishing exists but is a different feature. Data Actions specifically respond to segment membership change events."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["activation", "data-actions", "real-time"]
+      },
+      {
+        "id": "dc-act-003",
+        "difficulty": 2,
+        "stem": "A marketing team wants to use a Data Cloud segment as the source audience for a Marketing Cloud Email Studio journey. Which activation target type should they configure?",
+        "options": [
+          { "key": "A", "text": "Partner Cloud Activation" },
+          { "key": "B", "text": "Salesforce CRM Activation" },
+          { "key": "C", "text": "Marketing Cloud Activation" },
+          { "key": "D", "text": "Cloud File Storage Activation" }
+        ],
+        "correct": "C",
+        "explanation": "Marketing Cloud Activation sends Data Cloud segment members to Marketing Cloud as contacts, making them available in Marketing Cloud's contact builder and journey canvas. This is the direct integration path between Data Cloud segments and Marketing Cloud campaigns and journeys.",
+        "distractors": {
+          "A": "Partner Cloud Activation is for sending data to external partner advertising platforms, not to Marketing Cloud.",
+          "B": "Salesforce CRM Activation syncs data to Salesforce CRM object records and campaign membership, not to Marketing Cloud journeys.",
+          "D": "Cloud File Storage delivers a file (CSV, etc.) to a storage location — useful for external systems, but not the direct path for Marketing Cloud integration."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_activation.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["activation", "marketing-cloud"]
+      },
+      {
+        "id": "dc-act-004",
+        "difficulty": 3,
+        "stem": "When configuring an activation target in Data Cloud, what is the purpose of defining an 'attribute set'?",
+        "options": [
+          { "key": "A", "text": "To define the match rules used when the segment is published to the target" },
+          { "key": "B", "text": "To select and map which DMO fields are included in the data payload sent to the activation target" },
+          { "key": "C", "text": "To configure the schedule at which the activation target is refreshed" },
+          { "key": "D", "text": "To assign permission sets that control which users can activate to this target" }
+        ],
+        "correct": "B",
+        "explanation": "An attribute set defines which Data Model Object fields are included when segment data is published to an activation target. You select the relevant DMO fields and map them to the corresponding fields in the target system. This controls what data payload each activated record carries — for example, which fields appear in a Marketing Cloud contact attribute set.",
+        "distractors": {
+          "A": "Match rules are configured in the Identity Resolution ruleset, not in activation attribute sets.",
+          "C": "Refresh schedules for batch segment publishing are configured on the segment or activation target separately from the attribute set.",
+          "D": "Permission sets for Data Cloud users are configured in Setup, not within activation target configuration."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_activation.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["activation", "attribute-set"]
+      },
+      {
+        "id": "dc-act-005",
+        "difficulty": 3,
+        "stem": "A company wants a Salesforce Flow to automatically fire and create a follow-up task in CRM whenever a high-value customer enters a 'VIP Re-engagement' segment in Data Cloud. Which feature should be configured?",
+        "options": [
+          { "key": "A", "text": "Scheduled Apex in Salesforce CRM polling segment membership every hour" },
+          { "key": "B", "text": "A Salesforce CRM Activation target that publishes to a Campaign" },
+          { "key": "C", "text": "A Data Action with a Segment Entry trigger that invokes a Salesforce Flow" },
+          { "key": "D", "text": "A Marketing Cloud Journey triggered by the segment publication" }
+        ],
+        "correct": "C",
+        "explanation": "A Data Action with a Segment Entry trigger is the correct solution. When a record joins the 'VIP Re-engagement' segment, the Data Action fires in near real-time and invokes the specified Salesforce Flow, which can then create a follow-up task in CRM. This avoids polling and enables event-driven automation.",
+        "distractors": {
+          "A": "Polling via Scheduled Apex introduces latency and is not the recommended pattern when Data Cloud's event-driven Data Actions can achieve real-time triggering.",
+          "B": "CRM Activation publishes segment membership to Campaign records, which can then trigger CRM automations indirectly — but this is a less direct path than a Data Action.",
+          "D": "Marketing Cloud Journeys handle email/messaging channels but do not directly create tasks in Salesforce CRM without additional integration steps."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_actions.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["activation", "data-actions", "flow"]
+      }
+    ]
+  },
+  {
+    "certification": "data-cloud",
+    "topic": "dc-analytics",
+    "topicLabel": "Analytics & Reporting",
+    "difficulty": 2,
+    "questions": [
+      {
+        "id": "dc-ana-001",
+        "difficulty": 2,
+        "stem": "A Data Cloud admin wants to look up a specific customer by email address and see their unified profile, all associated phone numbers, and the identity graph showing which source records contributed. Which Data Cloud tool should they use?",
+        "options": [
+          { "key": "A", "text": "Data Explorer — browse DLO/DMO data tables" },
+          { "key": "B", "text": "Segment Builder — create a one-person segment to isolate the customer" },
+          { "key": "C", "text": "Profile Explorer — search for and view an individual's Unified Profile and identity graph" },
+          { "key": "D", "text": "CRM Analytics — build a custom dashboard filtered to the customer's record" }
+        ],
+        "correct": "C",
+        "explanation": "Profile Explorer is specifically designed for looking up individual Unified Profiles. You can search by email, name, phone, or other identifiers, and the tool displays the consolidated profile attributes, all Contact Points, associated source record contributions, and the identity graph that shows how records were matched.",
+        "distractors": {
+          "A": "Data Explorer shows data at the object/table level — you can browse rows in a DMO or DLO, but it is not designed for viewing a single person's complete unified profile and identity graph.",
+          "B": "Creating a one-person segment is an overly complex workaround. Profile Explorer is the correct, purpose-built tool for individual profile lookup.",
+          "D": "CRM Analytics requires building a dataset and dashboard, which is a heavy-weight approach compared to the direct Profile Explorer lookup."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_profile_explorer.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["analytics", "profile-explorer"]
+      },
+      {
+        "id": "dc-ana-002",
+        "difficulty": 2,
+        "stem": "A Data Cloud admin needs to verify how many records are currently stored in a specific Data Model Object and inspect a sample of the field values. Which tool enables this?",
+        "options": [
+          { "key": "A", "text": "Profile Explorer" },
+          { "key": "B", "text": "Data Explorer" },
+          { "key": "C", "text": "Segment Builder" },
+          { "key": "D", "text": "Identity Resolution Manager" }
+        ],
+        "correct": "B",
+        "explanation": "Data Explorer allows admins to browse the contents of Data Lake Objects and Data Model Objects — viewing record counts, sampling field values, and inspecting data at the table level. It is the primary tool for data auditing and investigating data quality within Data Cloud's data model.",
+        "distractors": {
+          "A": "Profile Explorer is for viewing individual Unified Profiles — not for browsing aggregate data at the object/table level.",
+          "C": "Segment Builder is for creating audience segments. While it shows estimated counts, it is not designed for browsing DMO contents.",
+          "D": "Identity Resolution Manager is for configuring and running identity resolution rulesets, not for browsing DMO data."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_explorer.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["analytics", "data-explorer"]
+      },
+      {
+        "id": "dc-ana-003",
+        "difficulty": 3,
+        "stem": "A Data Cloud admin notices that 35% of Contact Point Email records have a null value in the Email field. Which Data Cloud capability helps identify and monitor this type of data quality issue over time?",
+        "options": [
+          { "key": "A", "text": "Calculated Insights — create a SQL insight that counts null email records" },
+          { "key": "B", "text": "Data Explorer data quality metrics — which show null rates and field coverage statistics for DMO fields" },
+          { "key": "C", "text": "Identity Resolution match logs — which report unresolvable records due to missing email" },
+          { "key": "D", "text": "Activation audit trail — which logs failed record deliveries caused by null fields" }
+        ],
+        "correct": "B",
+        "explanation": "Data Explorer includes data quality metrics for DMO fields, such as null rates (percentage of records with no value for a field), distinct value counts, and fill rates. These metrics help admins monitor and address data quality issues at the field level across all DMO records.",
+        "distractors": {
+          "A": "While Calculated Insights could theoretically count nulls, Data Explorer's built-in quality metrics are the purpose-built, no-code way to monitor field completeness.",
+          "C": "Identity resolution logs report on match outcomes, not data quality metrics like field null rates.",
+          "D": "Activation audit trails track delivery success/failure for activated segments, not field-level data quality within DMOs."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_explorer.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["analytics", "data-quality"]
+      },
+      {
+        "id": "dc-ana-004",
+        "difficulty": 3,
+        "stem": "How does Salesforce Data Cloud integrate with CRM Analytics (Tableau CRM) for advanced reporting and dashboards?",
+        "options": [
+          { "key": "A", "text": "Data Cloud automatically publishes all DMO data as CRM Analytics datasets without any configuration" },
+          { "key": "B", "text": "Data Cloud data can be connected as a data source in CRM Analytics, enabling custom dashboard creation on top of Data Cloud's unified data" },
+          { "key": "C", "text": "CRM Analytics and Data Cloud are incompatible; only standalone Tableau is supported" },
+          { "key": "D", "text": "Integration requires purchasing a separate Data Cloud Analytics connector license" }
+        ],
+        "correct": "B",
+        "explanation": "CRM Analytics can connect to Data Cloud as a data source, allowing users to build custom reports, dashboards, and AI-powered analytics on top of Data Cloud's unified customer data. This integration enables more sophisticated analysis than Data Cloud's native Data Explorer provides.",
+        "distractors": {
+          "A": "The integration is not fully automatic — it requires configuration to select which Data Cloud objects to expose to CRM Analytics.",
+          "C": "CRM Analytics is fully compatible with Data Cloud. They are both part of the Salesforce Einstein 1 Platform and have a supported native integration.",
+          "D": "The integration is available within standard Data Cloud and CRM Analytics licensing. Specific license requirements should be verified with Salesforce, but a separate 'connector license' is not standard."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_crm_analytics.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["analytics", "crm-analytics"]
+      },
+      {
+        "id": "dc-ana-005",
+        "difficulty": 2,
+        "stem": "Where can a Data Cloud administrator review the history of data stream ingestion jobs, including run timestamps, record counts processed, and success or failure status?",
+        "options": [
+          { "key": "A", "text": "Data Explorer" },
+          { "key": "B", "text": "Profile Explorer" },
+          { "key": "C", "text": "CRM Analytics ingestion dashboard" },
+          { "key": "D", "text": "The data stream's processing history and job log in the Data Cloud setup interface" }
+        ],
+        "correct": "D",
+        "explanation": "Each data stream in Data Cloud has a processing history section accessible from the Data Streams setup page. It shows a log of past ingestion runs including timestamps, the number of records ingested, errors encountered, and overall job status. This is the primary tool for troubleshooting ingestion issues.",
+        "distractors": {
+          "A": "Data Explorer is for browsing the current contents of DLOs and DMOs — it does not show ingestion job history.",
+          "B": "Profile Explorer is for looking up individual customer profiles, not ingestion monitoring.",
+          "C": "CRM Analytics dashboards can be built for monitoring, but the built-in processing history in Data Cloud setup is the native tool for ingestion job logs."
+        },
+        "citation_url": "https://help.salesforce.com/s/articleView?id=sf.c360_a_data_stream_overview.htm",
+        "verified_against_release": "Summer '25",
+        "tags": ["analytics", "monitoring", "ingestion"]
+      }
+    ]
+  }
+]

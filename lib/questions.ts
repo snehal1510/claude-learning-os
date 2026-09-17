@@ -73,6 +73,34 @@ export const CERTIFICATIONS: Certification[] = [
       { id: "system-design-patterns", label: "System Design Patterns", description: "Agentic loop design, error recovery, fallback strategies, and reliability patterns.", difficulty: 4, questionCount: 8, tags: ["architecture"] },
     ],
   },
+  {
+    id: "data-cloud",
+    label: "Data Cloud Consultant",
+    shortLabel: "Data Cloud",
+    description: "Covers Data Cloud architecture, data ingestion, data modeling (DLOs and DMOs), identity resolution, calculated insights, segmentation, activation, and analytics for the Salesforce Data Cloud Consultant exam.",
+    mode: "exam",
+    color: "teal",
+    examGuideUrl: "https://trailhead.salesforce.com/credentials/datacloudconsultant",
+    examFormat: { questionCount: 60, timeMinutes: 105, passingScore: 65 },
+    domains: [
+      { label: "Data Cloud Architecture & Setup", weight: 17 },
+      { label: "Data Ingestion & Modeling", weight: 27 },
+      { label: "Identity Resolution", weight: 16 },
+      { label: "Segmentation & Insights", weight: 19 },
+      { label: "Activation", weight: 11 },
+      { label: "Analytics & Reporting", weight: 10 },
+    ],
+    topics: [
+      { id: "dc-architecture", label: "Data Cloud Architecture & Setup", description: "Data Cloud org setup, data spaces, permission sets, Connected Org, and the data pipeline hierarchy.", difficulty: 2, questionCount: 5, tags: ["architecture", "setup"] },
+      { id: "dc-ingestion", label: "Data Ingestion & Connectors", description: "Data streams, connectors (CRM, S3, Ingestion API, MuleSoft), batch vs real-time ingestion, and refresh modes.", difficulty: 3, questionCount: 5, tags: ["ingestion", "connectors"] },
+      { id: "dc-data-modeling", label: "Data Modeling & DMOs", description: "Data Lake Objects, Data Model Objects, field mapping, primary keys, relationships, and data categories.", difficulty: 3, questionCount: 5, tags: ["modeling", "dmo", "dlo"] },
+      { id: "dc-identity-resolution", label: "Identity Resolution", description: "Match rules, reconciliation rules, unified profiles, and the match-reconcile-unify process.", difficulty: 4, questionCount: 5, tags: ["identity", "unified-profile"] },
+      { id: "dc-calculated-insights", label: "Calculated Insights & SQL", description: "SQL-based metrics on DMOs, streaming vs batch insights, dimensions and measures, and use in segmentation.", difficulty: 4, questionCount: 5, tags: ["insights", "sql"] },
+      { id: "dc-segmentation", label: "Segmentation & Audiences", description: "Segment builder, filter logic, related attributes, waterfall segmentation, and segment publishing.", difficulty: 3, questionCount: 5, tags: ["segmentation", "audiences"] },
+      { id: "dc-activation", label: "Activation & Data Actions", description: "Activation targets, attribute sets, Data Actions (Flow/Platform Event triggers on segment entry/exit).", difficulty: 3, questionCount: 5, tags: ["activation"] },
+      { id: "dc-analytics", label: "Analytics & Reporting", description: "Profile Explorer, Data Explorer, data quality metrics, CRM Analytics integration, and processing history.", difficulty: 2, questionCount: 5, tags: ["analytics", "reporting"] },
+    ],
+  },
 ]
 
 export function getCertification(certId: string): Certification | undefined {
@@ -92,6 +120,7 @@ export async function loadCertQuestions(certId: string): Promise<TopicQuestions[
     "claude-associate": () => import("@/content/questions/claude-associate.json").then((m) => m.default as unknown as TopicQuestions[]),
     "claude-developer": () => import("@/content/questions/claude-developer.json").then((m) => m.default as unknown as TopicQuestions[]),
     "claude-architect": () => import("@/content/questions/claude-architect.json").then((m) => m.default as unknown as TopicQuestions[]),
+    "data-cloud": () => import("@/content/questions/data-cloud.json").then((m) => m.default as unknown as TopicQuestions[]),
   }
 
   if (!fileMap[certId]) return []
