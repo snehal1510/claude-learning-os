@@ -1,11 +1,17 @@
 import Anthropic from "@anthropic-ai/sdk"
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
 export async function POST(req: Request) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return new Response("ANTHROPIC_API_KEY is not set. Add it to your .env.local file.", { status: 503 })
+  }
+
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
   const { stem, correctAnswer, chosenAnswer, isCorrect, explanation, userMessage, history } = await req.json()
 
-  const systemPrompt = `You are a helpful study assistant for Anthropic certification exams. You help students understand concepts related to Claude and the Anthropic API. Be concise, accurate, and pedagogical. When explaining concepts, use concrete examples from the Anthropic SDK. Keep responses focused and under 300 words unless a longer explanation is genuinely needed.`
+  const systemPrompt = `You are an expert study assistant helping a student prepare for professional certification exams. You cover Salesforce certifications (Data Cloud Consultant, Agentforce Specialist, Agentforce FDA) and Anthropic/Claude certifications (Claude Associate, Claude Developer, Claude Architect).
+
+Be concise, accurate, and pedagogical. Explain concepts clearly with concrete examples. When discussing Salesforce topics, reference official Salesforce documentation. When discussing Claude/Anthropic topics, reference official Anthropic documentation. Keep responses focused and under 300 words unless a longer explanation is genuinely needed.`
 
   const questionContext = `The student just answered this exam question:
 

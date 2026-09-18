@@ -50,6 +50,12 @@ export default function DiscussPanel({ question, chosenKey, isCorrect }: Props) 
         }),
       })
 
+      if (res.status === 503) {
+        setMessages((prev) => [...prev, { role: "assistant", content: "The AI discussion feature requires an Anthropic API key. Add ANTHROPIC_API_KEY to your .env.local file (or Vercel environment variables) to enable it. All practice questions and study guides work without a key." }])
+        setLoading(false)
+        return
+      }
+
       if (!res.ok || !res.body) {
         setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, something went wrong. Please try again." }])
         setLoading(false)

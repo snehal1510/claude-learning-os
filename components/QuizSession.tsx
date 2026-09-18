@@ -157,6 +157,7 @@ export default function QuizSession({ questions, certId, topicId, topicLabel, on
     <div className="flex flex-col flex-1 px-6 py-8">
       <div className="w-full max-w-2xl mx-auto flex-1">
         <QuizQuestion
+          key={shuffled[current]?.id ?? current}
           question={shuffled[current]}
           questionNumber={current + 1}
           totalQuestions={shuffled.length}
